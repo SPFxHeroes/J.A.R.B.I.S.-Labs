@@ -23,8 +23,8 @@
     <i class=""></i>
     ```
 
-1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
-1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
+1. In the first element, set the `class` attribute to `${getIconClassName('ShieldSolid')}`
+1. In the second element, set the `class` attribute to `${getIconClassName('FavoriteStarFill')}`
 1. Refresh the browser
 
 ## Exercise 2
@@ -54,3 +54,7 @@
     }
     ```
 
+1. Back in the `JarbisWebPart.ts` file, working the same two `i` elements -- again
+1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
+1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
+1. Refresh the browser
