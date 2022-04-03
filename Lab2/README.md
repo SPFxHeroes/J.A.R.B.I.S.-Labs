@@ -8,6 +8,7 @@ Let's build a web part!!!!!
     - If you closed your command prompt, open the folder in file explorer and type cmd in the path to automatically open a command prompt here!
 1. Create a new folder called `jarbis`. You can use the File Explorer or type `md jarbis`
     - (md stands for Make Directory)
+    - (use `mkdir jarbis` on Mac)
 1. Change your current folder by using `cd jarbis`
     - (cd stands for Change Directory)
 1. Once in your new fancy folder, launch the yeoman generator by typing `yo @microsoft/sharepoint`
