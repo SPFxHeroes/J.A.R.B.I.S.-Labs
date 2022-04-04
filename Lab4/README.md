@@ -76,6 +76,11 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './JarbisWebPart.module.scss';
 import * as strings from 'JarbisWebPartStrings';
+import { initializeIcons } from '@uifabric/icons';
+import { getIconClassName } from '@uifabric/styling';
+import { css } from '@uifabric/utilities';
+
+initializeIcons();
 
 export interface IJarbisWebPartProps {
   description: string;
@@ -87,7 +92,8 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         <div class="${styles.logo}">
-          Logo
+          <i class="${css(styles.background, getIconClassName('ShieldSolid'))}" style="color:skyblue;"></i>
+          <i class="${css(styles.foreground, getIconClassName('FavoriteStarFill'))}" style="color:orange;"></i>
         </div>
         <div class="${styles.name}">
           The Something Hero
@@ -138,7 +144,20 @@ And your `JarbisWebPart.module.scss` should match the following code:
   align-items: center;
 
   .logo {
-    color: inherit;
+    position: relative;
+    
+    .background {
+      font-size: 96px;
+      -webkit-text-stroke: $ms-color-neutralPrimary 1.4px;
+    }
+    
+    .foreground {
+      font-size: 48px;
+      -webkit-text-stroke: $ms-color-neutralPrimary 1.4px;
+      position: absolute;
+      top: 24px;
+      left: 24px;
+    }
   }
   
   .name {
