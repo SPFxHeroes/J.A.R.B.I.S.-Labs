@@ -58,3 +58,97 @@
 1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
 1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
 1. Refresh the browser
+
+## Exercise 4
+
+Let's make sure that your code is up to date with our lab!
+
+Your `JarbisWebPart.ts` class should look like this (feel free to copy and paste over your existing code):
+
+```typescript
+import { Version } from '@microsoft/sp-core-library';
+import {
+  IPropertyPaneConfiguration,
+  PropertyPaneTextField
+} from '@microsoft/sp-property-pane';
+import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import { escape } from '@microsoft/sp-lodash-subset';
+
+import styles from './JarbisWebPart.module.scss';
+import * as strings from 'JarbisWebPartStrings';
+
+export interface IJarbisWebPartProps {
+  description: string;
+}
+
+export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
+
+  public render(): void {
+    this.domElement.innerHTML = `
+      <div class="${styles.jarbis}">
+        <div class="${styles.logo}">
+          Logo
+        </div>
+        <div class="${styles.name}">
+          The Something Hero
+        </div>
+        <div class="${styles.powers}">
+          (Primary + Secondary)
+        </div>
+      </div>`;
+  }
+
+  protected get dataVersion(): Version {
+    return Version.parse('1.0');
+  }
+
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+    return {
+      pages: [
+        {
+          header: {
+            description: strings.PropertyPaneDescription
+          },
+          groups: [
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
+                })
+              ]
+            }
+          ]
+        }
+      ]
+    };
+  }
+}
+```
+
+And your `JarbisWebPart.module.scss` should match the following code:
+
+```css
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+
+.jarbis {
+  color: $ms-color-neutralPrimary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logo {
+    color: inherit;
+  }
+  
+  .name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .powers {
+    color: ms-color-neutralSecondary;
+    font-size: 14px;
+  }
+}
+```
