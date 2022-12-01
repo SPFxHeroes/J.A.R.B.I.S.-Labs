@@ -1,4 +1,4 @@
-# Lab 1: Getting Your Environment Ready
+# Lab 1: Getting Your Environment Ready (M365 Conference)
 
 ## Exercise 1: Configure Windows workstation for development purpose
 
@@ -199,3 +199,4 @@ Go to <http://aka.ms/o365devprogram> and follow the steps to create your own ten
 Follow the steps to create your tenant. We'll use the tenant in later labs.
 
 In our next lab, we'll apply everything we've done so far to create a web part.
+

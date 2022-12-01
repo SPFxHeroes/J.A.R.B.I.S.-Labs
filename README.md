@@ -1,4 +1,4 @@
-# J.A.R.B.I.S.
+# J.A.R.B.I.S. (M365 Conference)
 
 
 - [Labs 1](./Lab1/README.md)

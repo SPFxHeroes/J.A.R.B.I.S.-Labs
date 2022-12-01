@@ -1,4 +1,4 @@
-# Lab 4: Static Data
+# Lab 4: Static Data (M365 Conference)
 
 ## Exercise 1
 
