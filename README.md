@@ -1,4 +1,5 @@
 # J.A.R.B.I.S. (M365 Conference)
+(Just a Rather Basic Instructional Solution)
 
 
 - [Lab 1](./Lab1/README.md)
