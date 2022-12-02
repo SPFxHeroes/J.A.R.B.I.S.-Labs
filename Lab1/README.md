@@ -12,8 +12,8 @@ This step will configure your workstation as a development workstation by config
 
 ## Exercise 2: Install Node.js
 
-1. Using your browser, go to https://nodejs.org/dist/latest-v14.x/
-1. Pick and download the lastest version of Node in that page which is compatible with your workstation. Make sure to use the `.msi` version. This is most likely going to be `node-v14.19.1-x64.msi`
+1. Using your browser, go to https://nodejs.org/dist/latest-v16.x/
+1. Pick and download the latest version of Node in that page which is compatible with your workstation. Make sure to use the `.msi` version. This is most likely going to be `node-v16.18.1-x64.msi`
 1. Install using all the default options
 
 ## Exercise 3:  Install Gulp
@@ -26,7 +26,7 @@ This step will configure your workstation as a development workstation by config
 
    ```console
     CLI version: 2.3.0
-    Local version: 4.0.2
+    Local version: Unknown
     ```
 
 > Note: You may not see a `Local version` if you're not currently in a project folder. That's ok!
@@ -45,10 +45,11 @@ The Yeoman SharePoint web part generator helps you quickly create a SharePoint c
 
 To install the SharePoint Framework Yeoman generator globally:
 
-1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.16.0 -g`, followed by <kbd>Enter</kbd>.
+> For this workshop, we'll use SPFx 1.16.0 -- which is the latest stable version at the time of this writing -- this is why we use `@1.16.0` after `@microsoft/generator-sharepoint`.
 1. A bazillion years later, when the installation is complete, enter `yo`, followed by <kbd>Enter</kbd>.
-1. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
-1. Using your arrow keys, select **Get me out of here!**. We still have a few things to install to make sure you have all the best SPFx development tools at your disposal.
+2. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
+3. Using your arrow keys, select **Get me out of here!**. We still have a few things to install to make sure you have all the best SPFx development tools at your disposal.
 
 ## Exercise 6: Install TypeScript
 
@@ -56,7 +57,7 @@ To install the SharePoint Framework Yeoman generator globally:
 
 1. From the command prompt, enter the following command: `npm install -g typescript`, followed by <kbd>Enter</kbd>.
 1. Don't panic, the installation is very quick. You might even believe that there was an error, but if you see **Updated 1 package in x.xxxs**, you were successful.
-1. When the installation is complete, enter `tsc --version`, followed by <kbd>Enter</kbd>. You should see **Version 4.6.3**.
+1. When the installation is complete, enter `tsc --version`, followed by <kbd>Enter</kbd>. You should see **Version 4.9.3**.
 
 ## Exercise 8: Install CLI for Microsoft 365
 
@@ -67,7 +68,7 @@ To install the SharePoint Framework Yeoman generator globally:
 ## Exercise 9: Install essential Visual Studio Code extensions
 
 1. Launch **Visual Studio Code**.
-1. Open the **Extensions** activity bar (or by enterping <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>X</kbd>)
+1. Open the **Extensions** activity bar (or by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>X</kbd>)
 1. From the search box, type `SPFx Essentials` and wait for search results to appear.
 1. From the list of search results, select **SPFx Essentials** by **Elio Struyf**.
 1. From the **SPFx Essentials** page, select **Install**.
@@ -194,9 +195,8 @@ You can create source maps during the build. To do so, follow these steps:
 
 ## Exercise 15: Create your own Dev Tenant
 
-Go to <http://aka.ms/o365devprogram> and follow the steps to create your own tenant. Use a name for yourself -- not your company name. For example, I used **Tahoe Ninjas**, not **Microsoft**.
+Go to <http://aka.ms/m365devprogram> and follow the steps to create your own tenant. Use a name for yourself -- not your company name. For example, I used **Tahoe Ninja**, not **Microsoft**.
 
 Follow the steps to create your tenant. We'll use the tenant in later labs.
 
 In our next lab, we'll apply everything we've done so far to create a web part.
-
