@@ -6,11 +6,25 @@ Now it's time to talk about what we're actually drawing (HTML) and how it gets a
 
 SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
 
-1. From Visual Studio Code, open `JarbisWebPart.ts`
-1. Look for the `render` method
-1. Replace the body of the render method with the following code:
+1. From Visual Studio Code, open `JarbisWebPart.ts` and replace the code with the following:
 
-    ```javascript
+    ```typescript
+    import { Version } from '@microsoft/sp-core-library';
+    import {
+      IPropertyPaneConfiguration,
+      PropertyPaneTextField
+    } from '@microsoft/sp-property-pane';
+    import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+    
+    import styles from './JarbisWebPart.module.scss';
+    import * as strings from 'JarbisWebPartStrings';
+    
+    export interface IJarbisWebPartProps {
+      description: string;
+    }
+    
+    export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
+    
       public render(): void {
         this.domElement.innerHTML = `
           <div class="${styles.jarbis}">
@@ -25,41 +39,103 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
             </div>
           </div>`;
       }
-     ```
-
-1. In each of the `<div>` that are without a class, add a `class="${ styles.yourclassgoeshere }"` attribute
-1. Rename each `yourclassgoeshere` respectively to `logo`, `name`, `powers`. Your divs should look like `<div class="${styles.logo}">`, `<div class="${styles.name}">`, and `<div class="${styles.powers}">`.
+    
+      protected get dataVersion(): Version {
+        return Version.parse('1.0');
+      }
+    
+      protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+        return {
+          pages: [
+            {
+              header: {
+                description: strings.PropertyPaneDescription
+              },
+              groups: [
+                {
+                  groupName: strings.BasicGroupName,
+                  groupFields: [
+                    PropertyPaneTextField('description', {
+                      label: strings.DescriptionFieldLabel
+                    })
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+      }
+    }
+    ```
+1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes. You can keep gulp serve running and refresh the page after every step in this lab so you can understand the impact of every change.
 1. Open the `JarvisWebPart.module.scss` and replace the content with:
 
     ```scss
     @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
-    
+
     .jarbis {
-    
       .logo {
         color: inherit;
       }
-      
+    
       .name {
         color: inherit;
       }
-      
+    
       .powers {
         color: inherit;
       }
     }
     ```
 
-1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes.
+1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.yourclassgoeshere }"`. The render method should look as follows:
+   ```typescript
+   public render(): void {
+    this.domElement.innerHTML = `
+          <div class="${styles.jarbis}">
+            <div class="${ styles.yourclassgoeshere }">
+              Logo
+            </div>
+            <div class="${ styles.yourclassgoeshere }">
+              The Something Hero
+            </div>
+            <div class="${ styles.yourclassgoeshere }">
+              (Primary + Secondary)
+            </div>
+          </div>`;
+    >
+   }
+   ```
+
+   > You may get some error messages as you edit the method, but we'll fix them soon -- don't worry
+
+3. Rename each `yourclassgoeshere` respectively to `logo`, `name`, `powers`. The `render` method should now look as follows:
+   ```typescript
+      public render(): void {
+        this.domElement.innerHTML = `
+              <div class="${styles.jarbis}">
+                <div class="${ styles.logo }">
+                  Logo
+                </div>
+                <div class="${ styles.name }">
+                  The Something Hero
+                </div>
+                <div class="${ styles.powers }">
+                  (Primary + Secondary)
+                </div>
+              </div>`;
+      }
+   ```
 
 
 ## Exercise 2: Fancy styles
 
 1. For the next few steps, make the changes to the `JarvisWebPart.module.scss`, save your changes and monitor how it affects your web part by refreshing your page.
-1. To the `.jarbis` class, add the following css code: 
+1. To the `.jarbis` class, add the following CSS code: 
 
     ```scss
-      color: $ms-color-neutralPrimary;
+      color: "[theme:bodyText, default: #323130]";
+      color: var(--bodyText);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -78,3 +154,34 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
     color: ms-color-neutralSecondary;
     font-size: 14px;
    ```
+
+1. The final `JarbisWebPart.module.scss` should look like this:
+   
+   ```scss
+    @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+    
+    .jarbis {
+      color: "[theme:bodyText, default: #323130]";
+      color: var(--bodyText);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    
+      .logo {
+        color: inherit;
+      }
+    
+      .name {
+        font-weight: bold;
+        font-size: 18px;
+      }
+    
+      .powers {
+        color: ms-color-neutralSecondary;
+        font-size: 14px;
+      }
+    }
+  ```
+
+1. Refresh the workbench. Your web part should start looking better!
+   ![Web Part Preview](assets/webpartpreview.png)  
