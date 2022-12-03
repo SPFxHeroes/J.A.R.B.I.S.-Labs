@@ -159,7 +159,7 @@ TypeScript helps you avoid common programming mistakes through strong type check
     ```
 
     to this:
-
+    
     ```typescript
     let message : string = 17;
     ```
