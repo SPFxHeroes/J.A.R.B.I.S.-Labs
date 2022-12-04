@@ -2,7 +2,14 @@
 
 ## Exercise 1
 
-1. In the `JarbisWebPart.ts`, add the following `import` statements below all the other `import`s, and above `export interface IJarbisWebPartProps `:
+1. In the `JarbisWebPart.ts`, replace the word `Logo` inside `<div class="${styles.logo}">` with the following code:
+
+    ```typescript
+    <i class=""></i>
+    <i class=""></i>
+    ```
+
+2. add the following `import` statements below `import * as strings from 'JarbisWebPartStrings';`, and above `export interface IJarbisWebPartProps`:
 
     ```typescript
     import { initializeIcons } from '@uifabric/icons';
@@ -10,27 +17,39 @@
     import { css } from '@uifabric/utilities';
     ```
 
-1. Below the `import` statements you just inserted, add the following code: 
+3. Below the `import` statements you just inserted, add the following code: 
 
     ```typescript
     initializeIcons();
     ```
 
-1. In the code, replace the word `Logo` inside `<div class="${styles.logo}">` with the following code:
+4. In the first element you just inserted, set the `class` attribute to `${getIconClassName('ShieldSolid')}`
+5. In the second element, set the `class` attribute to `${getIconClassName('FavoriteStarFill')}`. Your `render` method should look as follows:
+   
+   ```typescript
+   public render(): void {
+    this.domElement.innerHTML = `
+              <div class="${styles.jarbis}">
+                <div class="${styles.logo}">
+                  <i class="${getIconClassName('ShieldSolid')}"></i>
+                  <i class="${getIconClassName('FavoriteStarFill')}"></i>
+                </div>
+                <div class="${styles.name}">
+                  The Something Hero
+                </div>
+                <div class="${styles.powers}">
+                  (Primary + Secondary)
+                </div>
+              </div>`;
+      }
+   ```
 
-    ```typescript
-    <i class=""></i>
-    <i class=""></i>
-    ```
-
-1. In the first element, set the `class` attribute to `${getIconClassName('ShieldSolid')}`
-1. In the second element, set the `class` attribute to `${getIconClassName('FavoriteStarFill')}`
-1. Refresh the browser
+6. Refresh the browser
 
 ## Exercise 2
 
 1. Working with the same elements as before, add a `style` element to the first one, and set the style to: `style="color:skyblue;"`
-1. Set the style of the second element `style="color:skyblue;"`
+1. Set the style of the second element `style="color:orange;"`
 1. Refresh the browser
 
 ## Exercise 3
@@ -138,7 +157,8 @@ And your `JarbisWebPart.module.scss` should match the following code:
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .jarbis {
-  color: $ms-color-neutralPrimary;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,3 +191,6 @@ And your `JarbisWebPart.module.scss` should match the following code:
   }
 }
 ```
+
+Your web part should look as follows:
+![Preview of the web part](assets/preview.png)
