@@ -9,6 +9,7 @@ Let's build a web part!!!!!
 1. Create a new folder called `jarbis`. You can use the File Explorer or type `mkdir jarbis`
 
   > **Pro Tip:** Make sure to keep your path as short as possible; Node projects can end up with very long file paths, and Windows can sometimes report unpredictable issues due to file paths being too long.
+
 1. Change your current folder by using `cd jarbis`
 1. Once in your new fancy folder, launch the yeoman generator by typing `yo @microsoft/sharepoint`
 1. When prompted for a solution name, leave the default (**jarbis**), followed by <kbd>Enter</kbd>
@@ -23,15 +24,16 @@ Let's build a web part!!!!!
    > (This may take a moment or 75 depending on the wifi quality)
 
    ![We're done!](assets/1-7.png)  
-1. Go to your web browser, and navigate to your Microsoft 365 Dev Tenant (e.g.: https://yourdevtenant.sharepoint.com).
+1. Go to your web browser, and navigate to your Microsoft 365 Dev Tenant (e.g.: <https://yourdevtenant.sharepoint.com>, where _youdevtenant_ is the name of the Development tenant you created in the first lab.
 1. To view the workbench, navigate to `[YOUR_ROOT_SITE_HERE]/_layouts/15/workbench.aspx`
 1. You should get an error saying that your web part isn't running... let's fix that!
    ![Expected error](assets/1-10.png)  
 1. Back in your command prompt, type `gulp serve --nobrowser`.
 1. If you get a **Windows Security Alert**, select **Allow access**.
-   
+
    ![Firewall error](assets/1-12.png)  
 2. You should get a warning saying:
+
     ```
     Warning - [spfx-serve] When serving in HTTPS mode, a PFX cert path or a cert path and a key path must be provided, or a dev certificate must be generated and trusted. If a SSL certificate isn't provided, a default, self-signed certificate will be used. Expect browser security warnings.
     ```
@@ -67,7 +69,7 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 
 1. From Visual Studio Code, open the `JarbisWebPart.manifest.json` (located under `src\webparts\jarbis`)
 1. Look for the `officeFabricIconFontName` and replace the `Page` value to `Robot`
-   > You can find additional icons at https://flicon.io
+   > You can find additional icons at <https://flicon.io>
 
    ![Changing the robot](assets/4-1.png)  
 1. Change the `description` to `Just A Rather Basic Instructional Solution`
