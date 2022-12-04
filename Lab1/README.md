@@ -22,8 +22,9 @@ This step will configure your workstation as a development workstation by config
 [Gulp](https://gulpjs.com) is a JavaScript-based task runner used to automate repetitive tasks. The SharePoint Framework build toolchain uses Gulp tasks to build projects, create JavaScript bundles, and the resulting packages used to deploy solutions.
 
 1. Enter the following command to install the Gulp CLI: `npm install gulp-cli -g`, followed by <kbd>Enter</kbd>.
-1. This will take a little bit of time. Now is a good time to stretch your legs.
-1. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
+> Note: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g``
+2. This will take a little bit of time. Now is a good time to stretch your legs.
+3. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
 
    ```console
     CLI version: 2.3.0
