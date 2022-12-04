@@ -14,7 +14,7 @@ This step will configure your workstation as a development workstation by config
 ## Exercise 2: Install Node.js
 
 1. Using your browser, go to https://nodejs.org/dist/latest-v16.x/
-1. Pick and download the latest version of Node in that page which is compatible with your workstation. Make sure to use the `.msi` version. This is most likely going to be `node-v16.18.1-x64.msi`
+1. Pick and download the latest version of Node in that page which is compatible with your workstation. For Windows, make sure to use the `.msi` version - This is most likely going to be `node-v16.18.1-x64.msi`. On Mac, use the `.pkg` version - This is most likely going to be `node-v16.18.1.pkg`.
 1. Install using all the default options
 
 ## Exercise 3:  Install Gulp
