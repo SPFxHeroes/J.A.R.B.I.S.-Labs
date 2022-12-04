@@ -67,6 +67,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
       }
     }
     ```
+
 1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes. You can keep gulp serve running and refresh the page after every step in this lab so you can understand the impact of every change.
 1. Open the `JarvisWebPart.module.scss` and replace the content with:
 
@@ -184,4 +185,6 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
   ```
 
 1. Refresh the workbench. Your web part should start looking better!
-   ![Web Part Preview](assets/webpartpreview.png)  
+
+![Web Part Preview](assets/webpartpreview.png)
+
