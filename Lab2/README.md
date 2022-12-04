@@ -80,3 +80,4 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 1. If you stopped serving the web part before, type `gulp serve --nobrowser` in the terminal.
 1. Refresh the browser, remove the web part and look for your new icon in your list of web parts available to add.
    ![Web part with updated icon and description](assets/4-7.png)  
+1. Post a GIF in the meeting chat to entertain Chris
