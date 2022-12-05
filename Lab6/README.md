@@ -1,4 +1,4 @@
-# Lab 5
+# Lab 6
 
 In this lab, we will add a button that will only render when the web part is editable.
 
