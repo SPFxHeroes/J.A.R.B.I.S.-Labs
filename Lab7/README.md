@@ -252,4 +252,4 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
     }
     ```
 
-Go take a break, eat an ice cream, get some coffee. We'll be retrieving data from SharePoint next!
+Go take a break, eat an ice cream, get some coffee. We'll be provisioning lists and adding data to SharePoint next!
