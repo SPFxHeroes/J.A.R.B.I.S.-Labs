@@ -600,3 +600,5 @@ Now you're ready to deploy the solution to SharePoint. Because we're provisionin
    ![I've got the Powers!](assets/powers.png)
 
 In our next lab, we'll wire up the web part to read list items from the list!
+
+If you're up to it, there is also a [bonus lab](BONUS.md)!
