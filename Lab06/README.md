@@ -1,4 +1,4 @@
-# Lab 6: Conditional rendering
+# Lab 6: Conditional Rendering
 
 In this lab, we will add a button that will only render when the web part is editable.
 
