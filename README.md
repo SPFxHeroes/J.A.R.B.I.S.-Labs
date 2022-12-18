@@ -3,7 +3,7 @@
 (Just a Rather Basic Instructional Solution)
 
 - [Lab 1](./Lab01/README.md)
-- [Lab 2](./Lab2/README.md)
+- [Lab 2](./Lab02/README.md)
 - [Lab 3](./Lab03/README.md)
 - [Lab 4](./Lab04/README.md)
 - [Lab 5](./Lab05/README.md)
