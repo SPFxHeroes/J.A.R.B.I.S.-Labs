@@ -1,4 +1,4 @@
-# Lab 5: Dynamic Data (M365 Conference)
+# Lab 5: Dynamic Data 
 
 In this lab, we will retrieve data from a list and generate a dynamic logo with it.
 

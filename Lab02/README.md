@@ -1,4 +1,4 @@
-# Lab 2: Building a web part (M365 Conference)
+# Lab 2: Building a web part 
 
 Let's build a web part!!!!!
 

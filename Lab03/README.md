@@ -1,4 +1,4 @@
-# Lab 3: Introduction to SCSS in SPFx (M365 Conference)
+# Lab 3: Introduction to SCSS in SPFx 
 
 Now it's time to talk about what we're actually drawing (HTML) and how it gets all pretty (CSS)!
 

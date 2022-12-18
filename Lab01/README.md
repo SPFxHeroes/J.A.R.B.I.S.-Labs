@@ -1,4 +1,4 @@
-# Lab 1: Getting Your Environment Ready (M365 Conference)
+# Lab 1: Getting Your Environment Ready 
 
 ## Exercise 1: Configure Windows workstation for development purpose
 
