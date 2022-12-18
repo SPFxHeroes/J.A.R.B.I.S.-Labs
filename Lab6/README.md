@@ -55,7 +55,7 @@ As you may have already guessed, the `render` method of the web part is responsi
    import { DisplayMode, Version } from '@microsoft/sp-core-library';
    ```
 1. At this point, if you're getting yellow `lint` errors, try to fix them by going to the line number where the error is indicated and see what you can do about it.
-1. You entire `JarbisWebPart.ts` code should look as follows:
+1. You entire **JarbisWebPart.ts** code should look as follows:
 
    ```typescript
    import { DisplayMode, Version } from '@microsoft/sp-core-library';

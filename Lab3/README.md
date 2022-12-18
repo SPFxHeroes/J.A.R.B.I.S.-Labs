@@ -6,7 +6,7 @@ Now it's time to talk about what we're actually drawing (HTML) and how it gets a
 
 SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
 
-1. From Visual Studio Code, open `JarbisWebPart.ts` and replace the code with the following:
+1. From Visual Studio Code, open **JarbisWebPart.ts** and replace the code with the following:
 
     ```typescript
     import { Version } from '@microsoft/sp-core-library';
@@ -69,7 +69,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
     ```
 
 1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes. You can keep gulp serve running and refresh the page after every step in this lab so you can understand the impact of every change.
-1. Open the `JarvisWebPart.module.scss` and replace the content with:
+1. Open the **JarvisWebPart.module.scss** and replace the content with:
 
     ```scss
     @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
@@ -128,10 +128,9 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
       }
    ```
 
-
 ## Exercise 2: Fancy styles
 
-1. For the next few steps, make the changes to the `JarvisWebPart.module.scss`, save your changes and monitor how it affects your web part by refreshing your page.
+1. For the next few steps, make the changes to the **JarvisWebPart.module.scss**, save your changes and monitor how it affects your web part by refreshing your page.
 1. To the `.jarbis` class, add the following CSS code: 
 
     ```scss
@@ -156,7 +155,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
     font-size: 14px;
    ```
 
-1. The final `JarbisWebPart.module.scss` should look like this:
+1. The final **JarbisWebPart.module.scss** should look like this:
    
    ```scss
     @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';

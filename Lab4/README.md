@@ -2,7 +2,7 @@
 
 ## Exercise 1
 
-1. In the `JarbisWebPart.ts`, replace the word `Logo` inside `<div class="${styles.logo}">` with the following code:
+1. In **JarbisWebPart.ts**, replace the word `Logo` inside `<div class="${styles.logo}">` with the following code:
 
     ```typescript
     <i class=""></i>
@@ -17,7 +17,7 @@
     import { css } from '@uifabric/utilities';
     ```
 
-3. Below the `import` statements you just inserted, add the following code: 
+3. Below the `import` statements you just inserted, add the following code:
 
     ```typescript
     initializeIcons();
@@ -54,7 +54,7 @@
 
 ## Exercise 3
 
-1. Open the `JarvisWebPart.module.scss` and replace the styles for `.logo` class with:
+1. Open the **JarvisWebPart.module.scss** and replace the styles for `.logo` class with:
 
     ```scss
     position: relative;
@@ -73,7 +73,7 @@
     }
     ```
 
-1. Back in the `JarbisWebPart.ts` file, working the same two `i` elements -- again
+1. Back in the **JarbisWebPart.ts** file, working the same two `i` elements -- again
 1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
 1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
 1. Refresh the browser
@@ -82,7 +82,7 @@
 
 Let's make sure that your code is up to date with our lab!
 
-Your `JarbisWebPart.ts` class should look like this (feel free to copy and paste over your existing code):
+Your **JarbisWebPart.ts** class should look like this (feel free to copy and paste over your existing code):
 
 ```typescript
 import { Version } from '@microsoft/sp-core-library';
@@ -151,7 +151,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 }
 ```
 
-And your `JarbisWebPart.module.scss` should match the following code:
+And your **JarbisWebPart.module.scss** should match the following code:
 
 ```css
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';

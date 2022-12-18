@@ -4,7 +4,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 
 ## Exercise 1
 
-1. In the `JarbisWebPart.module.scss`, add the following code below the `.powers` block:
+1. In the **JarbisWebPart.module.scss**, add the following code below the `.powers` block:
    
    ```scss
     .generateButton {
@@ -27,7 +27,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
     }
     ```
 
-1. Your finished `JarbisWebPart.module.scss` should look like this:
+1. Your finished **JarbisWebPart.module.scss** should look like this:
 
     ```scss
     @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
@@ -98,7 +98,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 
 ## Exercise 2
 
-1. In the `JarbisWebPart.tsc`, add the following function below the `render` method:
+1. In the **JarbisWebPart.ts**, add the following function below the `render` method:
    
    
    ```typescript
@@ -146,7 +146,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 5. Refresh your browser and try opening the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools**.
 6. Try hitting the button and see that the `console.log` entries are written in the Developer tools' console.
    ![Console action](assets/console.png)  
-7. Your `JarbisWebPart.ts` code should look like this:
+7. Your **JarbisWebPart.ts** code should look like this:
 
     ```typescript
     import { DisplayMode, Version } from '@microsoft/sp-core-library';

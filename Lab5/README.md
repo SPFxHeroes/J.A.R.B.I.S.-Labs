@@ -6,7 +6,7 @@ In this lab, we will retrieve data from a list and generate a dynamic logo with 
 
 Let's change the `IJarbisWebPartProps` interface to cache all the values we retrieve from the list; that way, we will not need to reload the data every time the web part is displayed -- only when we force generate a new logo.
 
-1. In `JarbisWebPart.ts`, change the `IJarbisWebPartProps` and renamed the `description` property to `name`, as follows:
+1. In **JarbisWebPart.ts**, change the `IJarbisWebPartProps` and renamed the `description` property to `name`, as follows:
 
     ```typescript
     export interface IJarbisWebPartProps {
@@ -37,7 +37,7 @@ Let's change the `IJarbisWebPartProps` interface to cache all the values we retr
     }
     ```
 
-1. The `.manifest.json` file for a web part defines the values that a web part should use when a new web part is dropped on a page. Let's set some default values so that our users don't get an error when they first use our web part. In the `JarbisWebPart.manifest.json`, find the `properties` node, located under `preConfiguredEntries` and replace the `description` property (which is no longer used) with the following default values:
+1. The **.manifest.json** file for a web part defines the values that a web part should use when a new web part is dropped on a page. Let's set some default values so that our users don't get an error when they first use our web part. In the **JarbisWebPart.manifest.json**, find the `properties` node, located under `preConfiguredEntries` and replace the `description` property (which is no longer used) with the following default values:
 
     ```json
     "name": "Lab Rat",
@@ -49,7 +49,7 @@ Let's change the `IJarbisWebPartProps` interface to cache all the values we retr
     "backgroundIcon": "StarburstSolid"
     ```
 
-1. Back in the `JarbisWebPart.ts` file, let's change the `render` method. Replace the static value of `The Something Hero` with `The ${this.properties.name}`
+1. Back in the **JarbisWebPart.ts** file, let's change the `render` method. Replace the static value of `The Something Hero` with `The ${this.properties.name}`
 1. Replace the `Primary` power with `${this.properties.primaryPower}` (don't overwrite the opening parenthesis)
 1. Replace the `Secondary` power with `${this.properties.secondaryPower}` (don't overwrite the closing parenthesis)
 1. The full line should now look as follows:
@@ -85,13 +85,13 @@ Let's change the `IJarbisWebPartProps` interface to cache all the values we retr
       }
     ```
 
-1. If you had `gulp serve` running and simply refresh the page, you may see that some of the values return as `undefined`. This is because the web part was added to the page before the `.manifest.json` was updated and the web part rebuilt. You'll need to stop and start `gulp serve` and remove the current instance of the web part, then add a new instance, the default values should now appear -- instead of `undefined`.
+1. If you had `gulp serve` running and simply refresh the page, you may see that some of the values return as `undefined`. This is because the web part was added to the page before the **.manifest.json** was updated and the web part rebuilt. You'll need to stop and start `gulp serve` and remove the current instance of the web part, then add a new instance, the default values should now appear -- instead of `undefined`.
 
 ## Exercise 2
 
 Let's demonstrate how the values are dynamically bound by using the property pane.
 
-1. In the `JarbisWebPart.ts` file, find the `getPropertyPaneConfiguration` method -- this is the method that every web part uses when asked to display the configuration property pane.
+1. In the **JarbisWebPart.ts** file, find the `getPropertyPaneConfiguration` method -- this is the method that every web part uses when asked to display the configuration property pane.
 1. The `PropertyPaneTextField` is currently bound to the `description` property, which isn't used. Change it to bind to the `foregroundIcon` instead.
 1. Change the `label` property to `"Foreground icon"`
 1. Add another `PropertyPaneTextField` to bind to the `primaryPower` and set the label to `"Primary Power"`.
@@ -136,7 +136,7 @@ In this exercise, we'll demonstrate why you should always escape values that can
 
 1. While still running `gulp serve`, change the **Primary Power** of any of your currently added web parts to `<div style='color:green'>Science</div>` and observe what happens in the page.
 1. Injecting custom HTML is arguably tame, but the same technique could be used to inject custom JavaScript for malicious intent.
-1. At the top of the `JarbisWebPart.ts`, insert the following import:
+1. At the top of **JarbisWebPart.ts**, insert the following import:
 
    ```typescript
    import { escape } from '@microsoft/sp-lodash-subset';

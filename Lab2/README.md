@@ -57,7 +57,7 @@ Let's build a web part!!!!!
 
 1. From the command prompt, type `code .` to open Visual Studio Code (code) in the current folder (.)
 1. Launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd>.
-1. Explore the code under the `src` folder, and open the `JarbisWebPart.ts` file to try to find in the code where it says "Welcome to SharePoint Framework!" and replace the text for "Wowee!!".
+1. Explore the code under the **src** folder, and open the **JarbisWebPart.ts** file to try to find in the code where it says "Welcome to SharePoint Framework!" and replace the text for "Wowee!!".
 2. From the terminal, type `gulp serve --nobrowser`
    ![Rerunning with wowee!!](assets/3-4.png)  
 3. Refresh the browser to see if your web part changed.
@@ -67,7 +67,7 @@ Let's build a web part!!!!!
 
 Generic icons are not cool! Nor are generic descriptions. In this exercise, we'll update web part manifest, which is used to control the various web part attributes like the title, description, icon, and much more.
 
-1. From Visual Studio Code, open the `JarbisWebPart.manifest.json` (located under `src\webparts\jarbis`)
+1. From Visual Studio Code, open the **JarbisWebPart.manifest.json** (located under **src\webparts\jarbis**)
 1. Look for the `officeFabricIconFontName` and replace the `Page` value to `Robot`
    > You can find additional icons at <https://flicon.io>
 
