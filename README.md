@@ -1,4 +1,4 @@
-# J.A.R.B.I.S. 
+# J.A.R.B.I.S.
 
 (Just a Rather Basic Instructional Solution)
 
