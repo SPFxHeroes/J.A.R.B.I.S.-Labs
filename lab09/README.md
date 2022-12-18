@@ -1,4 +1,4 @@
-# Lab 9: Retrieving data
+# Lab 9: Retrieving Data
 
 In this lab, we'll retrieve data from the SharePoint list that we deployed when the solution was deployed to a site.
 

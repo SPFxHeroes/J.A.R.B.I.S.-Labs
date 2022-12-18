@@ -1,4 +1,4 @@
-# Lab 10: Rendering a badge using retrieved data
+# Lab 10: Data-Driven Rendering
 
 ## Exercise 1
 

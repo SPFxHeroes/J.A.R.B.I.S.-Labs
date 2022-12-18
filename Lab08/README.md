@@ -1,4 +1,4 @@
-# Lab 8: Provisioning assets
+# Lab 8: Provisioning Assets
 
 Our web part needs to read data from a list to work.
 

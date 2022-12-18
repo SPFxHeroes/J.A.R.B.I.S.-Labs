@@ -1,4 +1,4 @@
-# Lab 7: Adding Event Handlers
+# Lab 7: Event Handlers
 
 In the previous lab, we added a useless button. In this lab, we're wiring up the button event handler to make it more useful!
 

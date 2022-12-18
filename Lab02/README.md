@@ -1,4 +1,4 @@
-# Lab 2: Building a web part 
+# Lab 2: Building a Web Part
 
 Let's build a web part!!!!!
 
