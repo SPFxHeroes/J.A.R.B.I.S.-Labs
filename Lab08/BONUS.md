@@ -1,6 +1,8 @@
-## Bonus exercise: Adding column formatting
+# Bonus Lab: Adding column formatting
 
-> This step is optional, but it will make Chris Kent happy.
+> This lab is optional, but it will make Chris Kent happy.
+
+## Exercise 1
 
 1. Using your browser, navigate the the **Powers** list that was provisioned when you deployed the solution.
 1. Using the chevron next to the **Icons** column, select **Column settings**, then **Format this column**
