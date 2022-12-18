@@ -1,8 +1,8 @@
-# Lab 9
+# Lab 9: Retrieving data
 
 In this lab, we'll retrieve data from the SharePoint list that we deployed when the solution was deployed to a site.
 
-To make retrieving data easier, we'll use [PnPjs]}(https://pnp.github.io/pnpjs/) to retrieve the data.
+To make retrieving data easier, we'll use [PnPjs](https://pnp.github.io/pnpjs/) to retrieve the data.
 
 PnPjs is a collection of fluent libraries for consuming SharePoint, Graph, and Office 365 REST APIs in a type-safe way. You can use it within SharePoint Framework, Nodejs, or any JavaScript project.
 

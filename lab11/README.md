@@ -1,4 +1,4 @@
-# Lab 11
+# Lab 11: Configurable web parts
 
 In this lab, we'll make the web part configurable.
 
