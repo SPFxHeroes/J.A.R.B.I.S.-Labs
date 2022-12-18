@@ -133,6 +133,8 @@ PnPjs is a collection of fluent libraries for consuming SharePoint, Graph, and O
     
         // Get the list of powers from SharePoint using the name of the library specified in the property pane
         this._powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').getAll();
+
+        console.log("Powers", this._powers);
       }
     ```
 
@@ -231,9 +233,47 @@ PnPjs is a collection of fluent libraries for consuming SharePoint, Graph, and O
         // Get the list of powers from SharePoint using the name of the library specified in the property pane
         this._powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').getAll();
 
+        console.log("Powers", this._powers);
+
         // Re-render the web part
         this.render();
       }
    ```
 
 1. Refresh the web part while the workbench is in **Edit** mode and you should see the web part render once the data has been loaded. Depending on how fast things render, you may not even notice the loading spinner.
+1. If you use your web browser's dev tools, you'll find that the web part adds a message to the console that shows the data retrieved from the list.
+   ![The output from thew web part](assets/consoleout.png)  
+
+## Exercise 3
+
+You may have noticed that we query the list of Powers every single time that we render the web part -- which may be a little overkill when the list of choices is not expected to change all that much.
+
+Luckily, PnPjs has built-in support for caching, and will automatically refresh the cache when needed.
+
+1. Start by testing the web part without caching: using your browser's developer tools, show the **Network** tab and filter for **Fetch / XHR** requests -- which are the types of network calls your web part makes when retrieving items from the list.
+   ![Fetch/XHR](assets/xhr.png)  
+1. Refresh the workbench page
+1. In the list of network calls made by the page, look for a call to the `items` API
+   ![Network calls](assets/networkcalls.png)
+
+   ![A call to the items API](assets/networkzoom.png)  
+
+1. Refresh the page several times, making sure to note that the `items` API is called every time. Also, note how much time the call takes every time.
+
+1. Return to your web part code and add the following import:
+
+   ```typescript
+   import { Caching } from "@pnp/queryable";
+   ```
+
+1. Change the `this._powers` line in the `getPowers` method to use the following code instead:
+
+   ```typescript
+     // Get the list of powers from SharePoint using the name of the library specified in the property pane
+    this._powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching()).getAll();
+   ```
+
+1. Refresh the web part. You may not notice a difference, but the web part only queries the list _once_ -- unless there are changes or the cache has expired.
+1. To verify that the cache is used, look for a call to the `items` API in the network calls; the first time you load the web part, you should see a call to it, but refreshing the page should not cause the web part to call the API every subsequent time.
+
+We have improved performance we caching, but the web part always renders the same hero badge, regardless of what data is loaded, because it never uses the data that we loaded ... but we'll fix that in our next lab.
