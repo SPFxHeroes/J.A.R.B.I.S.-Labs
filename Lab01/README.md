@@ -1,4 +1,4 @@
-# Lab 1: Getting Your Environment Ready 
+# Lab 1: Getting Your Environment Ready
 
 ## Exercise 1: Configure Windows workstation for development purpose
 
@@ -13,7 +13,7 @@ This step will configure your workstation as a development workstation by config
 
 ## Exercise 2: Install Node.js
 
-1. Using your browser, go to https://nodejs.org/dist/latest-v16.x/
+1. Using your browser, go to <https://nodejs.org/dist/latest-v16.x/>
 1. Pick and download the latest version of Node in that page which is compatible with your workstation. For Windows, make sure to use the **.msi** version - This is most likely going to be **node-v16.18.1-x64.msi**. On Mac, use the **.pkg** version - This is most likely going to be **node-v16.18.1.pkg**.
 1. Install using all the default options
 
@@ -22,9 +22,9 @@ This step will configure your workstation as a development workstation by config
 [Gulp](https://gulpjs.com) is a JavaScript-based task runner used to automate repetitive tasks. The SharePoint Framework build toolchain uses Gulp tasks to build projects, create JavaScript bundles, and the resulting packages used to deploy solutions.
 
 1. Enter the following command to install the Gulp CLI: `npm install gulp-cli -g`, followed by <kbd>Enter</kbd>.
-> Note: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g``
-2. This will take a little bit of time. Now is a good time to stretch your legs.
-3. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
+    > Note: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g``
+1. This will take a little bit of time. Now is a good time to stretch your legs.
+1. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
 
    ```console
     CLI version: 2.3.0
@@ -34,7 +34,6 @@ This step will configure your workstation as a development workstation by config
     ![Testing Gulp](assets/gulp.png)
 
 > Note: You may not see a `Local version` if you're not currently in a project folder. That's OK!
-
 
 ## Exercise 4: Install Yeoman
 
@@ -82,7 +81,7 @@ To install the SharePoint Framework Yeoman generator globally:
 1. From the list of search results, select **SPFx Essentials** by **Elio Struyf**.
 1. From the **SPFx Essentials** page, select **Install**.
    ![SPFx Essentials](assets/spfxessentials.png)  
-2. Repeat the steps 3-5 with the following extensions:
+1. Repeat the steps 3-5 with the following extensions:
     1. **GitHub Repositories**
     2. **Live Server**
     3. **Live Share**
@@ -114,14 +113,15 @@ Let's start with a simple Hello World Node.js example. Create a new folder `hell
 
 1. To compile your TypeScript code, you can open the Integrated Terminal in Visual Studio Code by selecting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>\`</kbd> and typing `tsc hellotypescript.ts`.
    ![tsc hellotypescript.ts](assets/tschellotypescript.png)  
-2. This will compile and create a new `hellotypescript.js` JavaScript file.
-3. Type `node hellotypescript.js` to run your newly created file.
-4. If you open `hellotypescript.js`, you'll see that it doesn't look very different from `hellotypescript.ts`. The type information has been removed and `let` is now `var`.
+1. This will compile and create a new `hellotypescript.js` JavaScript file.
+1. Type `node hellotypescript.js` to run your newly created file.
+1. If you open `hellotypescript.js`, you'll see that it doesn't look very different from `hellotypescript.ts`. The type information has been removed and `let` is now `var`.
 
     ```javascript
     var message = "Hello TypeScript";
     console.log(message);
     ```
+
     ![Comparing TypeScript and JavaScript](assets/hellojs.png)  
 
 ## Exercise 12: Understand tsconfig.json
@@ -175,7 +175,7 @@ TypeScript helps you avoid common programming mistakes through strong type-check
     ```
 
     to this:
-    
+
     ```typescript
     let message : string = 17;
     ```
@@ -183,7 +183,6 @@ TypeScript helps you avoid common programming mistakes through strong type-check
 2. The TypeScript compiler will complain with **'error TS2322: Type 'number' is not assignable to type 'string'**.  You can see type checking errors in VS Code both in the editor (red squiggles with hover information) and the Problems panel (<kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>M</kbd>). The `[ts]` prefix lets you know this error is coming from the TypeScript language service.
    ![TypeScript error](assets/typescripterror.png)  
 3. Undo your changes. We'll have plenty of opportunities to create real bugs later.
-
 
 ## Exercise 14: Create your own Dev Tenant
 

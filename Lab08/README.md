@@ -569,7 +569,7 @@ Now you're ready to deploy the solution to SharePoint. Because we're provisionin
 
 1. When prompted to **Enable app**, select **Only enable this app**; this will ensure that we only deploy the solution to our test site.
 
-   ![Enable app](assets/addapp.png)   
+   ![Enable app](assets/addapp.png)
 
    > Notice that the **Enable app** pane indicates **This app gets data from: https://localhost:4321/dist**; this is because the solution that we just bundled is _not_ intended for production and will only run while you debug the web part. We'll fix this in later labs, when we deploy the production web part.
    >
@@ -596,7 +596,7 @@ Now you're ready to deploy the solution to SharePoint. Because we're provisionin
    ![Site contents with new Powers list](assets/sitecontents-powers.png)  
 
 1. You'll see a list with several records. This is good!!!
-   
+
    ![I've got the Powers!](assets/powers.png)
 
 In our next lab, we'll wire up the web part to read list items from the list!

@@ -90,6 +90,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
     ```
 
 1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.yourclassgoeshere }"`. The render method should look as follows:
+
    ```typescript
    public render(): void {
     this.domElement.innerHTML = `
@@ -110,7 +111,8 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
 
    > You may get some error messages as you edit the method, but we'll fix them soon -- don't worry
 
-3. Rename each `yourclassgoeshere` respectively to `logo`, `name`, `powers`. The `render` method should now look as follows:
+1. Rename each `yourclassgoeshere` respectively to `logo`, `name`, `powers`. The `render` method should now look as follows:
+
    ```typescript
       public render(): void {
         this.domElement.innerHTML = `
@@ -131,7 +133,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
 ## Exercise 2: Fancy styles
 
 1. For the next few steps, make the changes to the **JarvisWebPart.module.scss**, save your changes and monitor how it affects your web part by refreshing your page.
-1. To the `.jarbis` class, add the following CSS code: 
+1. To the `.jarbis` class, add the following CSS code:
 
     ```scss
       color: "[theme:bodyText, default: #323130]";
@@ -156,7 +158,7 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
    ```
 
 1. The final **JarbisWebPart.module.scss** should look like this:
-   
+
    ```scss
     @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
     
@@ -181,9 +183,8 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
         font-size: 14px;
       }
     }
-  ```
+    ```
 
 1. Refresh the workbench. Your web part should start looking better!
 
 ![Web Part Preview](assets/webpartpreview.png)
-

@@ -25,7 +25,7 @@
 
 4. In the first element you just inserted, set the `class` attribute to `${getIconClassName('ShieldSolid')}`
 5. In the second element, set the `class` attribute to `${getIconClassName('FavoriteStarFill')}`. Your `render` method should look as follows:
-   
+
    ```typescript
    public render(): void {
     this.domElement.innerHTML = `

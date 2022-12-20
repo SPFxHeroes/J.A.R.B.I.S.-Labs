@@ -5,7 +5,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 ## Exercise 1
 
 1. In the **JarbisWebPart.module.scss**, add the following code below the `.powers` block:
-   
+
    ```scss
     .generateButton {
         margin: 12px;
@@ -99,8 +99,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 ## Exercise 2
 
 1. In the **JarbisWebPart.ts**, add the following function below the `render` method:
-   
-   
+
    ```typescript
     public onGenerateHero = (event: MouseEvent): void => {
         console.log('Generating!' + this.properties.primaryPower);
@@ -110,7 +109,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 
     The function does nothing useful yet (it only displays a message on the Developer console), but we'll add functionality soon enough!
 2. Within the `render` method, add the following code after the last line of code:
-   
+
    ```typescript
    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
     for (let b = 0; b < buttons.length; b++) {

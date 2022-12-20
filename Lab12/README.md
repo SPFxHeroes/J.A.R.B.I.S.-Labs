@@ -94,7 +94,7 @@ Let's start by cleaning up all the location code that was generated when we scaf
    > ![Select no](assets/showcurlybrackets.png)  
 
 1. Repeat the previous steps to replace the word `"Visible"` for `ShowPowersToggleOnText` and the word `"Hidden"` for `ShowPowersToggleOffText`. The final `getPropertyPaneConfiguration` method should look like this:
-   
+
    ```typescript
       protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
         return {
@@ -246,11 +246,18 @@ In this lab, we'll add a pseudo-locale, but you can use [any other locale](https
     });
    ```
 
+1. For extra fun, add another file called **fr-fr.js** and paste the following code:
+
+   ```javascript
+   
+   ```
+
 1. To test the web part in a different locale, add `--locale=` followed by the locale code. For our test, you'll type the following command in your terminal:
 
    ```bash
    gulp serve --nobrowser --locale=qps-ploc
    ```
 
-Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+1. Try changing the `--locale` parameter to `fr-fr` and test the French version of the web part.
 
+Don't forget to remove the `--locale` parameter next time you're using `gulp serve`

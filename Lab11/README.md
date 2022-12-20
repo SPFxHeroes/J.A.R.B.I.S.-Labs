@@ -164,11 +164,11 @@ You may have noticed that changes to the property pane are immediately reflected
 
 To disable reactive property panes, you simply need to add the following code above the `getPropertyPaneConfiguration` method:
 
-    ```typescript
-      protected get disableReactivePropertyChanges(): boolean { 
-        return true; 
-      }
-    ```
+  ```typescript
+  protected get disableReactivePropertyChanges(): boolean { 
+    return true; 
+  }
+  ```
 
 1. Test your web part again: you should see a new **Apply** button at the bottom of the property pane. Pressing it should cause the changes you made to the settings to re-render the web part.
 1. When you're done testing, remove the `disableReactivePropertyChanges` code.
