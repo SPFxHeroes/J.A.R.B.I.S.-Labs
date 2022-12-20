@@ -13,3 +13,5 @@
 - [Lab 09](./Lab09/README.md): Retrieving Data
 - [Lab 10](./Lab10/README.md): Data-Driven Rendering
 - [Lab 11](./Lab11/README.md): Configurable Web Parts
+- [Lab 12](./Lab12/README.md): Localization
+- [Lab 11](./Lab11/README.md): Publishing Your App

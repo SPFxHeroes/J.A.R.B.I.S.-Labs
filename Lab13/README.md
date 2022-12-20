@@ -1,18 +1,18 @@
-# Lab 13: Publishing Solution
+# Lab 13: Publishing Your App
 
 So far, we have been testing our web part using the workbench and bundling the solution in debug mode.
 
-In this lab, we'll show you how to prepare your solution for release to production, and how to deploy and upgrade your solution.
+In this lab, we'll show you how to prepare your app for release to production, and how to deploy and upgrade your app.
 
 ## Exercise 1
 
-The solution's metadata controls how the solution will appear in the App store. You can (and should!) change the solution's metadata by changing the **package-solution.json**.
+The solution's metadata controls how the app will appear in the App store. You can (and should!) change the solution's metadata by changing the **package-solution.json**.
 
 1. Open the **package-solution.json** under the **config** folder.
 1. In the `solution` node, change the `name` property to `JARBIS`.
-   > In your solution name, don't use words matching features in Microsoft Teams or SharePoint, such as **Chat, Contacts, Calendar, Calls, Files, Meeting, Activity, Teams, Apps, Help, SharePoint, List, Page**, etc. as these names could be confused with the standard functionality in Teams and SharePoint.
+   > In your app name, don't use words matching features in Microsoft Teams or SharePoint, such as **Chat, Contacts, Calendar, Calls, Files, Meeting, Activity, Teams, Apps, Help, SharePoint, List, Page**, etc. as these names could be confused with the standard functionality in Teams and SharePoint.
    >
-   > If your solution is named after a common word, such as **Orders**, you should include your company name as well to clearly differentiate it from other solutions, for example, **Contoso Orders**.
+   > If your app is named after a common word, such as **Orders**, you should include your company name as well to clearly differentiate it from other apps, for example, **Contoso Orders**.
    >
    > Luckily, J.A.R.B.I.S. is not a common word :-)
 1. Below the `name` property, add a `title` property using the following JSON:
@@ -26,7 +26,7 @@ The solution's metadata controls how the solution will appear in the App store. 
 1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied.
    ![Save as hero.png](assets/hero.png)
 
-   > Your solution icon can be any `.png` image, but it must be 96 pixels wide by 96 pixels high.
+   > Your app icon can be any `.png` image, but it must be 96 pixels wide by 96 pixels high.
 
 1. Back in the **package-solution.json** file, add the following line of JSON below the `title` line:
 
@@ -45,7 +45,7 @@ The solution's metadata controls how the solution will appear in the App store. 
    > The `longDescription` will be displayed on your app's **About** page. According to the documentation, you _should_ be able to use `HTML` in the `longDescription` (but we haven't had any luck doing so... yet).
 1. Change the `version` property to `1.0.0.1`
 
-   > You should increment the version number any time you bundle and package your solution and make changes; this will signal any sites where your solution has been deployed that an update is available
+   > You should increment the version number any time you bundle and package your app and make changes; this will signal any sites where your app has been deployed that an update is available
 
 1. Change the `supportedLocales` property with the following values:
 
@@ -128,7 +128,7 @@ The solution's metadata controls how the solution will appear in the App store. 
     },
    ```
 
-   > The `developer` section is how you can identify who wrote the solution. It is used by the **SharePoint Store**, where you can publish and sell your web parts to other organizations.
+   > The `developer` section is how you can identify who wrote the app. It is used by the **SharePoint Store**, where you can publish and sell your web parts to other organizations.
    >
    > Even if you only plan to promote your web parts within your organization, we recommend that you always take the time to update the `developer` property.
 
@@ -236,11 +236,11 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
 
 ## Exercise 3
 
-Let's finally package your solution for production!!!
+Let's finally package your app for production!!!
 
 > Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. Feel free to test with `gulp bundle` and `gulp package-solution` first, if you wish, then perform the steps below. 
 >
-> But, let's face it, you know your solution is already _perfect_, don't you?!
+> But, let's face it, you know your app is already _perfect_, don't you?!
 
 1. If you're still running `gulp serve`, you can stop it now.
 1. From the terminal, run the following command:
