@@ -2,6 +2,8 @@
 
 (Just a Rather Basic Instructional Solution)
 
+![Chris as a superhero](assets/chrishero.png)
+
 - [Lab 01](./Lab01/README.md): Getting Your Environment Ready
 - [Lab 02](./Lab02/README.md): Building a Web Part
 - [Lab 03](./Lab03/README.md): Introduction to SCSS in SPFx
