@@ -4,7 +4,7 @@
 
 This step will configure your workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-1. From your Windows desktop, use the **Start menu** and search for `Use developer features`
+1. From your Windows desktop, use the **Start menu** and search for **Use developer features**
 1. On the **Privacy & Security > For developers** page, under **Developer Mode**, look for **Install apps from any source, including loose files**
 1. If the setting is not already **on**, toggle the setting to **on**
 1. Scroll to the **PowerShell** section
