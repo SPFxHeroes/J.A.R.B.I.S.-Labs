@@ -193,3 +193,52 @@ Go to <http://aka.ms/m365devprogram> and follow the steps to create your own ten
 Follow the steps to create your tenant. We'll use the tenant in later labs.
 
 In our next lab, we'll apply everything we've done so far to create a web part.
+
+## Exercise 15: Using Browser Profiles
+
+> This exercise is optional, but is will help dealing with authentication issues when switching between your work Microsoft 365 tenant and your dev tenant. Plus, if you don't follow these steps, we can't be friends anymore.
+
+Browser profiles allow you to create a different instance of your browser, using different credentials, bookmarks, favorites, history, etc.
+
+These instructions are for Microsoft Edge. You can also use **User profiles** in Chrome if you wish (instructions not provided)
+
+1. Using Edge, reveal the profile menu by selecting your profile picture in the upper right corner.
+
+   ![Browser profile](assets/browserprofile.png)
+1. Find the **Add profile** menu (it may be located under **Other profiles** )
+
+   ![Add profile](assets/addprofile.png)
+
+1. When prompted to **Add a profile**, select **Add**
+
+   ![Add profile prompt](assets/addprofileprompt.png)
+
+1. In the **Welcome to Microsoft Edge** dialog, select **Sign in to sync data**
+
+   ![Welcome to Microsoft Edge](assets/welcometoprofile.png)
+
+1. In the **Let's get you signed in** dialog, select **Add an account** followed by **Continue**
+
+   ![Add an account](assets/addanaccount.png)
+
+1. When prompted to **Enter email including Gmail or phone or skype**, enter the email address from you Microsoft 365 Dev tenant (**not** your work or personal email address), followed by **Sign In**
+
+   ![Let's get you signed in](assets/letsgetyousignedin.png)
+
+1. Follow the screen instruction to log in. If prompted to remember your password or keep signed in, feel free to say **Yes**.
+
+1. If you wish to do so, you can rename your new browser profile by using the profile menu and selecting the **Settings** icon
+
+   ![Profile settings](assets/profilesettings.png)
+
+1. In the **Your profile**, select the **...*** menu, followed by **Edit**
+
+   ![Your profile](assets/yourprofile.png)
+
+1. In the **Edit profile** dialog, change the profile name and select **Update**
+
+   ![Edit profile name](assets/editprofilename.png)
+
+1. When you need to switch between user profiles, select the profiles menu and pick the profile you just created.
+
+For the rest of this workshop, we will use your developer tenant profile.
