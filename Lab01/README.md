@@ -50,7 +50,7 @@ The Yeoman SharePoint web part generator helps you quickly create a SharePoint c
 
 To install the SharePoint Framework Yeoman generator globally:
 
-1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.15.2 -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint -g`, followed by <kbd>Enter</kbd>.
 
 2. A bazillion years later, when the installation is complete, enter `yo`, followed by <kbd>Enter</kbd>.
 3. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
