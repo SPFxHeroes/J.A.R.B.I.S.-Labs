@@ -6,6 +6,23 @@ In this lab, we'll show you how to prepare your app for release to production, a
 
 ## Exercise 1
 
+Before you package your app, you should probably test your web part outside of the workbench.
+
+Thankfully, you can debug web parts in regular SharePoint pages by following these instructions:
+
+1. Using the terminal in VSCode, run `gulp serve --nobrowser` as usual
+1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string: **, followed by a querystring
+1. Copy the query string provided 
+   ![Use this query string](assets/debuginprod.png)
+1. Using your dev tenant, go to a SharePoint page (in the same site as your workbench, so you don't have to deploy the Powers list)
+1. While on the page, append the query string you copied in the earlier step and append it to the page URL.
+1. When prompted to **Allow debug scripts?**, select **Load debug scripts**
+1. You can now edit the page and insert the **Hero generator** web part on the page.
+1. When you're done testing the web part, you can stop `gulp serve`.
+
+
+## Exercise 2
+
 The solution's metadata controls how the app will appear in the App store. You can (and should!) change the solution's metadata by changing the **package-solution.json**.
 
 1. Open the **package-solution.json** under the **config** folder.
@@ -24,6 +41,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 1. In the solution's **sharepoint** folder, add a folder called **images**
 1. From VSCode, right-click on the new folder and select **Copy path**
 1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied.
+
    ![Save as hero.png](assets/hero.png)
 
    > Your app icon can be any `.png` image, but it must be 96 pixels wide by 96 pixels high.
@@ -132,7 +150,7 @@ The solution's metadata controls how the app will appear in the App store. You c
    >
    > Even if you only plan to promote your web parts within your organization, we recommend that you always take the time to update the `developer` property.
 
-## Exercise 2
+## Exercise 3
 
 A solution can contain more than 1 web part (you can add another web part by re-running the Yeoman generator from within an existing SPFx project). Because of this, SPFx keeps the metadata about the solution separately from the web part metadata.
 
@@ -234,7 +252,7 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
 >
 > Remember to _remove_ the `officeFabricFontName` property from your manifest, or SharePoint will simply ignore your fancy new SVG icon.
 
-## Exercise 3
+## Exercise 4
 
 Let's finally package your app for production!!!
 
