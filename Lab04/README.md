@@ -1,4 +1,4 @@
-# Lab 4: Static Data
+# Lab 4: Static Values
 
 ## Exercise 1
 
