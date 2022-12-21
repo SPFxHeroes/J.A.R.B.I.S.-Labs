@@ -14,7 +14,6 @@
     ```typescript
     import { initializeIcons } from '@uifabric/icons';
     import { getIconClassName } from '@uifabric/styling';
-    import { css } from '@uifabric/utilities';
     ```
 
 3. Below the `import` statements you just inserted, add the following code:
@@ -74,9 +73,14 @@
     ```
 
 1. Back in the **JarbisWebPart.ts** file, working the same two `i` elements -- again
-1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
-1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
-1. Refresh the browser
+2. Add the top, add the following `import` statement:
+
+   ```typescript
+   import { css } from '@uifabric/utilities';
+   ```
+4. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
+5. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`
+6. Refresh the browser
 
 ## Exercise 4
 
