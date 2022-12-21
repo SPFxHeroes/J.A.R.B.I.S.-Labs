@@ -5,7 +5,7 @@
 - [Lab 01](./Lab01/README.md): Getting Your Environment Ready
 - [Lab 02](./Lab02/README.md): Building a Web Part
 - [Lab 03](./Lab03/README.md): Introduction to SCSS in SPFx
-- [Lab 04](./Lab04/README.md): Static Data
+- [Lab 04](./Lab04/README.md): Static Values
 - [Lab 05](./Lab05/README.md): Dynamic Data
 - [Lab 06](./Lab06/README.md): Conditional Rendering
 - [Lab 07](./Lab07/README.md): Event Handlers
