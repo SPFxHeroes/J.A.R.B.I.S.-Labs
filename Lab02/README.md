@@ -66,13 +66,17 @@ Let's build a web part!!!!!
 1. Test the web part by adding it to the page
    ![Added web part to the page](assets/2-6.png)  
 1. When you're done, go back to your command prompt and hit <kbd>CTRL</kbd>+<kbd>C</kbd> to stop the code from running.
-   ![Web part is done running](assets/2-7.png)  
+   ![Web part is done running](assets/2-7.png)
+
+> **Pro Tip**
+>
+> You'll be using this workbench page _a lot_ in this workshop -- and throughout your SPFx development career; we recommend that you bookmark your workbench page within your dev tenant browser profile, or mark it as your start page.
 
 ## Exercise 3: Customize the web part
 
 1. From the command prompt, type `code .` to open Visual Studio Code (code) in the current folder (.)
 1. Launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd>.
-1. Explore the code under the **src** folder, and open the **JarbisWebPart.ts** file to try to find in the code where it says "Welcome to SharePoint Framework!" and replace the text for "Wowee!!".
+1. Explore the code under the **src** folder, followed by the **webparts** folder, and open the **JarbisWebPart.ts** file. Try to find in the code where it says `Welcome to SharePoint Framework!` and replace the text for `Wowee!!`.
 1. From the terminal, type `gulp serve --nobrowser`
    ![Rerunning with wowee!!](assets/3-4.png)  
 1. Refresh the browser to see if your web part changed.

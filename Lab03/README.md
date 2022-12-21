@@ -89,6 +89,26 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
     }
     ```
 
+   > The **JarvisWebPart.module.scss** generates a Cascading Style Sheet for your web part; it controls the look and feel of your web part.
+   >
+   > It is always a good idea to separate the _content_ of your web part from the _look and feel_ (or _style_) of your web part.
+   >
+   > `.scss` files are _Sassy Cascading Style Sheets_ -- a kind of CSS _pre-processor_.
+   >
+   > CSS pre-processors generate `.css` files at build time, and ensure that you only write valid `.css` files, thus saving you time.
+   >
+   > SCSS also allows you to write concise SCSS code that will build into longer CSS code.
+   >
+   > `.module.scss` files generate TypeScript classes that you can use within your TypeScript code; because TypeScript is strongly-typed, it makes it practically impossible for you to apply the wrong CSS class in your HTML because of a typo -- among other benefits.
+   >
+   > To use the CSS classes from your generated CSS, your web part imports a reference, as follows:
+   >
+   > ```typescript
+   > import styles from './JarbisWebPart.module.scss';
+   > ```
+   >
+   > Then, you can simply use the CSS class by using `styles.`, followed by your CSS class name.
+
 1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.yourclassgoeshere }"`. The render method should look as follows:
 
    ```typescript
@@ -105,11 +125,10 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
               (Primary + Secondary)
             </div>
           </div>`;
-    >
    }
    ```
 
-   > You may get some error messages as you edit the method, but we'll fix them soon -- don't worry
+   > You may get some error messages as you edit the method, that's because `yourclassgoeshere` is not a valid CSS class. But don't worry, we'll fix it next.
 
 1. Rename each `yourclassgoeshere` respectively to `logo`, `name`, `powers`. The `render` method should now look as follows:
 
