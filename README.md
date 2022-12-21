@@ -14,6 +14,6 @@
 - [Lab 10](./Lab10/README.md): Data-Driven Rendering
 - [Lab 11](./Lab11/README.md): Configurable Web Parts
 - [Lab 12](./Lab12/README.md): Localization
-- [Lab 11](./Lab11/README.md): Publishing Your App
+- [Lab 13](./Lab13/README.md): Publishing Your App
 
 ![Chris as a superhero](assets/chrishero.png)
