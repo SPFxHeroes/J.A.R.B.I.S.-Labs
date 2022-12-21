@@ -125,7 +125,6 @@ SPFx uses SCSS files for style modules. These allow you to write fancy CSS!
               (Primary + Secondary)
             </div>
           </div>`;
-    >
    }
    ```
 
