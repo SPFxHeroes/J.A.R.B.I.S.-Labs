@@ -1,7 +1,5 @@
 # J.A.R.B.I.S.
 
-(Just a Rather Basic Instructional Solution)
-
 ![J.A.R.B.I.S. Hero Generator](assets/jarbislogo.svg)
 
 - [Lab 01](./Lab01/README.md): Getting Your Environment Ready
