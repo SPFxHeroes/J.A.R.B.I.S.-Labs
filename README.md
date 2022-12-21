@@ -2,7 +2,7 @@
 
 (Just a Rather Basic Instructional Solution)
 
-![Chris as a superhero](assets/chrishero.png)
+![J.A.R.B.I.S. Hero Generator](assets/jarbislogo.svg)
 
 - [Lab 01](./Lab01/README.md): Getting Your Environment Ready
 - [Lab 02](./Lab02/README.md): Building a Web Part
@@ -17,3 +17,5 @@
 - [Lab 11](./Lab11/README.md): Configurable Web Parts
 - [Lab 12](./Lab12/README.md): Localization
 - [Lab 11](./Lab11/README.md): Publishing Your App
+
+![Chris as a superhero](assets/chrishero.png)
