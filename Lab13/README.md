@@ -265,7 +265,7 @@ Let's finally package your app for production!!!
 
 1. Under **App availability**, select **Only enable this app** and select **Enable app** at the bottom of the pane.
 
-   ![Only enable app](onlyenableapp.png)
+   ![Only enable app](assets/onlyenableapp.png)
 
 1. Your new web part is now published in production! Make sure that your new app has the correct **Icon**, **Title**, and that the state is **Enabled** and the **Available for** column shows a SharePoint logo.
 
