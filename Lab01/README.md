@@ -8,19 +8,19 @@ Welcome to your first lab! This lab is all about getting your development enviro
 <summary>Exercises</summary>
 
   1. [Configure your Windows workstation for development](#rocket-exercise-1-configure-your-windows-workstation-for-development)
-  1. [Install Node.js](#exercise-2-install-nodejs)
-  1. [Install VS Code](#exercise-3-install-vs-code)
-  1. [Install the Gulp CLI](#exercise-4-install-the-gulp-cli)
-  1. [Install Yeoman](#exercise-5-install-yeoman)
-  1. [Install Yeoman SharePoint Generator](#exercise-6-install-yeoman-sharepoint-generator)
-  1. [Install TypeScript](#exercise-7-install-typescript)
-  1. [Install CLI for Microsoft 365](#exercise-8-install-cli-for-microsoft-365)
-  1. [Install Essential Visual Studio Code extensions](#exercise-9-install-essential-visual-studio-code-extensions)
-  1. [Experiments with TypeScript - Compilation](#exercise-10-experiments-with-typescript---compilation)
-  1. [Experiments with TypeScript - tsconfig.json](#exercise-11-experiments-with-typescript---tsconfigjson)
-  1. [Experiments with TypeScript - Error checking](#exercise-12-experiments-in-typescript---error-checking)
-  1. [Create your own Dev tenant](#exercise-13-create-your-own-dev-tenant)
-  1. [Using browser profiles](#exercise-14-using-browser-profiles)
+  1. [Install Node.js](#rocket-exercise-2-install-nodejs)
+  1. [Install VS Code](#rocket-exercise-3-install-vs-code)
+  1. [Install the Gulp CLI](#rocket-exercise-4-install-the-gulp-cli)
+  1. [Install Yeoman](#rocket-exercise-5-install-yeoman)
+  1. [Install Yeoman SharePoint Generator](#rocket-exercise-6-install-yeoman-sharepoint-generator)
+  1. [Install TypeScript](#rocket-exercise-7-install-typescript)
+  1. [Install CLI for Microsoft 365](#rocket-exercise-8-install-cli-for-microsoft-365)
+  1. [Install Essential Visual Studio Code extensions](#rocket-exercise-9-install-essential-visual-studio-code-extensions)
+  1. [Experiments with TypeScript - Compilation](#rocket-exercise-10-experiments-with-typescript---compilation)
+  1. [Experiments with TypeScript - tsconfig.json](#rocket-exercise-11-experiments-with-typescript---tsconfigjson)
+  1. [Experiments with TypeScript - Error checking](#rocket-exercise-12-experiments-in-typescript---error-checking)
+  1. [Create your own Dev tenant](#rocket-exercise-13-create-your-own-dev-tenant)
+  1. [Using browser profiles](#rocket-exercise-14-using-browser-profiles)
 </details>
 
 ## :rocket: Exercise 1: Configure your Windows workstation for development
@@ -60,25 +60,25 @@ This step will configure your workstation as a development workstation by config
 
 > The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
 
-#### Resources
+#### :books: Resources
 - [SPFx Node.js instructions](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 - [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 - [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - [NVM for Windows](https://github.com/coreybutler/nvm-windows)
 - [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 
-## Exercise 3: Install VS Code
+## :rocket: Exercise 3: Install VS Code
 
 You can technically use any code editor or IDE that supports client-side development and if you've already got one you prefer, you're welcome to use it. However, we'll be using [Visual Studio Code](https://code.visualstudio.com/) and we highly recommend it.
 
 1. Go to https://code.visualstudio.com and using the big button download the installer (use the arrow to choose a specific version for Mac or Linux)
 1. Install using all the default options
 
-#### Resources
+#### :books: Resources
 - [SPFx code editor instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-a-code-editor)
 - [Getting started with VS Code](https://code.visualstudio.com/docs/)
 
-## Exercise 4:  Install the Gulp CLI
+## :rocket: Exercise 4:  Install the Gulp CLI
 
 [Gulp](https://gulpjs.com) is a JavaScript-based task runner used to automate repetitive tasks. The SharePoint Framework build toolchain uses Gulp tasks to build projects, create JavaScript bundles, and the resulting packages used to deploy solutions.
 
@@ -96,11 +96,11 @@ You can technically use any code editor or IDE that supports client-side develop
 
 > Note: You may not see a `Local version` if you're not currently in a project folder (we installed globally by using `-g`). That's OK!
 
-#### Resources
+#### :books: Resources
 - [SPFx Gulp instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-gulp)
 - [NPM Install](https://docs.npmjs.com/cli/v9/commands/npm-install)
 
-## Exercise 5: Install Yeoman
+## :rocket: Exercise 5: Install Yeoman
 
 [Yeoman](https://yeoman.io/) helps you kick-start new projects, and prescribes best practices and tools to help you stay productive. We will use this for project scaffolding.
 
@@ -110,11 +110,11 @@ You can technically use any code editor or IDE that supports client-side develop
 1. If you see **Allo! What would you like to do?**, use your arrow keys to select **Get me out of here!** and hit <kbd>Enter</kbd>.
    ![Test Yeoman](assets/yoinstall.png)
 
-#### Resources
+#### :books: Resources
 - [SPFx Yeoman instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-yeoman)
 - [NPM Install](https://docs.npmjs.com/cli/v9/commands/npm-install)
 
-## Exercise 6: Install Yeoman SharePoint generator
+## :rocket: Exercise 6: Install Yeoman SharePoint generator
 
 The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code.
 
@@ -125,12 +125,12 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
    ![Testing the SPFx Yeoman generator](assets/yospfx.png)  
 4. Using your arrow keys, select **Get me out of here!**. We still have a few things to install to make sure you have all the best SPFx development tools at your disposal.
 
-#### Resources
+#### :books: Resources
 - [SPFx Yeoman Generator instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-yeoman-sharepoint-generator)
 - [Yeoman generator for the SharePoint Framework](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro)
 - [PnP SPFx Yeoman generator](https://pnp.github.io/generator-spfx/)
 
-## Exercise 7: Install TypeScript
+## :rocket: Exercise 7: Install TypeScript
 
 [TypeScript](https://www.typescriptlang.org/) is a strongly typed programming language that builds on JavaScript and is what SPFx uses.
 
@@ -142,11 +142,11 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
    ![Testing TypeScript](assets/tscinstall.png)
 
-#### Resources
+#### :books: Resources
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [TypeScript Cheat Sheets](https://www.typescriptlang.org/cheatsheets)
 
-## Exercise 8: Install CLI for Microsoft 365
+## :rocket: Exercise 8: Install CLI for Microsoft 365
 
 The [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365) is a command line interface for managing your Microsoft 365 tenant and SharePoint Framework projects on any platform.
 
@@ -155,11 +155,11 @@ The [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365) is a command
 1. If it doesn't scream at you, you are good!
    ![Testing M365CLI](assets/m365cliinstall.png)
 
-#### Resources
+#### :books: Resources
 - [Getting started with CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/#getting-started)
 - [NPM Install](https://docs.npmjs.com/cli/v9/commands/npm-install)
 
-## Exercise 9: Install essential Visual Studio Code extensions
+## :rocket: Exercise 9: Install essential Visual Studio Code extensions
 
 Visual Studio Code extensions are plugins for VS Code that provide extra functionality. None of these are required, but will certainly make your life easier!
 
@@ -177,10 +177,10 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
     - [**GitHub Copilot**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) - Subscription required!
     - Extra credit: [**Sharing is Caring**](https://marketplace.visualstudio.com/items?itemName=PnP-SharingisCaring.sharing-is-caring)
 
-#### Resources
+#### :books: Resources
 - [Extensions for Visual Studio Code](https://marketplace.visualstudio.com/VSCode)
 
-## Exercise 10: Experiments with TypeScript - Compilation
+## :rocket: Exercise 10: Experiments with TypeScript - Compilation
 
 One of the most important things to understand and one of the first things to come up when starting SPFx development is TypeScript. TypeScript builds on JavaScript by adding strong types and fancy syntax that reduces bugs and makes development easier (though it can seem like the opposite at first).
 
@@ -230,7 +230,7 @@ Understanding the relationship between TypeScript (what you type) and JavaScript
 
     ![Comparing TypeScript and JavaScript](assets/hellojs.png)  
 
-## Exercise 11: Experiments with TypeScript - tsconfig.json
+## :rocket: Exercise 11: Experiments with TypeScript - tsconfig.json
 
 In the exercise above, we were relying on the TypeScript compiler's default behavior to compile your TypeScript source code. You can modify the TypeScript compiler options by adding a `tsconfig.json` file that defines the TypeScript [project settings](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) such as the [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html) and the files that should be included.
 
@@ -273,13 +273,13 @@ In the exercise above, we were relying on the TypeScript compiler's default beha
 
    ![Build output](assets/buildoutput.png)
 
-#### Resources
+#### :books: Resources
 - [TypeScript TSConfig Reference](https://www.typescriptlang.org/tsconfig)
 - [TSConfig target](https://www.typescriptlang.org/tsconfig#target)
 - [TSConfig module](https://www.typescriptlang.org/tsconfig#module)
 - [TSConfig outDir](https://www.typescriptlang.org/tsconfig#outDir)
 
-## Exercise 12: Experiments in TypeScript - Error checking
+## :rocket: Exercise 12: Experiments in TypeScript - Error checking
 
 TypeScript helps you avoid common programming mistakes through strong type-checking.
 
@@ -303,11 +303,11 @@ TypeScript helps you avoid common programming mistakes through strong type-check
 
 3. Undo your changes. We'll have plenty of opportunities to create real bugs later.
 
-#### Resources
+#### :books: Resources
 - [TypeScript Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 - [TypeScript Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html)
 
-## Exercise 13: Create your own Dev Tenant
+## :rocket: Exercise 13: Create your own Dev Tenant
 
 Working in production is generally not a good idea. Besides, you're rarely going to be a global admin in your primary tenant. This can make trying out features, creating app registrations, provisioning assets, etc. challenging or plain impossible.
 
@@ -319,10 +319,10 @@ If you don't already have one, Go to http://aka.ms/m365devprogram and follow the
 
 Follow the steps to create your tenant. We'll use the tenant in later labs.
 
-#### Resources
+#### :books: Resources
 - [Microsoft 365 Developer Program](http://aka.ms/m365devprogram)
 
-## Exercise 14: Using browser profiles
+## :rocket: Exercise 14: Using browser profiles
 
 > This exercise is optional, but will help dealing with authentication issues when switching between your work Microsoft 365 tenant and your dev tenant. Plus, if you don't follow these steps, we can't be friends anymore.
 
@@ -371,6 +371,12 @@ These instructions are for Microsoft Edge. You can also use **User profiles** in
 
 **For the rest of this workshop, we will use your developer tenant profile.**
 
+#### :books: Resources
+- [Sign in and create multiple profiles in Microsoft Edge](https://support.microsoft.com/topic/sign-in-and-create-multiple-profiles-in-microsoft-edge-df94e622-2061-49ae-ad1d-6f0e43ce6435)
+- [Use Chrome with multiple profiles](https://support.google.com/chrome/answer/2364824)
+- [Profile Manager - Create, remove or switch Firefox profiles](https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles)
+
+## :tada: All Done!
 ![Great Job!](assets/GreatJob.jpg)
 
 In our next lab, we'll apply everything we've done so far to create a web part! Aw yeah!!
