@@ -11,7 +11,7 @@ Before you package your app, you should probably test your web part outside of t
 Thankfully, you can debug web parts in regular SharePoint pages by following these instructions:
 
 1. Using the terminal in VSCode, run `gulp serve --nobrowser` as usual
-1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string: **, followed by a querystring
+1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string:**, followed by a querystring
 1. Copy the query string provided 
    ![Use this query string](assets/debuginprod.png)
 1. Using your dev tenant, go to a SharePoint page (in the same site as your workbench, so you don't have to deploy the Powers list)
