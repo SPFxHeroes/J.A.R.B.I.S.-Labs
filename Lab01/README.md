@@ -12,6 +12,7 @@ Welcome to your first lab! This lab is all about getting your development enviro
 |:rocket:|Exercise|
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
+|:bulb:|Hot tip!|
 |:books:|Resources|
 
 </details>
@@ -61,9 +62,9 @@ This step will configure your workstation as a development workstation by config
 
 ## :rocket: Exercise 2: Install Node.js
 
-> Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 16.1** which uses **LTS Node.js v16**
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 16.1** which uses **LTS Node.js v16**
 
-> Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
+> :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
 
 1. Using your browser, go to https://nodejs.org/dist/latest-v16.x
 1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
@@ -72,7 +73,7 @@ This step will configure your workstation as a development workstation by config
 
 1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
-> The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
+> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
 
 #### :books: Resources
 - [SPFx Node.js instructions](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
@@ -235,7 +236,7 @@ Understanding the relationship between TypeScript (what you type) and JavaScript
 
    This will compile your typescript file _(.ts)_ and create a new `hellotypescript.js` JavaScript file _(.js)_ which you can see in the explorer pane.
 1. Type `node hellotypescript.js` to run your newly created file. You should then see `Hello TypeScript` output in the terminal. Magic! 
-   > If nothing happens, make sure you saved your .ts file before running the `tsc` command
+   > :bulb: If nothing happens, make sure you saved your .ts file before running the `tsc` command
 1. If you open `hellotypescript.js`, you'll see that it doesn't look very different from `hellotypescript.ts`. The type information has been removed and `let` is now `var`.
 
     ```javascript
@@ -249,7 +250,7 @@ Understanding the relationship between TypeScript (what you type) and JavaScript
 
 In the exercise above, we were relying on the TypeScript compiler's default behavior to compile your TypeScript source code. You can modify the TypeScript compiler options by adding a `tsconfig.json` file that defines the TypeScript [project settings](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) such as the [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html) and the files that should be included.
 
-> Projects scaffolded for SPFx (using Yeoman) will automatically have a tsconfig and it isn't often (if at all) that you'll need to edit it, but it's good to understand how it's used by the compiler should you need to tweak things later
+> :bulb: Projects scaffolded for SPFx (using Yeoman) will automatically have a tsconfig and it isn't often (if at all) that you'll need to edit it, but it's good to understand how it's used by the compiler should you need to tweak things later
 
 **Important**: To use `tsconfig.json` for the rest of this tutorial, invoke `tsc` without specifying input files. The TypeScript compiler will know to look at your `tsconfig.json` for project settings and compiler options.
 
@@ -339,7 +340,7 @@ Follow the steps to create your tenant. We'll use the tenant in later labs.
 
 ## :rocket: Exercise 14: Using browser profiles
 
-> This exercise is optional, but will help dealing with authentication issues when switching between your work Microsoft 365 tenant and your dev tenant. Plus, if you don't follow these steps, we can't be friends anymore.
+> :bulb: This exercise is optional, but will help dealing with authentication issues when switching between your work Microsoft 365 tenant and your dev tenant. Plus, if you don't follow these steps, we can't be friends anymore.
 
 Browser profiles allow you to create a different instance of your browser, using different credentials, bookmarks, favorites, history, etc. This means you don't have to login repeatedly (as much) or accidentally end up logged into the wrong tenant while testing and pull out all your hair (see David and Hugo for relevant examples).
 
