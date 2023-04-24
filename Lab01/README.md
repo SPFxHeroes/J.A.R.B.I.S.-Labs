@@ -5,12 +5,24 @@ Welcome to your first lab! This lab is all about getting your development enviro
 > Even if you already have your development environment setup, please review each step as there are some extra items specific to the rest of the labs!
 
 <details>
-<summary>Exercises</summary>
+<summary><b>Legend</b></summary>
+
+|Icon|Meaning|
+|---|---|
+|:rocket:|Exercise|
+|:apple:|Mac specific instructions|
+|:shield:|Admin mode required|
+|:books:|Resources|
+
+</details>
+
+<details>
+<summary><b>Exercises</b></summary>
 
   1. [Configure your Windows workstation for development](#rocket-exercise-1-configure-your-windows-workstation-for-development)
   1. [Install Node.js](#rocket-exercise-2-install-nodejs)
   1. [Install VS Code](#rocket-exercise-3-install-vs-code)
-  1. [Install the Gulp CLI](#rocket-exercise-4-install-the-gulp-cli)
+  1. [Install the Gulp CLI](#rocket-exercise-4--install-the-gulp-cli)
   1. [Install Yeoman](#rocket-exercise-5-install-yeoman)
   1. [Install Yeoman SharePoint Generator](#rocket-exercise-6-install-yeoman-sharepoint-generator)
   1. [Install TypeScript](#rocket-exercise-7-install-typescript)
@@ -27,19 +39,19 @@ Welcome to your first lab! This lab is all about getting your development enviro
 
 This step will configure your workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-> The instructions assume the use of a Windows machine. However, this is not required for SPFx development. You can skip this excercise if using a Mac. In later exercises, steps for Mac users are called out when they differ.
+> The instructions assume the use of a Windows machine. However, this is not required for SPFx development. You can skip this excercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
 
 1. From your Windows machine, use the **Start menu** and search for **Use developer features**
 1. On the **Privacy & Security > For developers** page, under **Developer Mode**, look for **Install apps from any source, including loose files**:
 
     ![Developer mode setting in Windows 11](assets/devmodewin11.png)
 
-1. If the setting is not already **on**, toggle the setting to **on**. If prompted, choose **Yes** in the confirmation dialog:
+1. :shield: If the setting is not already **on**, toggle the setting to **on**. If prompted, choose **Yes** in the confirmation dialog:
 
     ![Developer Mode Prompt](assets/devmodeprompt.png)
 
 1. Scroll to the **PowerShell** section
-1. Under **Change execution policy to allow local PowerShell scripts to run without signing...**, select **Apply**:
+1. :shield: Under **Change execution policy to allow local PowerShell scripts to run without signing...**, select **Apply**:
 
     ![Powershell Execution Policy](assets/powershellexecutionpolicy.png)
 
@@ -51,20 +63,22 @@ This step will configure your workstation as a development workstation by config
 
 > Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 16.1** which uses **LTS Node.js v16**
 
+> Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
+
 1. Using your browser, go to https://nodejs.org/dist/latest-v16.x
-1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac, use the **.pkg** version:
+1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
-1. Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
+1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
 > The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
 
 #### :books: Resources
 - [SPFx Node.js instructions](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 - [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
-- [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
-- [NVM for Windows](https://github.com/coreybutler/nvm-windows)
+- :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
+- :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
 - [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 
 ## :rocket: Exercise 3: Install VS Code
@@ -83,7 +97,7 @@ You can technically use any code editor or IDE that supports client-side develop
 [Gulp](https://gulpjs.com) is a JavaScript-based task runner used to automate repetitive tasks. The SharePoint Framework build toolchain uses Gulp tasks to build projects, create JavaScript bundles, and the resulting packages used to deploy solutions.
 
 1. From a command prompt, enter the following command to install the Gulp CLI: `npm install gulp-cli -g`, followed by <kbd>Enter</kbd>.
-    > Note: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g`
+    > Note: :apple: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g`
 1. This might take a little bit of time. Now is a good time to stretch your legs. Feel free to stand up and dance!
 1. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
 
@@ -220,7 +234,8 @@ Understanding the relationship between TypeScript (what you type) and JavaScript
    ![tsc hellotypescript.ts](assets/tschellotypescript.png)
 
    This will compile your typescript file _(.ts)_ and create a new `hellotypescript.js` JavaScript file _(.js)_ which you can see in the explorer pane.
-1. Type `node hellotypescript.js` to run your newly created file. You should then see `Hello TypeScript` output in the terminal. Magic!
+1. Type `node hellotypescript.js` to run your newly created file. You should then see `Hello TypeScript` output in the terminal. Magic! 
+   > If nothing happens, make sure you saved your .ts file before running the `tsc` command
 1. If you open `hellotypescript.js`, you'll see that it doesn't look very different from `hellotypescript.ts`. The type information has been removed and `let` is now `var`.
 
     ```javascript
