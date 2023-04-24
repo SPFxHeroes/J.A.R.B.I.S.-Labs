@@ -198,9 +198,10 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
 
 ## :rocket: Exercise 5: Update the manifest
 
-Generic icons are not cool! Nor are generic descriptions. In this exercise, we'll update web part manifest, which is used to control the various web part attributes like the title, description, icon, and much more.
+Generic icons are not cool! Nor are generic descriptions. In this exercise, we'll update the web part manifest, which is used to control the various web part attributes like the title, description, icon, and much more.
 
 > :warning: ALWAYS DO THIS. You can change the info later should you need to, but get something in there from the beginning. There are far too many web parts out there with the generic icon and it makes Vesa cry himself to sleep. Why you wanna make Vesa cry?!?
+![Sad Vesa cry cry](assets/VesaSad.png)
 
 1. In Visual Studio Code, open the **JarbisWebPart.manifest.json** (located under **src\webparts\jarbis**)
 
@@ -208,11 +209,11 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 
 1. Look for the `officeFabricIconFontName` and replace the `Page` value to `Robot`
 
-   > There are actually 2,000+ icons out there and you can use whatever one you want. You can find additional icons at https://flicon.io
+   > :bulb: There are actually 2,000+ icons out there and you can use whatever one you want. You can find additional icons at https://flicon.io
 
    ![Changing the robot](assets/updateicon.png)
 
-   > The Fluent UI icons are what you'll probably use most of the time, SPFx does allow you to specify your own images as either an external URL (no thanks) or as a base-64 encoded image (choose this)
+   > :bulb: The Fluent UI icons are what you'll probably use most of the time, SPFx does allow you to specify your own images as either an external URL (no thanks) or as a base-64 encoded image (choose this)
 
 1. Change the `description` to `Just A Rather Basic Instructional Solution`
 
@@ -227,7 +228,7 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 1. If you closed the terminal before, launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd>.
    > You can also go to the Terminal menu and choose New Terminal
 
-1. If you stopped serving the web part before, type `gulp serve --nobrowser` in the terminal.
+1. If you didn't stop serving the web part before, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to do so. Then type `gulp serve --nobrowser` in the terminal.
 
 1. Back in the browser, click Discard in the upper left to reset the workbench. Refresh the page.
 
@@ -239,3 +240,11 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 - [Flicon](https://flicon.io)
 - [SPFx Configure web part icon](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/configure-web-part-icon)
 - [Example of using animated Christopher Walken with Googly Eyes](https://thechriskent.com/2017/06/01/setting-your-spfx-webpart-icon/)
+
+
+## :tada: All Done!
+![Great Job!](assets/GreatJob.png)
+
+In our next lab, we'll take a look at how styling is done in SPFx and make our stuff a little prettier!
+
+# [Previous](../Lab01/README.md) | [Next](../Lab03/README.md)
