@@ -5,7 +5,20 @@ For our second lab, we'll utilize the tooling we made you install and we'll begi
 For now, we're going to look at how to scaffold a basic web part and do some quick tweaks (while taking care of a couple minor final configurations along the way).
 
 <details>
-<summary>Exercises</summary>
+<summary><b>Legend</b></summary>
+
+|Icon|Meaning|
+|---|---|
+|:rocket:|Exercise|
+|:apple:|Mac specific instructions|
+|:shield:|Admin mode required|
+|:bulb:|Hot tip!|
+|:books:|Resources|
+
+</details>
+
+<details>
+<summary><b>Exercises</b></summary>
 
   1. [Scaffold your web part](#rocket-exercise-1-scaffold-your-web-part)
   1. [Attempt to load your web part](#rocket-exercise-2-attempt-to-load-your-web-part)
@@ -33,7 +46,7 @@ We've gotten everything installed and we're ready to start working on something!
 
 1. When prompted for a solution name, leave the default (**jarbis**), followed by <kbd>Enter</kbd>
    ![Starting Yeoman](assets/yofirstrun.png)  
-   > :warning: Verify the SPFx Yeoman Generator version number matches 1.16.1 as shown above (in the super legible dark blue on black text). If it doesn't, or you get an error like "yo not found" then a step was missed in the last lab. Either check your work or reach out for help.
+   > :warning: Verify the SPFx Yeoman Generator version number matches 1.17.1 as shown above (in the super legible dark blue on black text). If it doesn't, or you get an error like "yo not found" then a step was missed in the last lab. Either check your work or reach out for help.
 
 1. When prompted what type of client you'd like to build, select **WebPart**:
    ![Choose web part](assets/generatorcomponenttype.png)
@@ -123,10 +136,12 @@ Trusting the developer certificate is required. This is a one-time process and i
    > `gulp serve` looks at  your **config/serve.json** and launches your default browser to the URL found in `initialPage`.
    >
    > ```json
-   > "initialPage": "https://enter-your-SharePoint-site/_layouts/workbench.aspx"
+   > "initialPage": "https://{tenantDomain}/_layouts/workbench.aspx"
    > ```
    >
-   > You're welcome to update your dev tenant URL where it says `enter-your-SharePoint-site`, but if you're using different credentials (or a different browser profile) for your dev tenant, you'll almost invariably get an "Access denied" error, which will cause you to have to close the browser/tab every time.
+   > You're welcome to update your dev tenant URL where it says `{tenantDomain}`, but if you're using different credentials (or a different browser profile) for your dev tenant, you'll almost invariably get an "Access denied" error, which will cause you to have to close the browser/tab every time.
+   >
+   > Alternatively, you can configure the [SPFX_SERVE_TENANT_DOMAIN OS environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.17#ability-to-use-spfx_serve_tenant_domain-os-environment-variable-for-serve-configurations) as part of your setup to have the `{tenantDomain}` always resolve but that's outside the scope of this lab.
    >
    > By using `gulp serve --nobrowser`, you can connect to an existing browser/tab instance without launching a new session every single time.
    >
@@ -155,6 +170,7 @@ Wait for a message saying `Finished subtask 'reload'`:
 
 #### :books: Resources
 - [SPFx developer certificate instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#trusting-the-self-signed-developer-certificate)
+- [tenantDomain OS Environment Variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.17#ability-to-use-spfx_serve_tenant_domain-os-environment-variable-for-serve-configurations)
 
 
 ## :rocket: Exercise 4: Customize the web part

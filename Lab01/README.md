@@ -2,7 +2,7 @@
 
 Welcome to your first lab! This lab is all about getting your development environment ready, adding some extra tools that will make your life easier, briefly introducing key TypeScript concepts, and setting up a tenant and your browser to keep things organized.
 
-> Even if you already have your development environment setup, please review each step as there are some extra items specific to the rest of the labs!
+> :bulb: Even if you already have your development environment setup, please review each step as there are some extra items specific to the rest of the labs!
 
 <details>
 <summary><b>Legend</b></summary>
@@ -62,7 +62,7 @@ This step will configure your workstation as a development workstation by config
 
 ## :rocket: Exercise 2: Install Node.js
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 16.1** which uses **LTS Node.js v16**
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 17.1** which uses **LTS Node.js v16**
 
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
 
@@ -76,7 +76,7 @@ Node.js maintains two different releases at all times: LTS & Current version. SP
 > :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
 
 #### :books: Resources
-- [SPFx Node.js instructions](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
+- [SPFx Node.js instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
 - [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
@@ -396,3 +396,5 @@ These instructions are for Microsoft Edge. You can also use **User profiles** in
 ![Great Job!](assets/GreatJob.jpg)
 
 In our next lab, we'll apply everything we've done so far to create a web part! Aw yeah!!
+
+# [Next](../Lab02/README.md)
