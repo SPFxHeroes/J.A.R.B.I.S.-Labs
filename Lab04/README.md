@@ -226,8 +226,8 @@ Having the colors be inline and setable in code will make more sense once we sta
         font-size: 48px;
         -webkit-text-stroke: "[theme:neutralPrimary, default: #333333]" 1.4px;
         position: absolute;
-        top: 21px;
-        left: 21px;
+        top: 24px;
+        left: 24px;
       }
     }
     ```
