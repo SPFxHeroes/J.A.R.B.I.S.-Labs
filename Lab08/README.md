@@ -665,8 +665,8 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-If you're up to it, there is also a [bonus lab](BONUS.md) to make that list a lot prettier! It's in no way necessary, but it sure is fun!
+If you're up to it, there is also a [bonus lab](BONUS.md) to make that list a lot prettier! It's in no way necessary, but it sure is fun! It also only takes 5-10 minutes and can be completed at any time.
 
 In our next lab, we'll wire up the web part to read list items from the list!
 
-# [Previous](../Lab07/README.md) | [Next](../Lab09/README.md)
+# [Previous](../Lab07/README.md) | [Bonus Lab](BONUS.md) | [Next](../Lab09/README.md)
