@@ -85,7 +85,7 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
 1. In the **JarbisWebPart.ts**, add the following function below the `render` method:
 
    ```TypeScript
-    public onGenerateHero = (event: MouseEvent): void => {
+    private onGenerateHero = (event: MouseEvent): void => {
         console.log('Generating!');
     }
    ```
