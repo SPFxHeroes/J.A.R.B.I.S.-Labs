@@ -2,7 +2,7 @@
 
 You may have noticed that, throughout our code, we have some hard-coded text values; while it may be acceptable to hard-code text literals in your code when building a test application, we strongly recommend avoiding doing so for production solutions -- even if you're not planning to support multiple languages.
 
-Imagine this scenario: you have been working on a web part solution for weeks (months); it has been reviewed by stakeholders, tested, and thoroughly reviewed by everyone. The day before deploying your web part, some _genius_ finds a typo in the company name -- something that can't be ignored -- and the name is used throughout the application.
+Imagine this scenario: you have been working on a web part solution for weeks (or maybe months); it has been reviewed by stakeholders, tested, and thoroughly reviewed by everyone. The day before deploying your web part, some _genius_ finds a typo in the company name -- something that can't be ignored -- and the name is used throughout the application.
 
 "Easy", you may think, "I'll just search and replace the company name throughout". But changing _any_ code in an application invalidates any testing that was done, and introduces chances for new bugs -- the last thing to do when you want something to be stable is to change it (that's why Hugo always annoyingly says "Don't shake the jell-o!").
 
@@ -12,112 +12,178 @@ And when another _genius_ stakeholder announces "Good news, we're expanding to t
 
 Let's go add support for [insert foreign language here]!
 
-## Exercise 1
+<details>
+<summary><b>Legend</b></summary>
 
-Let's start by cleaning up all the location code that was generated when we scaffolded the web part.
+|Icon|Meaning|
+|---|---|
+|:rocket:|Exercise|
+|:apple:|Mac specific instructions|
+|:shield:|Admin mode required|
+|:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
+|:books:|Resources|
 
-1. In VSCode, look for the **loc** folder under the **webparts\jarbis** folder.
-1. Open the **en-us.js** file
-1. Notice all the string literals (e.g. "Group Name", "Description Field", etc.)
-1. Select `PropertyPaneDescription` and hit <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>F</kbd> to find the selected keyword in all files.
-1. You should find a few instances of it across multiple files
+</details>
 
-   ![Find in files](assets/findinfiles.png)
+<details>
+<summary><b>Exercises</b></summary>
 
-1. The search results seem to be including items from the **dist** and **lib** folders, which are interim folders used for building and packaging the web part. Let's exclude results from such folders by selecting the **...** just below the search box.
+  1. [Understanding localization in SPFx](#rocket-exercise-1-understanding-localization-in-spfx)
+  1. [Localizing our strings](#rocket-exercise-2-localizing-our-strings)
+  1. [Use the SPFx Localization extension](#rocket-exercise-3-use-the-spfx-localization-extension)
+  1. [Localizing entire sentences](#rocket-exercise-4-localizing-entire-sentences)
+  1. [Testing localizations](#rocket-exercise-5-testing-localizations)
+  1. [Utilizing psuedolocales](#rocket-exercise-6-utilizing-pseudolocales)
+</details>
 
-   ![The search options](assets/searchoptions.png)  
-1. Under **files to exclude**, type `dist/**, lib/**`; the search results should immediately exclude anything (`**`) below the **dist** and **lib** folders. There should only be 2 matching results.
+<details>
+<summary><b>Starter Code</b></summary>
 
-   > **Pro tip:**
-   > 
-   > My default **files to exclude** filter when working with SPFx solutions is `dist/**, lib/**, release/**, temp/**, node_modules/**`
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 12 Starter](https://github.com/SPFxHeroes/J.A.R.B.I.S./tree/Start-of-Lab-12) branch.
 
-   ![Refined results](assets/refined.png)
-1. Based on the search results, the `PropertyPaneDescription` literal isn't in use. Remove it from  the **en-us.js** by removing the line that says `"PropertyPaneDescription": "Description",`
-1. In **mystrings.d.ts**, remove the line that declares `PropertyPaneDescription: string;` from the `IJarbisWebPartStrings` interface.
-   > You may have noticed that here we use `.js` and `.d.ts` files, unlike the rest of the web part code, which seems to favor `.ts` code. `
+</details>
+
+## :rocket: Exercise 1: Understanding localization in SPFx
+
+Each component you add to an SPFx solution will also have a **loc** folder added. Inside that folder is a **mystrings.d.ts** file and a default localized strings file for US English called **en-us.js**.
+
+   > :bulb: You may have noticed that here we use `.js` and `.d.ts` files, unlike the rest of the web part code, which seems to favor `.ts` code. `
    >
    > `.d.ts` files are _declaration_ files; they help create libraries with no types to be used by TypeScript and JavaScript code.
    >
    > At runtime, the SharePoint framework will detect the user's preferred browser locale and try to find and load a matching `.js` file. Since browsers don't understand `.ts` files (at least, not yet), we need the localization files like **en-us.js** to be in JavaScript, but we also need our TypeScript code to understand it as we're writing our code -- hence the use of a  **mystrings.d.ts** declaration file
 
-1. Repeat the previous steps with `BasicGroupName`, `DescriptionFieldLabel`, `AppLocalEnvironmentSharePoint`, `AppLocalEnvironmentTeams`, `AppSharePointEnvironment`, and `AppTeamsTabEnvironment`, until the ``IJarbisWebPartStrings` and **en-us.js** no longer have unused literals.
-1. In **mystrings.d.ts**, add a new string property called `GenerateButtonLabel` to the `IJarbisWebPartStrings` interface. The full content of the **mystrings.d.ts** should look as follows:
+Generally, you'll have one set of localized strings per component, though it is possible to break these up into multiple files each with their own set of localized values by configuring them in your **config** > **config.json** file under `localizedResources`. This is an advanced scenario and unlikely to come up much if at all.
 
-   ```typescript
+At the risk of oversimplifying, here's how it works:
+
+- Every string you show to the end user should have an entry in ALL files in the **loc** folder
+- You add the name of the string to the interface in **mystrings.d.ts** and this makes your web part code aware of it so you can easily use it
+- You add the English value of the string using the name used above as the key in **en-us.js**
+- Add any additional locales you want to support by naming them **[locale].js** and ensuring they have all the same values
+- SharePoint will automatically load the correct locale.js file along with your web part's bundle and will use the correct values for your text
+
+#### :books: Resources
+- [Localize web parts](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts)
+
+
+## :rocket: Exercise 2: Localizing our strings
+
+Fortunately, we don't have many strings so going back and localizing our web part won't be too hard. However, this is the kind of thing that can get tough if you wait on it.
+
+We recommend using string literals during the early stages of development where you're just trying to get some of the design nailed down. But you should be regularly testing with pseudolocales (more on that soon) and building in the wiring for localization (even if the localized values will come much later and be provided by someone else) as you progress.
+
+1. Open **mystrings.d.ts** in the **loc** folder within your web part's directory
+
+1. This is just an interface that describes what strings are available. The second part is the export code and we wont need to touch it.
+
+1. We're no longer using any of these (they came from the sample code SPFx generated), so let's remove those and add a value for our generate button's label. Make your **mystrings.d.ts** file look like this:
+   ```TypeScript
    declare interface IJarbisWebPartStrings {
-        /**
-        * The label for the generate button
-        */
-        GenerateButtonLabel: string;
-    }
+     /**
+      * The label for the generate button
+      */
+     GenerateButtonLabel: string;
+   }
     
-    declare module 'JarbisWebPartStrings' {
-      const strings: IJarbisWebPartStrings;
-      export = strings;
-    }
-    ```
-
-1. In **en-us.js**, add a `GenerateButtonLabel` return value, and make it equal to the text `Generate`. The whole content of **en-us.js** should look like this:
-
-   ```JavaScript
-   define([], function() {
-      return {
-        GenerateButtonLabel: "Generate",
-      }
-    });
+   declare module 'JarbisWebPartStrings' {
+     const strings: IJarbisWebPartStrings;
+     export = strings;
+   }
    ```
 
-1. Back in **JarbisWebPart.ts**, find the word `Generate` in the `render` method and replace it for `${strings.GenerateButtonLabel}`
+1. Now let's open **en-us.js**. You'll see those same keys from before with English values for them. We can remove all of these and instead add a value using the same key we used above. Your **en-us.js** file should look like this"
+   ```JavaScript
+   define([], function() {
+     return {
+       GenerateButtonLabel: "Generate",
+     }
+   });
+   ```
 
-   > Did you notice the extra benefit of using strongly-typed string literals (because of the declaration file)? You don't have to worry about bugs due to typos in your code, because as soon as you start typing `${strings.` in VSCode, it will automatically suggest `GenerateButtonLabel` as the only possible choice.
+1. We've got the initial plumbing for this value in place, now let's go utilize in our code! Back in **JarbisWebPart.ts** we prevously commented out our strings import. Let's uncomment that now so that it looks like this:
+   ```TypeScript
+   import * as strings from 'JarbisWebPartStrings';
+   ```
 
-## Exercise 2
+1. Head down to the **render** method and update the line:
+   ```TypeScript
+   const generateButton = `<button class=${styles.generateButton}>Generate</button>`;
+   ```
 
-1. Find the `Powers` literal in the `getPropertyPaneConfiguration` method and repeat the previous steps to create a new string resource called `ShowPowersFieldLabel`.
+   To this:
+   ```TypeScript
+   const generateButton = `<button class=${styles.generateButton}>${strings.GenerateButtonLabel}</button>`;
+   ```
 
-   > There is a faster way to do this!
-   > 
-   > If you installed the VSCode extensions we recommended at the start of this course, you already have an extension ([SPFx Localization](https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-spfx-localization), by Elio Struyf) that automatically creates the localization key and insert it in your code for you.
-   >
-   > Select the word `"Powers"` (quotes included) then use the VSCode command palette (<kbd>F1</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd>), and type **SPFx create and insert localization key for selected text**.
-   >
-   > ![Command palette](assets/commandpalette.png)
-   >
-   > When prompted the **Specify the key to create**, type `ShowPowersFieldLabel`
-   >
-   > ![Specify the key to create](assets/showpowersfieldlabel.png)
-   >
-   > When prompted to **surround the localized key with curly brackets**, select **no**
-   >
-   > ![Select no](assets/showcurlybrackets.png)  
+   > :bulb: Did you notice the extra benefit of using strongly-typed string literals (because of the declaration file)? You don't have to worry about bugs due to typos in your code, because as soon as you start typing `${strings.` in VSCode, it will automatically suggest `GenerateButtonLabel` as the only possible choice.
 
-1. Repeat the previous steps to replace the word `"Visible"` for `ShowPowersToggleOnText` and the word `"Hidden"` for `ShowPowersToggleOffText`. The final `getPropertyPaneConfiguration` method should look like this:
+1. This isn't our only string literal we need to take care of. Head down to the **getPropertyPaneConfiguration** method and you'll see that we're currently using 3 literal values for our show powers toggle (`label`, `onText`, and `offText`). You can repeat the steps above for each of these or you can use one of the VSCode extensions we recommended in lab 1 to make this far less tedious!
 
-   ```typescript
-      protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-        return {
-          pages: [
+#### :books: Resources
+- [Localize web part contents](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#localize-web-part-contents)
+
+## :rocket: Exercise 3: Use the SPFx Localization extension
+
+If you installed the VSCode extensions we recommended at the start of this course, you already have an extension ([SPFx Localization](https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-spfx-localization), by Elio Struyf) that automatically creates the localization key and insert it in your code for you.
+   > :bulb: It's not too late! If you didn't install it then, why not install it now?
+
+1. In the **getPropertyPaneConfiguration** method within the **JarbisWebPart.ts** file, slect the word `"Powers"` (quotes included) then use the VSCode command palette (<kbd>F1</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd>), and type **SPFx create and insert localization key for selected text**:
+   ![Command palette](assets/commandpalette.png)
+   
+   When prompted to **Specify the key to create**, type `ShowPowersFieldLabel`
+   
+   ![Specify the key to create](assets/showpowersfieldlabel.png)
+   
+   When prompted to **surround the localized key with curly brackets**, select **no**
+   
+   ![Select no](assets/showcurlybrackets.png)  
+
+1. Repeat the previous steps to replace the word `"Visible"` using the key `ShowPowersToggleOnText` and the word `"Hidden"` using the key `ShowPowersToggleOffText`. The final `getPropertyPaneConfiguration` method should look like this:
+
+   ```TypeScript
+   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+    return {
+      pages: [
+        {
+          groups: [
             {
-              groups: [
-                {
-                  groupFields: [
-                    PropertyPaneToggle('powersVisible', {
-                      label: strings.ShowPowersFieldLabel,
-                      onText: strings.ShowPowersToggleOnText,
-                      offText: strings.ShowPowersToggleOffText
-                    })
-                  ]
-                }
+              groupFields: [
+                PropertyPaneToggle('powersVisible', {
+                  label: strings.ShowPowersFieldLabel,
+                  onText: strings.ShowPowersToggleOnText,
+                  offText: strings.ShowPowersToggleOffText
+                })
               ]
             }
           ]
-        };
-      }
+        }
+      ]
+    };
+   }
    ```
 
-    The content of **mystrings.d.ts** should look like this:
+1. If you check **en-us.js** you'll see our key's and the values we were previously using have been added for us!
+   > :bulb: If the formatting looks off, right-click in the editor and choose **Format Document**
+
+  The content of **en-us.js** should look like this:
+
+    ```TypeScript
+    define([], function () {
+      return {
+        GenerateButtonLabel: "Generate",
+        ShowPowersFieldLabel: "Powers",
+        ShowPowersToggleOffText: "Hidden",
+        ShowPowersToggleOnText: "Visible",
+      }
+    });
+    ```
+
+1. Similarly, when you open **mystrings.d.ts** you'll see the keys added as expected.
+
+    The content of **mystrings.d.ts** should look like this (we added the JSDoc comments manually):
 
     ```typescript
     declare interface IJarbisWebPartStrings {
@@ -149,20 +215,10 @@ Let's start by cleaning up all the location code that was generated when we scaf
     }
     ```
 
-    And the content of **en-us.js** should look like this:
+#### :books: Resources
+- [SPFx Localization VSCode extension](https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-spfx-localization)
 
-    ```typescript
-    define([], function () {
-      return {
-        GenerateButtonLabel: "Generate",
-        ShowPowersFieldLabel: "Powers",
-        ShowPowersToggleOffText: "Hidden",
-        ShowPowersToggleOnText: "Visible",
-      }
-    });
-    ```
-
-## Exercise 3
+## :rocket: Exercise 4: Localizing entire sentences
 
 Sometimes, you need to create localizable sentences -- not just words -- which may require the order of the words to be different in different languages.
 
@@ -188,11 +244,11 @@ Let's replace the hero description to use a localized sentence!
 
 1. In **mystrings.d.ts**, add a new `HeroDescription` string property:
 
-   ```typescript
-     /**
-       * The description for the hero (e.g. The Mighty Coder)
-       */
-      HeroDescription: string;
+   ```TypeScript
+   /**
+    * The description for the hero (e.g. The Mighty Coder)
+    */
+   HeroDescription: string;
    ```
 
 1. In **en-us.js**, add a `HeroDescription` literal value:
@@ -201,19 +257,57 @@ Let's replace the hero description to use a localized sentence!
    HeroDescription: "The {0}",
    ```
 
-1. In the `render` method, find `The ${escape(this.properties.name)}` and replace it with:
+1. In the `render` method in the **JarbisWebPart.ts** file, find `The ${escape(this.properties.name)}` and replace it with:
 
-    ```typescript
-    ${strings.HeroDescription.replace("{0}", escape(this.properties.name))}
-    ```
+   ```TypeScript
+   ${strings.HeroDescription.replace("{0}", escape(this.properties.name))}
+   ```
 
-    Which, at runtime will load the localized string literal and replace the `{0}` placeholder with the `name` property.
+   Which, at runtime will load the localized string literal and replace the `{0}` placeholder with the `name` property.
 
-> **Note**
->
-> In the real world, we would most likely retrieve localized data from the list rather than just retrieving English values... but we're not going to go into that in the scope of this workshop.
+   > :bulb: In the real world, we would most likely retrieve localized data from the list rather than just retrieving English values... but we're not going to go into that in the scope of this workshop.
 
-## Exercise 4
+> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small udates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> - you can also customize that shortcut to something less annoying)
+
+#### :books: Resources
+- [Vent your frustration](http://www.omglasergunspewpewpew.com/)
+
+## :rocket: Exercise 5: Testing localizations
+
+We've only got the one localization, but we can tell things are working because they look exactly the same meaning the English values are getting mapped correctly. But it sure would be easier to understand things if we had another localization and a way to test it.
+
+1. Just to anger Hugo, we're going to create a French localization using my cartoon level of understanding of the French language!
+   ![Le skunk](assets/pepelepew.jpg)
+
+1. Add a new file to the **loc** folder called **fr-fr.js**. Here's the contents we'll use:
+   ```TypeScript
+   define([], function () {
+     return {
+       GenerateButtonLabel: "Le Jenarate",
+       ShowPowersFieldLabel: "Le Powers",
+       ShowPowersToggleOffText: "Le no see",
+       ShowPowersToggleOnText: "Le see",
+       HeroDescription: "Le {0}, baguette",
+     }
+   });
+   ```
+   > :warning: If you find this offensive, then David wrote this
+
+1. To test a locale, we can add a `--locale` parameter to our gulp serve. Re-serve your project using this command:
+   ```bash
+   gulp serve --nobrowser --locale=fr-fr
+   ```
+
+   ![Definitely French!](assets/definitelyfrench.png)
+
+   Wow, that's definitely French!
+
+#### :books: Resources
+- [Locales](https://saimana.com/list-of-country-locale-code/)
+- [Learn French](https://www.duolingo.com/course/fr/en/Learn-French)
+
+
+## :rocket: Exercise 6: Utilizing pseudolocales
 
 Using localization when building web parts offers clear benefits but is also something that developers overlook easily. Often, translations to other locales are provided later in the project and it's difficult for testers to verify that all code properly supports the different locales.
 
@@ -221,7 +315,7 @@ The same words in different locales have different lengths. For example, the sam
 
 Some languages use special characters beyond the standard ASCII character set. If designers use a non-standard font, its possible that the font doesn't properly support some special characters.
 
-Finding out about all these issues late in the project will likely lead to delays and costly fixes. 
+Finding out about all these issues late in the project will likely lead to delays and costly fixes. This will make you cry.
 
 To avoid running into such issues, we recommend using a _pseudo-locale_. Pseudo-locales are locales designed to test software for proper support of the different aspects of the localization process, such as support for special characters, right-to-left languages, or accommodating longer strings in the user interface.
 
@@ -246,18 +340,24 @@ In this lab, we'll add a pseudo-locale, but you can use [any other locale](https
     });
    ```
 
-1. For extra fun, add another file called **fr-fr.js** and paste the following code:
-
-   ```javascript
-   
-   ```
-
-1. To test the web part in a different locale, add `--locale=` followed by the locale code. For our test, you'll type the following command in your terminal:
+1. Re-serve your solution using this command:
 
    ```bash
    gulp serve --nobrowser --locale=qps-ploc
    ```
 
-1. Try changing the `--locale` parameter to `fr-fr` and test the French version of the web part.
+  ![Psuedo locale](assets/pseudolocale.png)
 
-Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+   > :warning: Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+
+#### :books: Resources
+- [Pseudolocalize.com](http://www.pseudolocalize.com/)
+- [Pseudo Locales in SPFx](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#improve-globalizing-and-localizing-web-parts-by-using-pseudo-locales)
+
+
+## :tada: All Done!
+![Great Job!](assets/GreatJob.png)
+
+Our web part is basically complete. In our next lab we're going to get it deployed!
+
+# [Previous](../Lab11/README.md) | [Next](../Lab13/README.md)
