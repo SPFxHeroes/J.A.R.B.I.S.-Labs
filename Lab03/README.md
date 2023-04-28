@@ -11,6 +11,8 @@ Now it's time to talk about what we're actually drawing (HTML) and how it gets a
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>
@@ -116,7 +118,7 @@ Your web part should look something like this:
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.ts** file with the following:
 
 <details>
-<summary>JarbisWebPart.ts</summary>
+<summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
 import { Version } from '@microsoft/sp-core-library';
@@ -321,7 +323,7 @@ Although we wired up the classes into our rendered HTML, the classes themselves 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.module.scss** file with the following:
 
 <details>
-<summary>JarbisWebPart.module.scss</summary>
+<summary>:hedgehog: JarbisWebPart.module.scss</summary>
 
 ```SCSS
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';

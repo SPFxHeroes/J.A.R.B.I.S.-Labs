@@ -13,6 +13,8 @@ For now, we're going to look at how to scaffold a basic web part and do some qui
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>

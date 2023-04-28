@@ -17,6 +17,8 @@ To make retrieving data easier, we'll use [PnPjs](https://pnp.github.io/pnpjs/) 
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>
@@ -330,7 +332,7 @@ There's also no indicator to the end user that something is being loaded behind 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.ts** file with the following:
 
 <details>
-<summary>JarbisWebPart.ts</summary>
+<summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
 import { escape } from '@microsoft/sp-lodash-subset';

@@ -13,6 +13,8 @@ We'll also look at how to customize the property pane and some important conside
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>

@@ -13,6 +13,8 @@ Welcome to your first lab! This lab is all about getting your development enviro
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>

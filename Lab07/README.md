@@ -11,6 +11,8 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>
@@ -128,7 +130,7 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.ts** file with the following:
 
 <details>
-<summary>JarbisWebPart.ts</summary>
+<summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
 import { escape } from '@microsoft/sp-lodash-subset';

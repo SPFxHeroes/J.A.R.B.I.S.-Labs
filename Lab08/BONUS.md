@@ -15,6 +15,8 @@ So, yeah, this lab is optional. But at what cost?!? Plus, your list will be much
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>

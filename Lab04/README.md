@@ -9,6 +9,8 @@
 |:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
+|:hedgehog:|Code catch-up|
+|:warning:|Caution!|
 |:books:|Resources|
 
 </details>
@@ -261,7 +263,7 @@ Having the colors be inline and setable in code will make more sense once we sta
 If things don't look quite right, review the `render` code above and ensure your **JarbisWebPart.module.scss** file looks like this:
 
 <details>
-<summary>JarbisWebPart.module.scss</summary>
+<summary>:hedgehog: JarbisWebPart.module.scss</summary>
 
 ```SCSS
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
