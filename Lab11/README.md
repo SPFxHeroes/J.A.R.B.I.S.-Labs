@@ -370,7 +370,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     return "";
   }
 
-  private getIconClass(iconName: string): string {
+  private getIconClass(iconName: string): string | undefined {
     const iconKey: string = "icon" + iconName;
     if (this.hasKey(icons, iconKey)) {
       return icons[iconKey];

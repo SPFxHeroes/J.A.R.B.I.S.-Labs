@@ -66,7 +66,7 @@ This step will configure your workstation as a development workstation by config
 
 ## :rocket: Exercise 2: Install Node.js
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 17.1** which uses **LTS Node.js v16**
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 1.18.2** which uses **LTS Node.js v16** and **LTS Node.js v18**
 
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
 
@@ -237,10 +237,6 @@ These instructions are for Microsoft Edge. You can also use **User profiles** in
 1. Find the **Add profile** menu (it may be located under **Other profiles** )
 
    ![Add profile](assets/addprofile.png)
-
-1. When prompted to **Add a profile**, select **Add**
-
-   ![Add profile prompt](assets/addprofileprompt.png)
 
 1. In the **Welcome to Microsoft Edge** dialog, select **Sign in to sync data**
 

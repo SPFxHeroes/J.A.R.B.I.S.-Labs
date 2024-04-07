@@ -65,7 +65,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 
    > You should increment the version number any time you bundle and package your app and make changes; this will signal any sites where your app has been deployed that an update is available
 
-1. Change the `supportedLocales` property with the following values:
+1. Add above `metadata` and after `developer` or if exists, change the `supportedLocales` property with the following values:
 
     ```json
     "supportedLocales": [
@@ -178,7 +178,7 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
     >
     > Due to time constraints, we'll use cover the `SharePontWebPart` host in the workshop.
 
-1. The `preconfiguredEntries` section defines how the web part will appear in the **Add a web part** toolbox, and what default settings the web part should use when you add it to a page. Change the `groupId` to `f066440-0614-43d6-98ae-0b31cf14c7c3`.
+1. The `preconfiguredEntries` section defines how the web part will appear in the **Add a web part** toolbox, and what default settings the web part should use when you add it to a page. Change the `groupId` to `cf066440-0614-43d6-98ae-0b31cf14c7c3`.
    > The `groupId` will specify which group to list your web part in the **Add a web part** toolbox. You can use any one of the following values:
    >
    > Value | Group
