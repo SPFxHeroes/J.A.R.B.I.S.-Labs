@@ -158,7 +158,7 @@ Fortunately, TypeScript is smart enough that if we prove we did the type validat
 
 1. Still in **JarbisWebPart.ts** let's add these methods right below our `render` method:
 ```TypeScript
-  private getIconClass(iconName: string): any {
+  private getIconClass(iconName: string): string | undefined {
     const iconKey: string = "icon" + iconName;
     if(this.hasKey(icons, iconKey)) {
       return icons[iconKey];

@@ -48,7 +48,7 @@ We've gotten everything installed and we're ready to start working on something!
 
 1. When prompted for a solution name, leave the default (**jarbis**), followed by <kbd>Enter</kbd>
    ![Starting Yeoman](assets/yofirstrun.png)  
-   > :warning: Verify the SPFx Yeoman Generator version number matches 1.17.1 as shown above (in the super legible dark blue on black text). If it doesn't, or you get an error like "yo not found" then a step was missed in the last lab. Either check your work or reach out for help.
+   > :warning: Verify the SPFx Yeoman Generator version number matches 1.18.2 as shown above (in the super legible dark blue on black text). If it doesn't, or you get an error like "yo not found" then a step was missed in the last lab. Either check your work or reach out for help.
 
 1. When prompted what type of client you'd like to build, select **WebPart**:
    ![Choose web part](assets/generatorcomponenttype.png)
