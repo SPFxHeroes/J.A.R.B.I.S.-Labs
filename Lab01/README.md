@@ -31,9 +31,6 @@ Welcome to your first lab! This lab is all about getting your development enviro
   1. [Install TypeScript](#rocket-exercise-7-install-typescript)
   1. [Install CLI for Microsoft 365](#rocket-exercise-8-install-cli-for-microsoft-365)
   1. [Install Essential Visual Studio Code extensions](#rocket-exercise-9-install-essential-visual-studio-code-extensions)
-  1. [Experiments with TypeScript - Compilation](#rocket-exercise-10-experiments-with-typescript---compilation)
-  1. [Experiments with TypeScript - tsconfig.json](#rocket-exercise-11-experiments-with-typescript---tsconfigjson)
-  1. [Experiments with TypeScript - Error checking](#rocket-exercise-12-experiments-in-typescript---error-checking)
   1. [Create your own Dev tenant](#rocket-exercise-13-create-your-own-dev-tenant)
   1. [Using browser profiles](#rocket-exercise-14-using-browser-profiles)
 
