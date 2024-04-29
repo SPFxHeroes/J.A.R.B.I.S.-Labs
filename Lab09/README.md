@@ -188,7 +188,7 @@ We'll be demonstrating integrating packages from PnPjs (v3.x) but there are link
 1. Using the terminal, add the required PnPjs modules to your solution by typing the following command:
 
     ```bash
-    npm install @pnp/sp
+    npm install @pnp/sp@3.24.0
     ```
 
     > :warning: You will have to stop serving your web part in order to run `npm install`
