@@ -224,7 +224,6 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import "@pnp/sp/items/get-all";
 import { Caching } from "@pnp/queryable";
 
 export interface IJarbisWebPartProps {
@@ -302,7 +301,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     const sp = spfi().using(SPFx(this.context));
 
     // Get the list of powers from SharePoint using the name of the library specified in the property pane
-    this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching()).getAll();
+    this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching())();
 
     // Re-render the web part
     this.render();

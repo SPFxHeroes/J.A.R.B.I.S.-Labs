@@ -183,12 +183,12 @@ We do this through interfaces
 
 So far we've only been using either what SPFx gave us or what we've coded ourselves. What about external libraries? There are a few different ways to work with external libraries including installing them as packages, referencing them through CDNs, or even dynamically loading them on demand. Even within those there are differences based on the type of modules (or lack of modules) that they support.
 
-We'll be demonstrating integrating packages from PnPjs (v3.x) but there are links below to help you with other libraries (like jQuery).
+We'll be demonstrating integrating packages from PnPjs (v4.x) but there are links below to help you with other libraries (like jQuery).
 
 1. Using the terminal, add the required PnPjs modules to your solution by typing the following command:
 
     ```bash
-    npm install @pnp/sp@3.24.0
+    npm install @pnp/sp
     ```
 
     > :warning: You will have to stop serving your web part in order to run `npm install`
@@ -204,12 +204,11 @@ We'll be demonstrating integrating packages from PnPjs (v3.x) but there are link
     import '@pnp/sp/webs';
     import '@pnp/sp/lists';
     import '@pnp/sp/items';
-    import "@pnp/sp/items/get-all";
     ```
 
     > You may wonder why adding PnPjs requires adding so many imports. The answer is simple: PnPjs provides a _lot_ of functionality, but we don't need to use _every_ single feature provided by PnPjs - otherwise the codebase for your web part would be a lot bigger and could potentially make the SharePoint page where someone added your web part render slowly and appear sluggish and sad.
     >
-    > By importing _only_ the features we need (i.e. SharePoint, webs, lists, list items, and the `getAll` function), we help keep the web part code base as small as possible.
+    > By importing _only_ the features we need (i.e. SharePoint, webs, lists, list items), we help keep the web part code base as small as possible.
 
 1. After the `render` method, add the following method to retrieving the list of powers from SharePoint: 
 
@@ -224,7 +223,7 @@ We'll be demonstrating integrating packages from PnPjs (v3.x) but there are link
       const sp = spfi().using(SPFx(this.context));
 
       // Get the list of powers from SharePoint using the name of the library specified in the property pane
-      this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').getAll();
+      this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main')();
 
       console.log("Powers", this.powers);
     }
@@ -278,7 +277,7 @@ Time to implement caching! Fortunately, PnPjs makes is super easy!
 
    ```TypeScript
    // Get the list of powers from SharePoint using the name of the library specified in the property pane
-   this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching()).getAll();
+   this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching())();
    ```
 
 1. Refresh the web part. You may not immediately notice a difference, but the web part only queries the list _once_ -- unless there are changes or the cache has expired.
@@ -353,7 +352,6 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import "@pnp/sp/items/get-all";
 import { Caching } from "@pnp/queryable";
 
 export interface IJarbisWebPartProps {
@@ -425,7 +423,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     const sp = spfi().using(SPFx(this.context));
 
     // Get the list of powers from SharePoint using the name of the library specified in the property pane
-    this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching()).getAll();
+    this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching())();
 
     console.log("Powers", this.powers);
     // Re-render the web part
