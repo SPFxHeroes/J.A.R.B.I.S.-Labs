@@ -1,6 +1,6 @@
 # Lab 1: Getting Your Environment Ready
 
-Welcome to your first lab! This lab is all about getting your development environment ready, adding some extra tools that will make your life easier, briefly introducing key TypeScript concepts, and setting up a tenant and your browser to keep things organized.
+Welcome to your first lab! This lab is all about getting your **development environment** ready, adding some **extra tools** that will make your life easier, briefly introducing key **TypeScript** concepts, connecting to a **tenant**, and configuring your **browser** to keep things organized.
 
 > :bulb: Even if you already have your development environment setup, please review each step as there are some extra items specific to the rest of the labs!
 
@@ -29,18 +29,18 @@ Welcome to your first lab! This lab is all about getting your development enviro
   1. [Install Yeoman](#rocket-exercise-5-install-yeoman)
   1. [Install Yeoman SharePoint Generator](#rocket-exercise-6-install-yeoman-sharepoint-generator)
   1. [Install TypeScript](#rocket-exercise-7-install-typescript)
-  1. [Install CLI for Microsoft 365](#rocket-exercise-8-install-cli-for-microsoft-365)
+  1. [Install CLI for Microsoft 365](#rocket-exercise-8-install-cli-for-microsoft-365-optional)
   1. [Install Essential Visual Studio Code extensions](#rocket-exercise-9-install-essential-visual-studio-code-extensions)
-  1. [Create your own Dev tenant](#rocket-exercise-13-create-your-own-dev-tenant)
-  1. [Using browser profiles](#rocket-exercise-14-using-browser-profiles)
+  1. [Create your own Dev tenant](#rocket-exercise-10-create-your-own-dev-tenant)
+  1. [Using browser profiles](#rocket-exercise-11-using-browser-profiles)
 
 </details>
 
 ## :rocket: Exercise 1: Configure your Windows workstation for development
 
-This step will configure your workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
+This step will configure a **Windows** workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-> The instructions assume the use of a Windows machine. However, this is not required for SPFx development. You can skip this excercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
+> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this excercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
 
 1. From your Windows machine, use the **Start menu** and search for **Use developer features**
 1. On the **Privacy & Security > For developers** page, under **Developer Mode**, look for **Install apps from any source, including loose files**:
@@ -63,30 +63,34 @@ This step will configure your workstation as a development workstation by config
 
 ## :rocket: Exercise 2: Install Node.js
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 1.20.0** which uses **LTS Node.js v18**.
+Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
-> :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.21.0**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.21) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
 
-1. Using your browser, go to <https://nodejs.org/dist/latest-v18.x>
+> :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally (choose the latest).
+
+1. Using your browser, go to <https://nodejs.org/dist/latest-v22.x/>
 1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
 1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
-> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v18 using some of the links below but it is an advanced configuration and NOT required
+> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v22 using some of the links below but it is an advanced configuration and NOT required.
 
 #### :books: Resources
 
 - [SPFx Node.js instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
 - [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
+- :bulb: [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
-- [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 
 ## :rocket: Exercise 3: Install VS Code
 
 You can technically use any code editor or IDE that supports client-side development and if you've already got one you prefer, you're welcome to use it. However, we'll be using [Visual Studio Code](https://code.visualstudio.com/) and we highly recommend it.
+
+> Even if you plan to use a different editor, we suggest using VS Code for these labs to make it easier to follow along and to take advantage of optional extensions we'll reference
 
 1. Go to <https://code.visualstudio.com> and using the big button download the installer (use the arrow to choose a specific version for Mac or Linux)
 1. Install using all the default options
@@ -114,6 +118,8 @@ You can technically use any code editor or IDE that supports client-side develop
 
 > Note: You may not see a `Local version` if you're not currently in a project folder (we installed globally by using `-g`). That's OK!
 
+> :bulb: npm stands for Node Package Manager and it was installed as part of Node.js. npm is used to manage and install libraries, frameworks, and tools (like Gulp). You will use it relatively often so it's a good tool to get comfortable with!
+
 #### :books: Resources
 
 - [SPFx Gulp instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-gulp)
@@ -136,7 +142,7 @@ You can technically use any code editor or IDE that supports client-side develop
 
 ## :rocket: Exercise 6: Install Yeoman SharePoint generator
 
-The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code.
+The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code (starter project).
 
 1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint -g`, followed by <kbd>Enter</kbd>.
 
@@ -149,13 +155,12 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
 - [SPFx Yeoman Generator instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-yeoman-sharepoint-generator)
 - [Yeoman generator for the SharePoint Framework](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro)
-- [PnP SPFx Yeoman generator](https://pnp.github.io/generator-spfx/)
 
 ## :rocket: Exercise 7: Install TypeScript
 
 [TypeScript](https://www.typescriptlang.org/) is a strongly typed programming language that builds on JavaScript and is what SPFx uses.
 
-> Not needed as an independent installation for SPFx development, but we will be using it in later steps
+> You don't typically need to install Typescript as an independent installation for SPFx development, but we will be using it in later steps to demonstrate how SPFx code (written in TypeScript) becomes JavaScript
 
 1. From the command prompt, enter the following command: `npm install typescript -g`, followed by <kbd>Enter</kbd>.
 1. Don't panic, the installation is very quick!
@@ -176,6 +181,8 @@ The [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365) is a command
 1. When the installation is complete, enter `m365`, followed by <kbd>Enter</kbd>.
 1. If it doesn't scream at you, you are good!
    ![Testing M365CLI](assets/m365cliinstall.png)
+
+> Wowee, that's a lotta command groups beyond spfx! Turns out this CLI thing is super powerful in all sorts of ways. We won't be touching on it much in these labs, but we highly recommend getting familiar with what it can do!
 
 #### :books: Resources
 
@@ -198,6 +205,7 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
     - [**Live Share**](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
     - [**Peacock**](https://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)
     - [**GitHub Copilot**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) - Subscription required!
+    - [**vscode-pets**](https://marketplace.visualstudio.com/items/?itemName=tonybaloney.vscode-pets)
     - Extra credit: [**Sharing is Caring**](https://marketplace.visualstudio.com/items?itemName=PnP-SharingisCaring.sharing-is-caring)
 
 #### :books: Resources
@@ -208,13 +216,19 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
 
 Working in production is generally not a good idea. Besides, you're rarely going to be a global admin in your primary tenant. This can make trying out features, creating app registrations, provisioning assets, etc. challenging or plain impossible.
 
-Good news! Microsoft will provide you a FREE tenant to do development work in!
+Thanks to [Midnight Blizzard](https://www.microsoft.com/en-us/security/blog/tag/midnight-blizzard-nobelium/?sort-by=newest-oldest&date=any) (a large scale security incident that led to the pause of the dev program), you are not currently able to get a developer tenant for free.
 
-If you don't already have one, Go to <http://aka.ms/m365devprogram> and follow the steps to create your own tenant. Use a name for yourself -- not your company name. For example, **Tahoe Ninja** instead of **Microsoft**.
+If you already have a developer tenant, you can use that for these labs or you can use a company tenant (You will need permission to deploy to an app catalog). We also have a number of temporary accounts available with the required permissions if you're in the room.
+
+[Exciting updates coming to the Microsoft 365 Developer Program - April 23, 2025](https://devblogs.microsoft.com/microsoft365dev/exciting-updates-coming-to-the-microsoft-365-developer-program/)
+
+~~Good news! Microsoft will provide you a FREE tenant to do development work in!~~
+
+~~If you don't already have one, Go to <http://aka.ms/m365devprogram> and follow the steps to create your own tenant. Use a name for yourself -- not your company name. For example, **Tahoe Ninja** instead of **Microsoft**.~~
 
 ![Join the Microsoft 365 Developer Program](assets/devprogram.png)  
 
-Follow the steps to create your tenant. We'll use the tenant in later labs.
+~~Follow the steps to create your tenant. We'll use the tenant in later labs.~~
 
 #### :books: Resources
 
@@ -228,7 +242,7 @@ Browser profiles allow you to create a different instance of your browser, using
 
 These instructions are for Microsoft Edge. You can also use **User profiles** in Chrome if you wish (instructions not provided but pretty similar)
 
-1. Using Edge, reveal the profile menu by selecting your profile picture in the upper right corner.
+1. Using Edge, reveal the profile menu by selecting your profile picture in the upper left corner.
 
    ![Browser profile](assets/browserprofile.png)
 1. Find the **Add profile** menu (it may be located under **Other profiles** )
