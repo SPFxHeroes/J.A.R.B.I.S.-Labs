@@ -63,18 +63,18 @@ This step will configure your workstation as a development workstation by config
 
 ## :rocket: Exercise 2: Install Node.js
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 1.18.2** which uses **LTS Node.js v16** and **LTS Node.js v18**
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting **SPFx 1.20.0** which uses **LTS Node.js v18**.
 
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally.
 
-1. Using your browser, go to <https://nodejs.org/dist/latest-v16.x>
+1. Using your browser, go to <https://nodejs.org/dist/latest-v18.x>
 1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
 1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
-> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v16 using some of the links below but it is an advanced configuration and NOT required
+> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v18 using some of the links below but it is an advanced configuration and NOT required
 
 #### :books: Resources
 
@@ -106,7 +106,7 @@ You can technically use any code editor or IDE that supports client-side develop
 1. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
 
    ```console
-    CLI version: 2.3.0
+    CLI version: 3.0.0
     Local version: Unknown
     ```
 
