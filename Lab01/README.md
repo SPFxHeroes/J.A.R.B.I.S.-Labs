@@ -195,11 +195,12 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
 
 1. Launch **Visual Studio Code**.
 1. Open the **Extensions** panel from the activity bar (or by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>X</kbd>)
-1. From the search box, type `SPFx Essentials` and wait for search results to appear.
-1. From the list of search results, select [**SPFx Essentials** by **Elio Struyf**](https://marketplace.visualstudio.com/items?itemName=eliostruyf.spfx-essentials).
-1. From the **SPFx Essentials** page, select **Install**.
-   ![SPFx Essentials](assets/spfxessentials.png)  
+1. From the search box, type `SharePoint Framework` and wait for search results to appear.
+1. From the list of search results, select [SharePoint Framework Toolkit](https://marketplace.visualstudio.com/items?itemName=m365pnp.viva-connections-toolkit).
+1. From the **SharePoint Framework Toolkit** page, select **Install**.
+   ![SPFx Toolkit](assets/spfxtoolkit.png) 
 1. Repeat steps 3-5 with the following extensions:
+    - [**SPFx Essentials**](https://marketplace.visualstudio.com/items?itemName=eliostruyf.spfx-essentials)
     - [**GitHub Repositories**](https://marketplace.visualstudio.com/items?itemName=GitHub.remotehub)
     - [**Live Server**](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
     - [**Live Share**](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
