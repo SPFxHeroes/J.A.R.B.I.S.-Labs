@@ -27,7 +27,8 @@ For now, we're going to look at how to scaffold a basic web part and do some qui
   1. [Install the self-signed certificate](#rocket-exercise-3-install-the-self-signed-certificate)
   1. [Customize the web part](#rocket-exercise-4-customize-the-web-part)
   1. [Update the manifest](#rocket-exercise-5-update-the-manifest)
-  1. [Add a Project Color](#rocket-exercise-6-add-a-project-color-optional)
+  1. [Add a project color](#rocket-exercise-6-add-a-project-color-optional)
+  1. [Add a pet friend](#rocket-exercise-7-add-a-pet-friend-optional)
 </details>
 
 ## :rocket: Exercise 1: Scaffold your web part
@@ -261,7 +262,7 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 - [SPFx Configure web part icon](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/configure-web-part-icon)
 - [Example of using animated Christopher Walken with Googly Eyes](https://thechriskent.com/2017/06/01/setting-your-spfx-webpart-icon/)
 
-## :rocket: Exercise 6: Add a Project Color (Optional)
+## :rocket: Exercise 6: Add a project color (optional)
 
 Earlier we installed the [Peacock](https://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock) VS Code extension. This extension allows you to customize Visual Studio Code's interface colors based on the open project (themes, on the other hand, apply to all instances of the editor). This might seem a little silly at first, but having a dedicated color per project is a nice visual indicator of what project you're working on when switching between windows.
 
@@ -269,9 +270,9 @@ Earlier we installed the [Peacock](https://marketplace.visualstudio.com/items?it
 
 1. Type peacock to see the available commands.
 
-   ![Peacock comand palette](./assets/peacockcommandpalette.png)
+   ![Peacock command palette](./assets/peacockcommandpalette.png)
 
-1. Choose either `Enter a Color`, `Change to a Favorite Color`, or `Surprise Me with a Random Color` and answer any follow-up prompts.
+1. Choose either `Peacock: Enter a Color`, `Peacock: Change to a Favorite Color`, or `Peacock: Surprise Me with a Random Color` and answer any follow-up prompts.
 
 1. Your VS Code instance will now use the selected color whenever you open this project. You can set different colors for every project.
 
@@ -279,7 +280,43 @@ Earlier we installed the [Peacock](https://marketplace.visualstudio.com/items?it
 
    ![Peacock blue!](./assets/peacockapplied.png)
 
-   > We used `#3974D3` with the `Enter a Color` option in the screenshot above. Notice the color is only applied to the edges. The main editor still uses your selected theme.
+   > We used `#3974D3` with the `Peacock: Enter a Color` option in the screenshot above. Notice the color is only applied to the edges. The main editor still uses your selected theme.
+
+## :rocket: Exercise 7: Add a pet friend (optional)
+
+Previously, we installed another **super important** VS Code extension, [vscode pets](https://marketplace.visualstudio.com/items/?itemName=tonybaloney.vscode-pets). This extension adds 1 or more pets to your editor. This is absolutely critical for proper development!!
+
+1. Open the Command Palette by pressing **F1** or choosing **View** > **Command Palette** from the menu.
+
+1. Type pet then choose `Pet Coding: Start pet coding session`.
+
+   ![vscode-pets command palette](./assets/vscodepetscommandpalette.png)
+
+1. You should now see a little cat added to the `VS CODE PETS` pane under Explorer:
+
+   ![default cat](./assets/vscodepetsdefaultcat.png)
+
+1. If you're happy with that cat, great! However, there are lots of pets to choose from! You can even add multiple!
+
+1. To remove the cat, click the trash can icon in the VS CODE PETS pane or run the `Delete pet` command from the command palette (F1). Then choose the cat from the list of pets.
+
+1. To add a new pet, click the plus icon in the VS CODE PETS pane or run the `Spawn pet` command from the command palette (F1).
+
+1. Choose a pet type (we recommend horse):
+
+   ![Spawn pet](./assets/vscodesspawnpet.png)
+
+1. Choose from one of the available colors:
+
+   ![Pet color](./assets/vscodesspawnpettype.png)
+
+1. Name your pet:
+
+   ![Pet name](./assets/vscodesnamepet.png)
+
+1. Repeat until you have as many pets as needed to help you code:
+
+   ![Pets!](./assets/vscodepetshorsevsbunny.png)
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
