@@ -144,11 +144,18 @@ You can technically use any code editor or IDE that supports client-side develop
 
 The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code (starter project).
 
-1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.20.0 -g`, followed by <kbd>Enter</kbd>.
+
+   > :bulb: We are specifying an exact version of the generator by tacking `@1.20.0` to the end of the package name.
+   >
+   > :warning: If the latest version of SPFx has a minor version of 0, unless you specifically need something that was added in that version, use the one before it. In this case, the latest version is 1.21.0 released in April (see that zero, that's evil) which is, unfortunately, providing a perfect case-in-point for this tip as it is broken and a version 1.21.1 is imminent.
 
 2. A bazillion years later, when the installation is complete and your latest dance finished, enter `yo`, followed by <kbd>Enter</kbd>.
 3. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
-   ![Testing the SPFx Yeoman generator](assets/yospfx.png)  
+   ![Testing the SPFx Yeoman generator](assets/yospfx.png)
+
+   > :bulb: In the screenshot above you can see the command `npm info @microsoft/generator-sharepoint` which shows details about the latest version of a given package. You can also add any npm package name to the end of https://www.npmjs.org/ (including the slashes) and you can see more details online. For instance, you can see the registry page for the generator here: [https://www.npmjs.org/@microsoft/generator-sharepoint]
+
 4. Using your arrow keys, select **Get me out of here!**. We still have a few things to install to make sure you have all the best SPFx development tools at your disposal.
 
 #### :books: Resources
@@ -205,7 +212,7 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
     - [**Live Server**](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
     - [**Live Share**](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
     - [**Peacock**](https://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)
-    - [**GitHub Copilot**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) - Subscription required!
+    - [**GitHub Copilot**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) - Subscription required! Feel free to skip.
     - [**vscode-pets**](https://marketplace.visualstudio.com/items/?itemName=tonybaloney.vscode-pets)
     - Extra credit: [**Sharing is Caring**](https://marketplace.visualstudio.com/items?itemName=PnP-SharingisCaring.sharing-is-caring)
 
