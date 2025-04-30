@@ -29,7 +29,7 @@ Now it's time to talk about what we're actually drawing (HTML) and how it gets a
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 03 Starter](https://github.com/SPFxHeroes/J.A.R.B.I.S./tree/Start-of-Lab-03) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 03 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-03) branch.
 
 </details>
 
@@ -44,15 +44,41 @@ Now we're going to take a brief tour of our web part's code so we can see what w
 1. From Visual Studio Code, open **src** > **webparts** > **jarbis** > **JarbisWebPart.ts**
    > :bulb: This is the primary starting place for your web part. You'll likely have additional code files later, but it all starts here and is the first place you should troubleshoot when having issues.
 1. The first section is a bunch of `import` statements. This is how you reference other files/packages. If you don't import it, your code can't see it.
-1. Starting on line 13, there's a basic interface that describes the properties that will be stored per web part instance and automatically loaded for you. We've just got `description` for now but we'll be adding more soon.
-1. Line 17 is the declaration of your web part class. This object inherits from the `BaseClientSideWebPart` which gives it several methods and properties universal to all SPFx web parts.
-1. The `render` method starting on line 22 is what determines what HTML gets output to your special box (the div the SharePoint page gives you). We'll be throwing all this starter junk away in just a minute.
-1. The `onInit` method starting on line 50 is a method that gets called just once when your web part is loaded. This is a great place to do initial configuration or start some data loading.
-1. The `_getEnvironmentMessage` method starting on line 58 is an example method showing how to determine where your code is running is used by the sample render. You could safely delete it and all references to it.
-1. The `onThemeChanged` method starting on line 85 ensures you've always got the latest information about the theme as well as ensure your web part responds to section background colors. We'll be leaving this one alone.
-1. The `dataVersion` method on line 103 returns the version of the stored properties structure for your web part instance. This value is used when deserializing your web part instance's properties. If you make changes to this structure and want existing web parts to be able to understand, you'll change the return value of this method and then handle things in the `onAfterDeserialize` method .
+
+  ![import statements](./assets/anatomy1.png)
+
+1. Starting on **line 13**, there's a basic interface that describes the properties that will be stored per web part instance and automatically loaded for you. We've just got `description` for now but we'll be adding more soon.
+
+  ![instance props](./assets/anatomy2.png)
+
+1. **Line 17** is the declaration of your web part class. This object inherits from the `BaseClientSideWebPart` which gives it several methods and properties universal to all SPFx web parts.
+
+  ![base class](./assets/anatomy3.png)
+
+1. The `render` method starting on **line 22** is what determines what HTML gets output to your special box (the div the SharePoint page gives you). We'll be throwing all this starter junk away in just a minute.
+
+  ![render](./assets/anatomy4.png)
+
+1. The `onInit` method starting on **line 50** is a method that gets called just once when your web part is loaded. This is a great place to do initial configuration or start some data loading.
+
+  ![onInit](./assets/anatomy5.png)
+
+1. The `_getEnvironmentMessage` method starting on **line 58** is an example method showing how to determine where your code is running is used by the sample render. You could safely delete it and all references to it. And, in fact, we'll be doing that soon.
+
+  ![_getEnvironmentMessage](./assets/anatomy6.png)
+
+1. The `onThemeChanged` method starting on **line 85** ensures you've always got the latest information about the theme as well as ensure your web part responds to section background colors. We'll be leaving this one alone.
+
+  ![onThemeChanged](./assets/anatomy7.png)
+
+1. The `dataVersion` method on **line 103** returns the version of the stored properties structure for your web part instance. This value is used when deserializing your web part instance's properties. If you make changes to this structure and want existing web parts to be able to understand, you'll change the return value of this method and then handle things in the `onAfterDeserialize` method .
     > :bulb: This is an advanced scenario and not one to worry about at this time, we just wanted you to have it for reference.
-1. Finally, the `getPropertyPaneConfiguration` method starting on line 107 is where you define what goes in the property pane when a user edit's your web part. There are a lot of options available, and PnP even provides an open source library of property pane controls. The goal of the method is to return a JSON configuration object that the property pane will use to map controls to values.  We'll be customizing this soon.
+
+  ![dataVersion](./assets/anatomy8.png)
+
+1. Finally, the `getPropertyPaneConfiguration` method starting on **line 107** is where you define what goes in the property pane when a user edits your web part. There are a lot of options available, and PnP even provides an open source library of property pane controls. The goal of the method is to return a JSON configuration object that the property pane will use to map controls to values.  We'll be customizing this in a later lab.
+
+  ![getPropertyPaneConfiguration](./assets/anatomy9.png)
 
 #### :books: Resources
 - [SPFx Web part project structure](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
@@ -76,7 +102,7 @@ The default, no-framework web part comes with some extra junk. It's a combinatio
    private _isDarkTheme: boolean = false;
    private _environmentMessage: string = '';
    ```
-   > We aren't using these members and leaving them will throw unused-vars errors
+   > We aren't going to be using these members and leaving them will throw unused-vars errors
 
 1. Delete and replace the `render` method with the following:
 
@@ -103,7 +129,7 @@ The default, no-framework web part comes with some extra junk. It's a combinatio
 1. Delete the entire `_getEnvironmentMessage` method
    > This is just a sample method to determine where our web part is running. It might be helpful on your next part, but it's unneeded here
 
-1. Delete the assignment of `_isDarkTheme` on line 38:
+1. Delete the assignment of `_isDarkTheme` on **line 38**:
    
    ```TypeScript
    this._isDarkTheme = !!currentTheme.isInverted;
@@ -207,7 +233,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 We've now got some *very* basic HTML that's just some placeholder text that we'll make dynamic in an upcoming step. We're using text to keep things easy to troubleshoot as we play with our styles. Speaking of styles...
 
-SPFx uses SCSS (Sassy CSS) for style modules. These allow you to write fancy CSS!
+SPFx uses SCSS (Sassy CSS) for style modules. These allow you to write fancy CSS! _(Being sassy while you do it is optional)_
 
 SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS is valid SCSS. But there's a whole lot of extra power included!
 
@@ -253,7 +279,7 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
 
    > :bulb: Your web part will likely live on the page with not only all the standard SharePoint stuff, but also other web parts! In fact, it's completely possible that you could have multiple instances of the same web part on the page.
    >
-   > To avoid conflicts, never reference things by id. Use specific classes or selectors instead.
+   > To avoid conflicts, never reference things by hardcoded ids. Use specific classes, selectors, or an id generator like [@fluentui/react-hooks useId hook](https://www.npmjs.com/package/@fluentui/react-hooks#useid) (in React projects) instead.
    >
    > SPFx helps you out even further by using CSS modules. This means that at build, SPFx appends a unique hash to your classes to ensure they don't conflict with other web parts using those same class names or even other instances of your web part! It's not something you have to worry about during development, but it might throw you for a loop if you inspect the page and don't know what's happening.
 
@@ -263,13 +289,13 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
    public render(): void {
     this.domElement.innerHTML = `
           <div class="${styles.jarbis}">
-            <div class="${ styles.logo }">
+            <div class="${styles.logo}">
               Logo
             </div>
-            <div class="${ styles.name }">
+            <div class="${styles.name}">
               The Something Hero
             </div>
-            <div class="${ styles.powers }">
+            <div class="${styles.powers}">
               (Primary + Secondary)
             </div>
           </div>`;
@@ -284,13 +310,13 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
 - [SPFx CSS Recommendations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/css-recommendations)
 - [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
-## Exercise 4: Basic styles
+## :rocket: Exercise 4: Basic styles
 
 Although we wired up the classes into our rendered HTML, the classes themselves don't really apply any styles. So, let's make it perty!
 
 1. For the next few steps, make the changes to the **JarvisWebPart.module.scss**, save your changes and monitor how it affects your web part by refreshing your page.
 
-1. To the `.jarbis` class, add the following CSS code:
+1. To the `.jarbis` class, add the following CSS code (above the `.logo` class definition):
 
     ```scss
       color: "[theme:bodyText, default: #323130]";
