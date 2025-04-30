@@ -31,16 +31,26 @@ For now, we're going to look at how to scaffold a basic web part and do some qui
 
 ## :rocket: Exercise 1: Scaffold your web part
 
-We've gotten everything installed and we're ready to start working on something! Well, time to use those tools to generate our starter files (also called scaffolding if you're cool).
+We've gotten everything installed and we're ready to start working on something! Well, time to use those tools to generate our starter files (also called scaffolding if you're cool :man_dancing:).
 
-1. From your command prompt, go to your working folder (the parent folder for the labs).
+> :bulb: It's generally a good idea to pick a standard folder for code. There will be thousands of files during development. Having all of these in your documents folder syncing to OneDrive may destroy the internet. We recommend creating a folder at the root of your drive (or within userhome on a mac :apple:) and using a secondary drive like an SSD isn't too bad an idea either.
+
+> :warning: Pay attention when launching command windows to ensure you are in the correct location. You really don't want to generate project files in your windows directory!
+
+1. From your command prompt, go to your code directory.
     > :bulb: As shown in the previous lab, if you closed your command prompt, open the folder in file explorer and type `cmd` in the path to automatically open a command prompt in that directory
+    >
+    > :bulb: You can directly open a folder in the terminal on a mac :apple: by Ctrl-clicking (right-click) on a folder and selecting _"New Terminal at Folder"_
 
 1. Create a new folder called `jarbis`. You can use File Explorer or type `mkdir jarbis`
 
     > :bulb: It's best to keep your path as short as possible; Node projects can end up with very long file paths, and Windows can sometimes report unpredictable issues due to file paths being too long. Plus it makes your command prompt annoyingly long.
+    >
+    > :bulb: `mkdir` is short for _Make Directory_ (which is why it's also just `md` on some systems)
 
 1. Change your current folder in the command prompt to the new one by typing `cd jarbis`
+
+   > :bulb: `cd` is short for _Change Directory_ (not Cute David as that is a phrase that has never been said)
 
 1. Once in your fancy new folder, launch the yeoman generator by typing `yo @microsoft/sharepoint`
 
@@ -65,7 +75,7 @@ We've gotten everything installed and we're ready to start working on something!
    - **No framework** - Barebones template that includes sample theming and context code. Use this when you want to work with the DOM directly or use frameworks besides React (like jQuery).
    - **React** - same theming and context stuff as the previous, but includes React and wires up an initial component. This is the most common template once you get comfortable with React.
 
-   > :bulb: There's also an [advanced generator provided by PnP](https://pnp.github.io/generator-spfx/) that makes using things like Angular Elements, VueJS, Knockout, etc. easier. Once you're a little more comfortable with the basics, it's definitely worth looking into further!
+   > :bulb: We are choosing No framework today to keep things "simple" without adding the extra layer of React. However, if you are not currently using a framework, we highly recommend using React for future projects. It is the most common framework used in SPFx samples, there are open-source controls from PnP and Fluent UI, and it's [pretty neat](https://www.youtube.com/watch?v=OXZt4-LTtHw).
 
 1. Wait for the solution to be scaffolded (This may take a moment or 75 depending on the network quality).
 
@@ -79,13 +89,12 @@ We've gotten everything installed and we're ready to start working on something!
 - [Build your first SharePoint client-side web part](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part)
 - [Yeoman Generator for SPFx](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro)
 - [SPFx Yeoman Generator project template options](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro#project-template-options)
-- [PnP SPFx Yeoman Generator](https://pnp.github.io/generator-spfx/)
 
 
 ## :rocket: Exercise 2: Attempt to load your web part
 We've got some files and we haven't broken them yet, so let's take a look at it (and in doing so take care of the last couple of first time setup tasks).
 
-1. Go to your web browser (using the profile you setup earlier), and navigate to the root site of your Microsoft 365 Dev Tenant (e.g.: <https://yourdevtenant.sharepoint.com>, where _yourdevtenant_ is the name of the Development tenant you created in the first lab.
+1. Go to your web browser (using the profile you setup earlier), and navigate to the root site of your tenant (e.g.: <https://yourtenant.sharepoint.com>, where _yourtenant_ is the name of the tenant you used in the first lab.
 
 1. To view the workbench, navigate to `[YOUR_ROOT_SITE_HERE]/_layouts/workbench.aspx`
 
@@ -97,7 +106,7 @@ We've got some files and we haven't broken them yet, so let's take a look at it 
 
 1. Back in the command prompt, type `gulp serve --nobrowser`.
 
-   > :bulb: The `--nobrowser` parameter is optional. By default, `gulp serve` will open a browser window (more details about to where in later exercises). Slapping this parameter on there prevents this since we already opened the workbench and we've probably got too many tabs open as it is.
+   > :bulb: The `--nobrowser` parameter is optional. By default, `gulp serve` will open a browser window (more details about that in later exercises). Slapping this parameter on there prevents that since we already opened the workbench and we've probably got too many tabs open as it is.
 
 1. You will likely get an error (unless you've setup your environment previously) about a missing development certificate:
 
@@ -113,7 +122,7 @@ We've got some files and we haven't broken them yet, so let's take a look at it 
 
    ![Firewall error](assets/firewallaccess.png)  
 
-1. If you don't get any errors or warnings, then you've likely installed the dev certificate previously and safely skip to Exercise 4. Everybody else, let's get it fixed!
+1. If you don't get any errors or warnings, then you've likely installed the dev certificate previously and safely skip to [Exercise 4](#rocket-exercise-4-customize-the-web-part). Everybody else, let's get it fixed!
 
 #### :books: Resources
  - [An endless horse](http://endless.horse/)
@@ -141,9 +150,9 @@ Trusting the developer certificate is required. This is a one-time process and i
    > "initialPage": "https://{tenantDomain}/_layouts/workbench.aspx"
    > ```
    >
-   > You're welcome to update your dev tenant URL where it says `{tenantDomain}`, but if you're using different credentials (or a different browser profile) for your dev tenant, you'll almost invariably get an "Access denied" error, which will cause you to have to close the browser/tab every time.
+   > You're welcome to update your tenant URL where it says `{tenantDomain}`, but if you're using different credentials (or a different browser profile) for your tenant, you'll almost invariably get an "Access denied" error, which will cause you to have to close the browser/tab every time.
    >
-   > Alternatively, you can configure the [SPFX_SERVE_TENANT_DOMAIN OS environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.17#ability-to-use-spfx_serve_tenant_domain-os-environment-variable-for-serve-configurations) as part of your setup to have the `{tenantDomain}` always resolve but that's outside the scope of this lab.
+   > Alternatively, you can configure the [SPFX_SERVE_TENANT_DOMAIN OS environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional) as part of your setup to have the `{tenantDomain}` always resolve but that's outside the scope of this lab.
    >
    > By using `gulp serve --nobrowser`, you can connect to an existing browser/tab instance without launching a new session every single time.
    >
@@ -160,7 +169,7 @@ Wait for a message saying `Finished subtask 'reload'`:
 
    ![Web part exists!](assets/authoringcanvas.png)
 
-1. Look at your glorious web part! Fortunately, your's won't say Hugo Bernier!
+1. Look at your glorious web part! Fortunately, your's won't say Beau Cameron!
 
    ![Added web part to the page](assets/defaultwebpart.png)
 
@@ -172,7 +181,7 @@ Wait for a message saying `Finished subtask 'reload'`:
 
 #### :books: Resources
 - [SPFx developer certificate instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#trusting-the-self-signed-developer-certificate)
-- [tenantDomain OS Environment Variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.17#ability-to-use-spfx_serve_tenant_domain-os-environment-variable-for-serve-configurations)
+- [Set the SPFX_SERVE_TENANT_DOMAIN environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional)
 
 
 ## :rocket: Exercise 4: Customize the web part
@@ -181,7 +190,9 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
 
 1. From the command prompt, type `code .` to open Visual Studio Code (code) in the current folder (.)
 
-1. Once in VS Code, launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd>.
+   > :bulb: The `code .` is a nice windows trick that, unfortunately, doesn't won't work on :apple: macs. However, in any system you can always launch Visual Studio Code then use the File menu to Open the project folder directly. Choose the jarbis folder we created earlier.
+
+1. Once in VS Code, launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd> (<kbd>CTRL</kbd>+). Or choose _New Terminal_ in the _Terminal_ menu.
 
 1. Using the explorer pane, expand the **src** folder, followed by the **webparts** folder, and open the **JarbisWebPart.ts** file. On line 32, change `Welcome to SharePoint Framework!` to `Wowee!!`. Save the file.
 
@@ -190,6 +201,10 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
    ![Rerunning with wowee!!](assets/wowee.png)
 
    > :bulb: Now that we're in VS Code, we can use the integrated terminal rather than the command prompt from before. It's doing the same thing, but it's far easier to keep an eye on this way. You can feel free to close the command prompt from before.
+   >
+   > :warning: If you get an error about the address already being in use it's likely you've got another terminal serving somewhere. You can only serve 1 SPFx solution at a time. Close any other open terminals (or <kbd>CTRL</kbd>+<kbd>C</kbd> to kill the server) and try again.
+
+   ![address in use](./assets/addressinuse.png)
 
 1. Refresh the browser to see if your web part changed. If it hasn't, make sure the terminal shows the `Starting subtask 'reload'` as it can take a few more seconds than you might expect on initial serve.
    ![Wowee!! It worked!](assets/woweeinthewild.png)  
@@ -215,7 +230,7 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 
    ![Changing the robot](assets/updateicon.png)
 
-   > :bulb: The Fluent UI icons are what you'll probably use most of the time, SPFx does allow you to specify your own images as either an external URL (no thanks) or as a base-64 encoded image (choose this)
+   > :bulb: The Fluent UI icons are what you'll probably use most of the time. However, SPFx does allow you to specify your own images as either an external URL (no thanks) or as a base-64 encoded image (choose this)
 
 1. Change the `description` to `Just A Rather Basic Instructional Solution`
 
@@ -225,12 +240,12 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 
 1. Change the `title` to `J.A.R.B.I.S.` because that's cooler and it would have made some of the automatic file naming weird had we done it in the generator from the start.
 
-1. Save your file. If the terminal is still open and still running the last `gulp serve` you'll see magic things happening as the project rebuilds automatically. Unfortunately, changes to the manifest don't get updated like changes to code do and we have to stop (<kbd>CTRL</kbd>+<kbd>C</kbd>) and re-serve (`gulp serve --nobrowser`) - but that magic will be awesome later!
+1. Save your file. If the terminal is still open and still running the last `gulp serve` you'll see magic things happening as the project rebuilds automatically. Unfortunately, changes to the manifest don't always get updated (at least in earlier versions) like changes to code and we may have to stop (<kbd>CTRL</kbd>+<kbd>C</kbd>) and re-serve (`gulp serve --nobrowser`) - but that magic will be awesome later! You can skip to step 8 and see if the changes are there, but if not come back here.
 
 1. If you closed the terminal before, launch the terminal window by hitting <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>`</kbd>.
    > You can also go to the Terminal menu and choose New Terminal
 
-1. If you didn't stop serving the web part before, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to do so. Then type `gulp serve --nobrowser` in the terminal.
+1. If you didn't stop serving the web part before, hit <kbd>CTRL</kbd>+<kbd>C</kbd> to do so. Then type `gulp serve --nobrowser` in the terminal.
 
 1. Back in the browser, click Discard in the upper left to reset the workbench. Refresh the page.
 
