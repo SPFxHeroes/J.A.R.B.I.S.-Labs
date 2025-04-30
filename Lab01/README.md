@@ -65,18 +65,18 @@ This step will configure a **Windows** workstation as a development workstation 
 
 Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.21.0**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.21) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.20.0**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.21) which uses [**LTS Node.js v18**](https://nodejs.org/dist/latest-v18.x/).
 
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally (choose the latest).
 
-1. Using your browser, go to <https://nodejs.org/dist/latest-v22.x/>
+1. Using your browser, go to <https://nodejs.org/dist/latest-v18.x/>
 1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
 1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
-> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v22 using some of the links below but it is an advanced configuration and NOT required.
+> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v18 using some of the links below but it is an advanced configuration and NOT required.
 
 #### :books: Resources
 
