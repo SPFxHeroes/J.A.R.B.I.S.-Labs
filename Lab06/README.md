@@ -27,7 +27,7 @@ In this lab, we will add a button that will only render when the web part is edi
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 06 Starter](https://github.com/SPFxHeroes/J.A.R.B.I.S./tree/Start-of-Lab-06) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 06 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-06) branch.
 
 </details>
 
@@ -45,26 +45,27 @@ We're going to start "chunking" our code into some individual strings and then w
 1. Cut all the HTML inbetween the primary div and paste it on the line below the one we just added. Throw another backtick (<kbd>\`</kbd>) and a semicolon (<kbd>;</kbd>) on there. We are creating a variable called `hero` that will contain most of the rendered HTML.
 
 1. Place `${hero}` back in the primary div. Your render method will now look like this:
-   ```TypeScript
-   public render(): void {
-    const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
-      </div>
-      <div class="${styles.name}">
-        The ${escape(this.properties.name)}
-      </div>
-      <div class="${styles.powers}">
-        (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
-      </div>`;
 
-    this.domElement.innerHTML = `
-      <div class="${styles.jarbis}">
-        ${hero}
-      </div>`;
-   }
-   ```
+    ```TypeScript
+    public render(): void {
+      const hero = `
+        <div class="${styles.logo}">
+          <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+          <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
+        </div>
+        <div class="${styles.name}">
+          The ${escape(this.properties.name)}
+        </div>
+        <div class="${styles.powers}">
+          (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
+        </div>`;
+
+      this.domElement.innerHTML = `
+        <div class="${styles.jarbis}">
+          ${hero}
+        </div>`;
+    }
+    ```
 
 1. Now, let's add another line before `this.domElement...`:
    ```TypeScript
@@ -72,29 +73,29 @@ We're going to start "chunking" our code into some individual strings and then w
    ```
 
 1. Finally, add `${generateButton}` underneath `${hero}` in the primary div. `render` should now look like this:
-   ```TypeScript
-   public render(): void {
-    const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
-      </div>
-      <div class="${styles.name}">
-        The ${escape(this.properties.name)}
-      </div>
-      <div class="${styles.powers}">
-        (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
-      </div>`;
-    
-    const generateButton = `<button>Generate</button>`;
+    ```TypeScript
+    public render(): void {
+      const hero = `
+        <div class="${styles.logo}">
+          <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+          <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
+        </div>
+        <div class="${styles.name}">
+          The ${escape(this.properties.name)}
+        </div>
+        <div class="${styles.powers}">
+          (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
+        </div>`;
 
-    this.domElement.innerHTML = `
-      <div class="${styles.jarbis}">
-        ${hero}
-        ${generateButton}
-      </div>`;
-   }
-   ```
+      const generateButton = `<button>Generate</button>`
+
+      this.domElement.innerHTML = `
+        <div class="${styles.jarbis}">
+          ${hero}
+          ${generateButton}
+        </div>`;
+    }
+    ```
 
 If you refresh the workbench, you'll see we've now got a button showing up!
 
@@ -109,7 +110,8 @@ As you may have already guessed, the `render` method of the web part is responsi
 
 Specifically, we only want that button showing up when editing the page.
 
-1. SPFx will tell us what mode the page is in by looking at `this.displayMode` which is an enum value of type `DisplayMode`. In order to evaluate against the enum, we need to import it. So, change this import:
+1. SPFx will tell us what mode the page is in by looking at `this.displayMode` which is an [enum](https://www.typescriptlang.org/docs/handbook/enums.html) value of type `DisplayMode`. In order to evaluate against the enum, we need to import it. So, change this import:
+
    ```TypeScript
    import { Version } from '@microsoft/sp-core-library';
    ```
@@ -133,18 +135,19 @@ If you run into any trouble or don't really want to do the steps above, you can 
 <summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
-import { escape } from '@microsoft/sp-lodash-subset';
 import { Version, DisplayMode } from '@microsoft/sp-core-library';
 import {
-  IPropertyPaneConfiguration,
+  type IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
-import icons from './HeroIcons.module.scss';
 import * as strings from 'JarbisWebPartStrings';
+import { getIconClassName } from '@fluentui/style-utilities';
+import { css } from '@fluentui/utilities';
+import { escape } from '@microsoft/sp-lodash-subset';
 
 export interface IJarbisWebPartProps {
   name: string;
@@ -160,9 +163,9 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
   public render(): void {
     const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
+      <div class="${styles.logo}">
+        <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+        <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
       </div>
       <div class="${styles.name}">
         The ${escape(this.properties.name)}
@@ -170,25 +173,14 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
       <div class="${styles.powers}">
         (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
       </div>`;
-    
-    const generateButton = `<button>Generate</button>`;
+
+    const generateButton = `<button>Generate</button>`
 
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
         ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
       </div>`;
-  }
-
-  private getIconClass(iconName: string): string | undefined {
-    const iconKey: string = "icon" + iconName;
-    if(this.hasKey(icons, iconKey)) {
-      return icons[iconKey];
-    }
-  }
-
-  private hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
-    return key in obj;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
@@ -224,10 +216,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('foregroundIcon', {
-                  label: "Foreground Icon"
+                  label: "Foreground icon",
                 }),
                 PropertyPaneTextField('primaryPower', {
-                  label: "Primary Power"
+                  label: "Primary power",
                 })
               ]
             }
