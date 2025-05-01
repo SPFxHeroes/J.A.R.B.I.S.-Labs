@@ -27,7 +27,7 @@ In the previous lab, we added a useless button. In this lab, we're wiring up the
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 07 Starter](https://github.com/SPFxHeroes/J.A.R.B.I.S./tree/Start-of-Lab-07) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 07 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-07) branch.
 
 </details>
 
@@ -48,10 +48,12 @@ Not only is our button not doing anything, it's gross to look at (like Hugo). So
       font-size: 14px;
       padding: 0 12px;
       font-weight: 600;
+      cursor: pointer;
     
       &:hover {
         background-color: "[theme:themeDarkAlt, default: #932227]";
       }
+
       &:active {
         background-color: "[theme:themeDark, default: #7c1d21]";
       }
@@ -59,12 +61,12 @@ Not only is our button not doing anything, it's gross to look at (like Hugo). So
    ```
    > :bulb: You might have noticed we're using a theme color for white. That seems dumb until you realize that SharePoint will actually substitute black when you use white in a dark mode theme. So, it's not that using a theme value for white is dumb, it's the name of the semantic slot that's dumb.
 
-   > :bulb: What are those & symbols doing? In SCSS, the & is a parent selector used in nested selectors to refer to the outer selector. This makes it easier to directly reference the class you're nested in. See the link below for more details.
+   > :bulb: What are those `&` symbols doing? In SCSS, the `&` is a parent selector used in nested selectors to refer to the outer selector. This makes it easier to directly reference the class you're nested in. See the link below for more details.
 
 1. In the web part's `render` method, change the `const generateButton...` line to have a class attribute so that it look like this:
 
     ```typescript
-     const generateButton = `<button class="${styles.generateButton}">Generate</button>`;
+    const generateButton = `<button class="${styles.generateButton}">Generate</button>`;
     ```
 
 1. Refresh your browser and admire the beautiful fancy button.
@@ -82,7 +84,7 @@ Not only is our button not doing anything, it's gross to look at (like Hugo). So
 
 A fancy button that does nothing is even more disappointing than an ugly one that does nothing. Probably. So let's create a function that fires when a user clicks it.
 
-Since we're handling the lifecycle of our generated HTML, we also have to handle adding/removing listeners. We'll end up adding them and removing them on every render to avoid creating memory leaks inthe browser (unlikely in a modern browser, but still best practice).
+Since we're handling the lifecycle of our generated HTML, we also have to handle adding/removing listeners. We'll end up adding them and removing them on every render to avoid creating memory leaks in the browser (unlikely in a modern browser, but still best practice).
 
 1. In the **JarbisWebPart.ts**, add the following function below the `render` method:
 
@@ -133,18 +135,19 @@ If you run into any trouble or don't really want to do the steps above, you can 
 <summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
-import { escape } from '@microsoft/sp-lodash-subset';
 import { Version, DisplayMode } from '@microsoft/sp-core-library';
 import {
-  IPropertyPaneConfiguration,
+  type IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
-import icons from './HeroIcons.module.scss';
 import * as strings from 'JarbisWebPartStrings';
+import { getIconClassName } from '@fluentui/style-utilities';
+import { css } from '@fluentui/utilities';
+import { escape } from '@microsoft/sp-lodash-subset';
 
 export interface IJarbisWebPartProps {
   name: string;
@@ -165,9 +168,9 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     }
 
     const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
+      <div class="${styles.logo}">
+        <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+        <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
       </div>
       <div class="${styles.name}">
         The ${escape(this.properties.name)}
@@ -176,7 +179,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
         (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
       </div>`;
 
-    const generateButton = `<button class=${styles.generateButton}>Generate</button>`;
+    const generateButton = `<button class="${styles.generateButton}">Generate</button>`;
 
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
@@ -194,15 +197,11 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     console.log('Generating!');
   }
 
-  private getIconClass(iconName: string): string | undefined {
-    const iconKey: string = "icon" + iconName;
-    if (this.hasKey(icons, iconKey)) {
-      return icons[iconKey];
+  protected onDispose(): void {
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    for (let b = 0; b < oldbuttons.length; b++) {
+      oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
-  }
-
-  private hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
-    return key in obj;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
@@ -238,10 +237,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('foregroundIcon', {
-                  label: "Foreground Icon"
+                  label: "Foreground icon",
                 }),
                 PropertyPaneTextField('primaryPower', {
-                  label: "Primary Power"
+                  label: "Primary power",
                 })
               ]
             }
@@ -249,13 +248,6 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
         }
       ]
     };
-  }
-
-  protected onDispose(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
-    for (let b = 0; b < oldbuttons.length; b++) {
-      oldbuttons[b].removeEventListener('click', this.onGenerateHero);
-    }
   }
 }
 ```
