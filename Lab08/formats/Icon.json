@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+  "elmType": "div",
+  "style": {
+    "flex-wrap": "wrap",
+    "display": "flex"
+  },
+  "inlineEditField": "@currentField",
+  "children": [
+    {
+      "forEach": "choiceIterator in @currentField",
+      "elmType": "div",
+      "style": {
+        "display": "flex",
+        "font-size": "24px",
+        "align-items": "center",
+        "white-space": "nowrap",
+        "overflow": "hidden",
+        "margin": "4px 4px 4px 4px"
+      },
+      "attributes": {
+        "iconName": "[$choiceIterator]",
+        "title": "[$choiceIterator]"
+      }
+    }
+  ]
+}
