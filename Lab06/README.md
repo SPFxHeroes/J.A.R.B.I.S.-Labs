@@ -129,6 +129,17 @@ Specifically, we only want that button showing up when editing the page.
       </div>`;
    ```
 
+   > :bulb: If the syntax above looks a little weird, then you're about to learn a fun shorthand! We are using the [conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) which lets us write if/else statements as a one-liner.
+   >
+   > The way it works is you start with a condition (`this.displayMode === DisplayMode.Edit`) followed by a `?`, then an expression to execute (or return) if the condition is truthy followed by a `:` then the expression to execute (or return) if the condition is falsy. So this is a faster way of writing:
+    ```javascript
+    if (this.displayMode === DisplayMode.Edit) {
+      return generateButton;
+    } else {
+      return "";
+    }
+    ```
+
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.ts** file with the following:
 
 <details>
