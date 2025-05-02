@@ -61,6 +61,47 @@ This step will configure a **Windows** workstation as a development workstation 
 - [Enable your device for development](https://learn.microsoft.com/windows/apps/get-started/enable-your-device-for-development)
 - [PowerShell execution policies](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 
+## :rocket: Exercise 2a (optional): Install Node Version Switcher
+
+Note: While we recommend using NVS, if you prefer to install Node directly without the ability to switch between versions of Node, skip to [Exercise 2: Install Node.js](#rocket-exercise-2-install-nodejs)
+
+:: Windows Installation
+
+1. Download the [NVS Windows Installer](https://github.com/jasongin/nvs/releases/download/v1.7.1/nvs-1.7.1.msi).
+1. Install NVS by double clicking on the downloaded installer.
+1. Open the Command Prompt with the keyboard shortcut Ctrl-R and type "cmd" in the textbox and select the "OK" button.
+    
+    ![run dialog](assets/rundialog.png)
+
+1. In the Command Prompt Dialog type the follwing to install Node Version 18:
+   
+   ```console
+    nvs add 18
+    ```
+
+1. In the Command Prompt Dialog type the following to use Node Version 18:
+   
+   ```console
+    nvs use 18
+    ```
+
+1. In the Command Prompt Dialog type the following to confirm what version of Node is currently installed:
+   
+   ```console
+    node -v
+    ```
+
+If installed successfully you should see the following in your command prompt:
+![Node Version](assets/nodeversion.png)
+
+#### :books: Resources
+> [NVS Homepage](https://github.com/jasongin/nvs)
+
+> :bulb: Command Console Prompt to see all versions of Node installed and available to NVS:
+    ```
+    nvs ls
+    ```
+
 ## :rocket: Exercise 2: Install Node.js
 
 Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
@@ -85,6 +126,8 @@ Node.js maintains two different releases at all times: LTS & Current version. SP
 - :bulb: [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
+
+## :rocket: Exercise 2a (optional): Install Node Version Switcher
 
 ## :rocket: Exercise 3: Install VS Code
 
