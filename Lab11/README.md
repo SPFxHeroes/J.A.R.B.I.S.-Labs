@@ -1,6 +1,8 @@
 # Lab 11: Configurable Web Parts
 
-In this lab, we'll clean up our property pane and make the web part configurable.
+So now we've got a web part that pulls hero configuration options from a provisioned list during the edit experience while utilizing caching. The web part lets you randomize the instance property values using those list items and uses those values to display a configured hero. Wowee!
+
+In this lab, we'll clean up our property pane and make the web part configurable. We currently let some of the properties be overwritten there undermining (and humiliating) our generate button.
 
 <details>
 <summary><b>Legend</b></summary>
@@ -27,7 +29,7 @@ In this lab, we'll clean up our property pane and make the web part configurable
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 11 Starter](https://github.com/SPFxHeroes/J.A.R.B.I.S./tree/Start-of-Lab-11) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 11 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-11) branch.
 
 </details>
 
@@ -38,7 +40,9 @@ Our web part display is looking great. However, some user's have requested we gi
 1. In your **JarbisWebPart.ts** file, add a new property to the `IJarbisWebPartProps` interface, make it of type `boolean` and call it `powersVisible`, by using the following code:
 
    ```TypeScript
-   // Indicates if the hero's powers should be shown at render time
+   /**
+    * Indicates if the hero's powers should be shown at render time.
+    */
    powersVisible: boolean;
    ```
 
@@ -68,7 +72,7 @@ Our web part display is looking great. However, some user's have requested we gi
 1. Back in the **JarbisWebPart.ts** file, in the `render` method above the `const generateButton...` line add the following code:
 
    ```TypeScript
-    const powers = `
+   const powerSummary = `
       <div class="${styles.powers}">
         (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
       </div>`;
@@ -78,9 +82,9 @@ Our web part display is looking great. However, some user's have requested we gi
 
    ```typescript
    const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
+      <div class="${styles.logo}">
+        <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+        <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
       </div>
       <div class="${styles.name}">
         The ${escape(this.properties.name)}
@@ -91,76 +95,76 @@ Our web part display is looking great. However, some user's have requested we gi
 1. Again in the `render` method, just below the `${hero}` line, insert the following code:
 
    ```TypeScript
-   ${this.properties.powersVisible ? powers : ""}
+   ${this.properties.powersVisible ? powerSummary : ""}
    ```
 
    Making the full `render` method look as follows:
 
    ```TypeScript
    public render(): void {
-     const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
-     for (let b = 0; b < oldbuttons.length; b++) {
-       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
-     }
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    for (let b = 0; b < oldbuttons.length; b++) {
+      oldbuttons[b].removeEventListener('click', this.onGenerateHero);
+    }
 
-     if (this.displayMode === DisplayMode.Edit && this.powers === undefined) {
-       this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'options');
+    if (this.displayMode === DisplayMode.Edit && this.powers === undefined) {
+      this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'options');
 
-       //load the powers
-       this.getPowers().catch((error) => console.error(error));
-       return;
-     } else {
-       this.context.statusRenderer.clearLoadingIndicator(this.domElement);
-     }
+      //load the powers
+      this.getPowers().catch((error) => console.error(error));
+      return;
+    } else {
+      this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+    }
 
-     const hero = `
-       <div class="${styles.logo} ${icons.heroIcons}">
-         <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-         <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
-       </div>
-       <div class="${styles.name}">
-         The ${escape(this.properties.name)}
-       </div>`;
+    const hero = `
+      <div class="${styles.logo}">
+        <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+        <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
+      </div>
+      <div class="${styles.name}">
+        The ${escape(this.properties.name)}
+      </div>`;
 
-     const powers = `
-       <div class="${styles.powers}">
-         (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
-       </div>`;
+    const powerSummary = `
+      <div class="${styles.powers}">
+        (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
+      </div>`;
 
-     const generateButton = `<button class=${styles.generateButton}>Generate</button>`;
+    const generateButton = `<button class="${styles.generateButton}">Generate</button>`;
 
-     this.domElement.innerHTML = `
-       <div class="${styles.jarbis}">
-         ${hero}
-         ${this.properties.powersVisible ? powers : ""}
-         ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
-       </div>`;
+    this.domElement.innerHTML = `
+      <div class="${styles.jarbis}">
+        ${hero}
+        ${this.properties.powersVisible ? powerSummary : ""}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+      </div>`;
 
-     const buttons = this.domElement.getElementsByClassName(styles.generateButton);
-     for (let b = 0; b < buttons.length; b++) {
-       buttons[b].addEventListener('click', this.onGenerateHero);
-     }
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
+    for (let b = 0; b < buttons.length; b++) {
+      buttons[b].addEventListener('click', this.onGenerateHero);
+    }
    }
    ```
-   > :bulb: Now we can conditionally display the powers text, now we just need a way to toggle it!
 
+   > :bulb: Now we can conditionally display the powers text, we just need a way to toggle it!
 
 1. At the top of **JarbisWebPart.ts**, change the following `import` statement, from this:
 
    ```TypeScript
    import {
-      IPropertyPaneConfiguration,
-      PropertyPaneTextField
-    } from '@microsoft/sp-property-pane';
+     type IPropertyPaneConfiguration,
+     PropertyPaneTextField
+   } from '@microsoft/sp-property-pane';
    ```
 
    To this:
 
    ```TypeScript
-    import {
-      IPropertyPaneConfiguration,
-      PropertyPaneToggle
-    } from '@microsoft/sp-property-pane';
+   import {
+     type IPropertyPaneConfiguration,
+     PropertyPaneToggle
+   } from '@microsoft/sp-property-pane';
    ```
    > :bulb: We're no longer going to use the TextField control for the property pane and instead are going to use a Toggle control. You can explore what's available by typing PropertyPane and seeing what Intellisense suggests.
    >
@@ -170,24 +174,24 @@ Our web part display is looking great. However, some user's have requested we gi
 
    ```TypeScript
    protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-        return {
-          pages: [
+    return {
+      pages: [
+        {
+          groups: [
             {
-              groups: [
-                {
-                  groupFields: [
-                    PropertyPaneToggle('powersVisible', {
-                      label: "Powers",
-                      onText: "Visible",
-                      offText: "Hidden"
-                    })
-                  ]
-                }
+              groupFields: [
+                PropertyPaneToggle('powersVisible', {
+                  label: "Powers",
+                  onText: "Visible",
+                  offText: "Hidden"
+                })
               ]
             }
           ]
-        };
-      }
+        }
+      ]
+    };
+   }
    ```
 
 1. We've now temporarily stopped using the `strings` import and that will cause our build to fail thanks to some rather strict linting rules. Since we're going to be using this in the next lab, we can simply comment this import out for now:
@@ -206,25 +210,25 @@ If you run into any trouble or don't really want to do the steps above, you can 
 <summary>:hedgehog: JarbisWebPart.ts</summary>
 
 ```TypeScript
-import { escape } from '@microsoft/sp-lodash-subset';
 import { Version, DisplayMode } from '@microsoft/sp-core-library';
 import {
-  IPropertyPaneConfiguration,
+  type IPropertyPaneConfiguration,
   PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
-import icons from './HeroIcons.module.scss';
 //import * as strings from 'JarbisWebPartStrings';
-
+import { getIconClassName } from '@fluentui/style-utilities';
+import { css } from '@fluentui/utilities';
+import { escape } from '@microsoft/sp-lodash-subset';
 import { IPowerItem } from './IPowerItem';
 import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
+import { Caching } from '@pnp/queryable';
 
 export interface IJarbisWebPartProps {
   name: string;
@@ -235,10 +239,14 @@ export interface IJarbisWebPartProps {
   foregroundIcon: string;
   backgroundIcon: string;
 
-  // The name of the SharePoint list that contains the powers
+  /**
+   * The name of the SharePoint list that contains the powers.
+   */
   list: string;
 
-  // Indicates if the hero's powers should be shown at render time
+  /**
+   * Indicates if the hero's powers should be shown at render time.
+   */
   powersVisible: boolean;
 }
 
@@ -263,25 +271,25 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     }
 
     const hero = `
-      <div class="${styles.logo} ${icons.heroIcons}">
-        <i class="${this.getIconClass(escape(this.properties.backgroundIcon))} ${styles.background}" style="color:${escape(this.properties.backgroundColor)};"></i>
-        <i class="${this.getIconClass(escape(this.properties.foregroundIcon))} ${styles.foreground}" style="color:${escape(this.properties.foregroundColor)};"></i>
+      <div class="${styles.logo}">
+        <i class="${css(styles.background, getIconClassName(escape(this.properties.backgroundIcon)))}" style="color:${escape(this.properties.backgroundColor)};"></i>
+        <i class="${css(styles.foreground, getIconClassName(escape(this.properties.foregroundIcon)))}" style="color:${escape(this.properties.foregroundColor)};"></i>
       </div>
       <div class="${styles.name}">
         The ${escape(this.properties.name)}
       </div>`;
 
-    const powers = `
+    const powerSummary = `
       <div class="${styles.powers}">
         (${escape(this.properties.primaryPower)} + ${escape(this.properties.secondaryPower)})
       </div>`;
 
-    const generateButton = `<button class=${styles.generateButton}>Generate</button>`;
+    const generateButton = `<button class="${styles.generateButton}">Generate</button>`;
 
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.properties.powersVisible ? powers : ""}
+        ${this.properties.powersVisible ? powerSummary : ""}
         ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
       </div>`;
 
@@ -292,11 +300,8 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   /**
-  * Gets the list of powers from SharePoint
-  *
-  * @private
-  * @memberof JarbisWebPart
-  */
+     * Gets the list of powers from SharePoint
+     */
   private getPowers = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
 
@@ -308,31 +313,35 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   /**
-  * Generates a new hero with random values
-  *
-  * @param {MouseEvent} _event Unused event parameter
-  * @memberof JarbisWebPart
-     */
+   * Generates a new hero with random values
+   *
+   * @param _event Unused event parameter
+   */
   public onGenerateHero = (_event: MouseEvent): void => {
     // Get a random power (list item) from the list of powers
-    const power1: IPowerItem = this.getRandomItem(this.powers);
+    const power1 = this.getRandomItem(this.powers);
 
     // Get another random power (list item) from the list of powers, excluding the first power
-    const power2: IPowerItem = this.getRandomItem(this.powers, power1);
+    const power2 = this.getRandomItem(this.powers, power1);
+
+    if (typeof power1 === 'undefined' || typeof power2 === 'undefined') {
+      console.error("Unable to get powers");
+      return;
+    }
 
     // Get the titles from each of the powers and save them to our properties
     this.properties.primaryPower = power1.Title;
     this.properties.secondaryPower = power2.Title;
 
     // Get a random color for the background choosing from the combined color suggestions for the two powers
-    this.properties.backgroundColor = this.getRandomItem([...power1.Colors, ...power2.Colors]);
+    this.properties.backgroundColor = this.getRandomItem([...power1.Colors, ...power2.Colors]) ?? this.properties.backgroundColor;
     // Get a random color for the foreground choosing from the same list of suggestions but excluding the background color
-    this.properties.foregroundColor = this.getRandomItem([...power1.Colors, ...power2.Colors], this.properties.backgroundColor);
+    this.properties.foregroundColor = this.getRandomItem([...power1.Colors, ...power2.Colors], this.properties.backgroundColor) ?? this.properties.foregroundColor;
 
     // Get a random icon for the background choosing from a fixed list of background icons
-    this.properties.backgroundIcon = this.getRandomItem(['StarburstSolid', 'CircleShapeSolid', 'HeartFill', 'SquareShapeSolid', 'ShieldSolid']);
+    this.properties.backgroundIcon = this.getRandomItem(['StarburstSolid', 'CircleShapeSolid', 'HeartFill', 'SquareShapeSolid', 'ShieldSolid']) ?? this.properties.backgroundIcon;
     // Get a random icon for the foreground choosing from the combined icon suggestions for the two powers
-    this.properties.foregroundIcon = this.getRandomItem([...power1.Icon, ...power2.Icon], this.properties.backgroundIcon);
+    this.properties.foregroundIcon = this.getRandomItem([...power1.Icon, ...power2.Icon], this.properties.backgroundIcon) ?? this.properties.foregroundIcon;
 
     // Get the prefix choosing from the combined prefix suggestions for the two powers
     const prefix = this.getRandomItem([...power1.Prefix, ...power2.Prefix]);
@@ -348,15 +357,12 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   /**
-  * Gets a random value from an array of choices, excluding a specific value
-  *
-  * @private
-  * @param {any[]} choices The array of choices to pick from
-  * @param {any} exclusion The value to exclude from the choices
-  * @memberof JarbisWebPart
-  */
-
-  private getRandomItem = (choices: any[], exclusion?: any): any => {
+   * Gets a random value from an array of choices, excluding a specific value
+   *
+   * @param choices The array of choices to pick from
+   * @param exclusion The value to exclude from the choices
+   */
+  private getRandomItem = <T>(choices: T[], exclusion?: T): T | undefined => {
     // Filter the choices to exclude the previous value
     const filteredChoices = choices.filter((value) => value !== exclusion);
 
@@ -365,19 +371,15 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
       return filteredChoices[Math.floor(Math.random() * filteredChoices.length)];
     }
 
-    // Otherwise, return an empty string
-    return "";
+    // Otherwise, return undefined
+    return;
   }
 
-  private getIconClass(iconName: string): string | undefined {
-    const iconKey: string = "icon" + iconName;
-    if (this.hasKey(icons, iconKey)) {
-      return icons[iconKey];
+  protected onDispose(): void {
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    for (let b = 0; b < oldbuttons.length; b++) {
+      oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
-  }
-
-  private hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
-    return key in obj;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
@@ -420,14 +422,8 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
       ]
     };
   }
-
-  protected onDispose(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
-    for (let b = 0; b < oldbuttons.length; b++) {
-      oldbuttons[b].removeEventListener('click', this.onGenerateHero);
-    }
-  }
 }
+
 ```
 
 </details>
