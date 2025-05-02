@@ -23,6 +23,7 @@ Welcome to your first lab! This lab is all about getting your **development envi
 <summary><b>Exercises</b></summary>
 
   1. [Configure your Windows workstation for development](#rocket-exercise-1-configure-your-windows-workstation-for-development)
+  1. [Insall Node Version Switcher (Optional)](#rocket-exercise-2a-optional-install-node-version-switcher)
   1. [Install Node.js](#rocket-exercise-2-install-nodejs)
   1. [Install VS Code](#rocket-exercise-3-install-vs-code)
   1. [Install the Gulp CLI](#rocket-exercise-4--install-the-gulp-cli)
