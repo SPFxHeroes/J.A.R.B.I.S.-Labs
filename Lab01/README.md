@@ -62,7 +62,7 @@ This step will configure a **Windows** workstation as a development workstation 
 - [Enable your device for development](https://learn.microsoft.com/windows/apps/get-started/enable-your-device-for-development)
 - [PowerShell execution policies](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 
-## :rocket: Exercise 2a (optional): Install Node Version Switcher
+## :rocket: Exercise 1a (optional): Install Node Version Switcher
 
 Note: While we recommend using NVS, if you prefer to install Node directly without the ability to switch between versions of Node, skip to [Exercise 2: Install Node.js](#rocket-exercise-2-install-nodejs)
 
