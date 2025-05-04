@@ -23,7 +23,7 @@ Welcome to your first lab! This lab is all about getting your **development envi
 <summary><b>Exercises</b></summary>
 
   1. [Configure your Windows workstation for development](#rocket-exercise-1-configure-your-windows-workstation-for-development)
-  1. [Insall Node Version Switcher (Optional)](#rocket-exercise-2a-optional-install-node-version-switcher)
+  1. [Insall Node Version Switcher (Optional)](#rocket-exercise-1a-optional-install-node-version-switcher)
   1. [Install Node.js](#rocket-exercise-2-install-nodejs)
   1. [Install VS Code](#rocket-exercise-3-install-vs-code)
   1. [Install the Gulp CLI](#rocket-exercise-4--install-the-gulp-cli)
@@ -70,7 +70,7 @@ Note: While we recommend using NVS, if you prefer to install Node directly witho
 
 1. Download the [NVS Windows Installer](https://github.com/jasongin/nvs/releases/download/v1.7.1/nvs-1.7.1.msi).
 1. Install NVS by double clicking on the downloaded installer.
-1. Open the Command Prompt with the keyboard shortcut Ctrl-R and type "cmd" in the textbox and select the "OK" button.
+1. Open the Command Prompt with the keyboard shortcut WindowsKey-R and type "cmd" in the textbox and select the "OK" button.
     
     ![run dialog](assets/rundialog.png)
 
@@ -105,6 +105,8 @@ If installed successfully you should see the following in your command prompt:
 
 ## :rocket: Exercise 2: Install Node.js
 
+<b>NOTE: This is not necessary if you completed step 1a and are using NVS.</b>
+
 Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
 Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.20.0**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.21) which uses [**LTS Node.js v18**](https://nodejs.org/dist/latest-v18.x/).
@@ -128,7 +130,6 @@ Node.js maintains two different releases at all times: LTS & Current version. SP
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
 
-## :rocket: Exercise 2a (optional): Install Node Version Switcher
 
 ## :rocket: Exercise 3: Install VS Code
 
