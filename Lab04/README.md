@@ -1,4 +1,4 @@
-# Lab 4: Working with Icons
+# Lab 4: Working with the Game Grid
 
 <details>
 <summary><b>Legend</b></summary>
@@ -18,226 +18,324 @@
 <details>
 <summary><b>Exercises</b></summary>
 
-  1. [Using FluentUI Icons](#rocket-exercise-1-using-fluentui-icons)
-  1. [Making icons pretty](#rocket-exercise-2-making-icons-pretty)
-  1. [Making icons even prettier](#rocket-exercise-3-making-icons-even-prettier)
+  1. [Creating the game grid](#rocket-exercise-1-creating-the-game-grid)
+  1. [Styling the tiles](#rocket-exercise-2-styling-the-tiles)
+  1. [Adding tile states](#rocket-exercise-3-adding-tile-states)
+  1. [Creating a render helper](#rocket-exercise-4-creating-a-render-helper)
 </details>
 
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 04 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-04) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 04 Starter](https://github.com/nicochuck/Wordle/tree/Start-of-Lab-04) branch.
 
 </details>
 
-## :rocket: Exercise 1: Using FluentUI icons
+## :rocket: Exercise 1: Creating the game grid
 
-FluentUI is a design language provided by Microsoft and is used all over M365. There are React controls, themes, icons, and more. It's a big topic and something we recommend looking into further.
+Wordle uses a 6x5 grid - 6 rows for guesses and 5 columns for the letters in each word. Let's build it!
 
-For our purposes, we're just going to be using some of the icons. We've already seen where we could use the icons for the web part icon shown in the authoring canvas. Now let's take a look at adding them in our rendered web part!
-
-The FluentUI Icons can be accessed in multiple ways. The traditional way is to use predefined icon classes that will use an icon font. You can reference that font via CDN, by using utility classes (that's what we'll be doing), or even generating your own subset of icons into a custom icon font using https://uifabricicons.azurewebsites.net/.
-
-There are also libraries specific to react to provide icon components and to easily integrate with other react controls. Additionally, there is an SVG package that makes using the icons as raw SVG files easy.
-
-Like we said, big topic. But when it comes to the icons, in general, use the approach we show you for non-react apps and use the @fluentui/react-icons and related packages/tooling when building react framework apps.
-
-1. In **JarbisWebPart.ts**, replace the word `Logo` inside `<div class="${styles.logo}">` with the following code:
+1. In **WordleWebPart.ts**, replace the `Game Grid` text inside `<div class="${styles.grid}">` with the following code:
 
     ```typescript
-    <i class=""></i>
-    <i class=""></i>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
+    <div class="">
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+      <div class=""></div>
+    </div>
     ```
 
-  > :bulb: We're using the `<i>` element for our icons. This is the [Idiomatic Text](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/i) element and was originally used to indicate italic text similar to how the `<b>` element can be used for bold. However, this usage has evolved and it's common practice to use these for icons (`span` elements are the other common option). We're following that convention here, but know it isn't doing anything special and could easily be a `span` or other inline element.
-
-1. To display a fluent icon, we just need to apply the correct class. There are some predefined classes you'll find out there (start with `ms-Icon--*`) but we're going to use a utility method that provides us with just a little more power.
-
-1. Let's add an import for the `getIconClassName` utility function to our imports (right after the `import * as strings...` line):
-
-  ```TypeScript
-  import { getIconClassName } from '@fluentui/style-utilities';
-  ```
-
-1. Let's adjust our `<i>` elements within our logo to use the utility class to load 2 icons (ShieldSolid & FavoriteStarFill). In the first element, set the `class` attribute to `${getIconClassName('ShieldSolid')}` and the second element, the `class` attribute should be `${getIconClassName('FavoriteStarFill')}`. Your `render` method should now look like this::
-
-  ```TypeScript
-  public render(): void {
-    this.domElement.innerHTML = `
-      <div class="${styles.jarbis}">
-        <div class="${styles.logo}">
-          <i class="${getIconClassName('ShieldSolid')}"></i>
-          <i class="${getIconClassName('FavoriteStarFill')}"></i>
-        </div>
-        <div class="${styles.name}">
-          The Something Hero
-        </div>
-        <div class="${styles.powers}">
-          (Primary + Secondary)
-        </div>
-      </div>`;
-  }
-  ```
-
-1. Save and refresh your browser and you should have a couple of icons! Fancy!
-
-   ![icons!](assets/basicicons.png)
-
-   > :bulb: We could have technically used `ms-Icon ms-Icon--ShieldSolid` and `ms-Icon ms-Icon--FavoriteStarFill` as our class values. However, there have been occassions in the past where those classes were inadvertantly undefined on certain pages (bug). Using the `getIconClassName` generates a class and applies the styles for us ensuring it's defined.
-   >
-   > Additionally, while you won't get a compile error if you pass an invalid icon name, you will get a warning in the console telling you that icon isn't available. It isn't much, but it can help when you're desperately trying to understand why an icon doesn't display.
-
-   ![bad icon](./assets/favoritestarphil.png)
-
-#### :books: Resources
-- [Flicon Icon Search](https://flicon.io)
-- [FluentUI Icon Font Generator](https://uifabricicons.azurewebsites.net)
-
-
-## :rocket: Exercise 2: Making icons pretty
-
-One of the nice things about working with our icons as an icon font, is that we can apply styles to them just as we would text. This makes it easy to control the size, placement, and color. So let's make these things pretty!
-
-1. Working with the same `<i>` elements as before, add a `style` element to the first one, and set the style to: `style="color:skyblue;"`
-
-1. Set the style of the second element `style="color:orange;"`
-
-1. Save and refresh the browser to witness the glory of color!
-
-   ![icons, now with color!](assets/basiciconswithcolor.png)
-
 1. Your `render` method should now look like this:
-
-  ```TypeScript
-  public render(): void {
-    this.domElement.innerHTML = `
-      <div class="${styles.jarbis}">
-        <div class="${styles.logo}">
-          <i class="${getIconClassName('ShieldSolid')}" style="color:skyblue;"></i>
-          <i class="${getIconClassName('FavoriteStarFill')}" style="color:orange;"></i>
+   ```TypeScript
+   public render(): void {
+     this.domElement.innerHTML = `
+      <div class="${styles.wordle}">
+        <div class="${styles.title}">
+          Wordle
         </div>
-        <div class="${styles.name}">
-          The Something Hero
-        </div>
-        <div class="${styles.powers}">
-          (Primary + Secondary)
+        <div class="${styles.grid}">
+          <div class="">
+            <div class=""></div>
+            <div class=""></div>
+            <div class=""></div>
+            <div class=""></div>
+            <div class=""></div>
+          </div>
+          <!-- ... more rows ... -->
         </div>
       </div>`;
-  }
-  ```
+   }
+   ```
+
+1. Save and refresh your browser. Oh no! We can't see our tiles. That's okay, that's because we haven't styled them yet!
+
+   ![basic grid - no styles yet](assets/basicGrid.png)
 
 #### :books: Resources
+- [CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+- [Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)
+
+
+## :rocket: Exercise 2: Styling the tiles
+
+Now we need to make those tiles look like proper Wordle tiles. Let's add some styles!
+
+1. Open the **WordleWebPart.module.scss** and add the following styles inside the `.wordle` block, after the `.grid` styles:    
+
+```scss
+    .row {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .tile {
+      width: 62px;
+      height: 62px;
+      border: 2px solid "[theme:neutralTertiaryAlt, default: #c8c6c4]";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-sizing: border-box;
+    }
+```
+
+2. Now we need to apply these styles to our HTML! Go back to **WordleWebPart.ts** and update the grid divs to use the `row` and `tile` classes:
+
+   - Add `${styles.row}` to each row div (the outer divs)
+   - Add `${styles.tile}` to each tile div (the inner divs)
+
+   Here's what the first row should look like:
+   ```TypeScript
+   <div class="${styles.row}">
+     <div class="${styles.tile}"></div>
+     <div class="${styles.tile}"></div>
+     <div class="${styles.tile}"></div>
+     <div class="${styles.tile}"></div>
+     <div class="${styles.tile}"></div>
+   </div>
+   ```
+
+   <details>
+   <summary>:hedgehog: Full grid HTML with all classes applied</summary>
+
+   ```TypeScript
+    <div class="${ styles.grid }">
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      <div class="${styles.row}">
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+        <div class="${styles.tile}"></div>
+      </div>
+      </div>
+   ```
+
+   </details>
+
+1. Save and refresh the browser to see your styled grid!
+
+   ![Grid with styled tiles](assets/basicGridWithStyles.png)
+
+#### :books: Resources
+- [CSS Box Model](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model)
 - [CSS Named Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color)
 
 
-## :rocket: Exercise 3: Making icons even prettier
+## :rocket: Exercise 3: Adding tile states
 
-Now we see that we can use some basic inline styles and our icons will be affected just as if they were text (which technically, they are). Inline styles aren't normally recommended as things are easier to maintain as a separation of concern (code here, styles there).
+In Wordle, tiles change color based on how correct the guess is:
+- **Correct** (green): Letter is in the right spot
+- **Present** (yellow): Letter is in the word but wrong spot  
+- **Absent** (gray): Letter is not in the word
 
-Having the colors be inline and setable in code will make more sense once we start making this thing dynamic. For now, let's switch back to applying other styles through classes.
+Let's add these state styles and see them in action!
 
-1. Open the **JarvisWebPart.module.scss** and replace the styles for the `.logo` class with:
+1. Add the following styles to your **WordleWebPart.module.scss** file, inside the `.wordle` block after the `.tile` styles:
 
     ```scss
-    .logo {
-      position: relative;
-      
-      .background {
-        font-size: 96px;
-        -webkit-text-stroke: "[theme:neutralPrimary, default: #333333]" 1.4px;
-      }
-      
-      .foreground {
-        font-size: 48px;
-        -webkit-text-stroke: "[theme:neutralPrimary, default: #333333]" 1.4px;
-        position: absolute;
-        top: 24px;
-        left: 24px;
-      }
+    .correct {
+      background-color: #6aaa64;
+      border-color: #6aaa64;
+      color: white;
+    }
+    
+    .present {
+      background-color: #c9b458;
+      border-color: #c9b458;
+      color: white;
+    }
+    
+    .absent {
+      background-color: #787c7e;
+      border-color: #787c7e;
+      color: white;
+    }
+    
+    .filled {
+      border-color: "[theme:neutralPrimary, default: #333333]";
     }
     ```
-    > :bulb: By now you may have noticed that unlike traditional CSS, we're nesting child styles rather than having each style have a specific selector. This is one of the benefits of SCSS. In the end, it will generate all the specific selectors for us but lets us write the styles in a far less tedious and more understandable way. It'll handle composing it all back together and we get to just use our classes.
+    > :bulb: The `filled` class is for tiles that have a letter but haven't been evaluated yet. It gives visual feedback that a letter has been typed.
 
-1. Back in the **JarbisWebPart.ts** file, add another import below the `getIconClassName` import we did previously:
+1. Back in the **WordleWebPart.ts** file, let's add some sample letters to see how it looks. Update a few tiles in the first row to include letters and states:
+   ```TypeScript
+   <div class="${styles.row}">
+     <div class="${styles.tile} ${styles.correct}">H</div>
+     <div class="${styles.tile} ${styles.absent}">E</div>
+     <div class="${styles.tile} ${styles.present}">L</div>
+     <div class="${styles.tile} ${styles.absent}">L</div>
+     <div class="${styles.tile} ${styles.correct}">O</div>
+   </div>
+   ```
 
-  ```TypeScript
-  import { css } from '@fluentui/utilities';
-  ```
+1. Refresh the browser and your web part should look like this:
 
-1. In the first element, set the `class` attribute to `${css(styles.background, getIconClassName('ShieldSolid'))}`
+![Preview of the web part with colored tiles](assets/preview.png)
 
-1. In the second element, set the `class` attribute to `${css(styles.foreground, getIconClassName('FavoriteStarFill'))}`. Your render method should now look like this:
-
-  ```TypeScript
-  public render(): void {
-    this.domElement.innerHTML = `
-      <div class="${styles.jarbis}">
-        <div class="${styles.logo}">
-          <i class="${css(styles.background, getIconClassName('ShieldSolid'))}" style="color:skyblue;"></i>
-          <i class="${css(styles.foreground, getIconClassName('FavoriteStarFill'))}" style="color:orange;"></i>
-        </div>
-        <div class="${styles.name}">
-          The Something Hero
-        </div>
-        <div class="${styles.powers}">
-          (Primary + Secondary)
-        </div>
-      </div>`;
-  }
-  ```
-
-1. Save and refresh the browser and your web part should look something like this:
-
-![Preview of the web part](assets/preview.png)
-
-  > :bulb: The `css` utility is a css class concatenation helper which can merge class names together (dedupe) and skips over falsey values. It isn't strictly needed here as we could have just put the 2 classes with a space between to have both applied. However, using this whenever you've got 2 or more classes to apply will give you a lot more flexibility in the future. For instance, you could do something like `css(styles.someclass, isVisible && styles.visible)` where the `visible` class will only be applied when `isVisible` is true. As the complexity of your styles grow, it can be nice not to be in the space adding business.
-  >
-  > :bulb: You might have noticed something different about our style imports compared to all the other imports. Most imports do **not** contain the file extension. At first glance, it looks like these do. However, what's actually happening is that we aren't importing the stylesheet directly. Rather we're importing a file SPFx has built for us called `JarbisWebPart.module.scss.ts`. These files are excluded from VS Code but can be seen in the file system:
-
-   ![SCSS files in the file system](assets/scssfiles.png)
-
-   >What we're importing is the mapping of CSS classes to TypeScript which is what allows us to select our classes in code (rather than using a string) and takes care of the hashing to avoid conflicts. Wowee!
-
-If things don't look quite right, review the `render` code above and ensure your **JarbisWebPart.module.scss** file looks like this:
+If things don't look quite right, review the code above and ensure your **WordleWebPart.module.scss** file looks like this:
 
 <details>
-<summary>:hedgehog: JarbisWebPart.module.scss</summary>
+<summary>:hedgehog: WordleWebPart.module.scss</summary>
 
 ```SCSS
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
-.jarbis {
+.wordle {
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 
-  .logo {
-    position: relative;
-    
-    .background {
-      font-size: 96px;
-      -webkit-text-stroke: "[theme:neutralPrimary, default: #333333]" 1.4px;
-    }
-    
-    .foreground {
-      font-size: 48px;
-      -webkit-text-stroke: "[theme:neutralPrimary, default: #333333]" 1.4px;
-      position: absolute;
-      top: 24px;
-      left: 24px;
-    }
-  }
-
-  .name {
+  .title {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 36px;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
 
-  .powers {
-    color: "[theme:neutralSecondary, default: #666666]";
-    font-size: 14px;
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+
+  .row {
+    display: flex;
+    gap: 5px;
+  }
+
+  .tile {
+    width: 62px;
+    height: 62px;
+    border: 2px solid "[theme:neutralTertiaryAlt, default: #c8c6c4]";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-sizing: border-box;
+  }
+
+  .correct {
+    background-color: #6aaa64;
+    border-color: #6aaa64;
+    color: white;
+  }
+
+  .present {
+    background-color: #c9b458;
+    border-color: #c9b458;
+    color: white;
+  }
+
+  .absent {
+    background-color: #787c7e;
+    border-color: #787c7e;
+    color: white;
+  }
+
+  .filled {
+    border-color: "[theme:neutralPrimary, default: #333333]";
   }
 }
 ```
@@ -245,15 +343,208 @@ If things don't look quite right, review the `render` code above and ensure your
 </details>
 
 #### :books: Resources
-- [CSS Modules](https://github.com/css-modules/css-modules)
-- [SPFx CSS Recommendations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/css-recommendations)
 - [Use theme colors in your SPFx customizations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
 - [Available theme tokens and Default values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
+
+
+## :rocket: Exercise 4: Creating a render helper
+
+That's a lot of HTML we wrote by hand! Imagine if we had to change something - we'd have to update 30 tiles. Let's make our code cleaner by creating a helper function that generates the grid for us.
+
+> :bulb: This is a common pattern in web development - start with static HTML to get the layout right, then replace it with dynamic code once you understand the structure.
+
+1. In **WordleWebPart.ts**, add the following helper methods right **above** your `render` method (but still inside the `WordleWebPart` class):
+
+   ```TypeScript
+   private renderGrid(): string {
+     const targetWord = 'HELLO';
+     const guesses = ['HELLO'];
+     let gridHtml = '';
+     
+     for (let row = 0; row < 6; row++) {
+       gridHtml += `<div class="${styles.row}">`;
+       
+       const guess = guesses[row] || '';
+       
+       for (let col = 0; col < 5; col++) {
+         const letter = guess[col] || '';
+         const stateClass = guess ? this.getTileState(guess, col, targetWord) : '';
+         gridHtml += `<div class="${styles.tile} ${stateClass}">${letter}</div>`;
+       }
+       
+       gridHtml += '</div>';
+     }
+     
+     return gridHtml;
+   }
+
+   private getTileState(guess: string, index: number, targetWord: string): string {
+     const letter = guess[index];
+     
+     if (letter === targetWord[index]) {
+       return styles.correct;
+     } else if (targetWord.indexOf(letter) >= 0) {
+       return styles.present;
+     } else {
+       return styles.absent;
+     }
+   }
+   ```
+
+   > :bulb: Let's break down what these functions do:
+   > - `renderGrid()` loops through each row (6 rows) and column (5 tiles), building the same HTML we wrote by hand
+   > - `getTileState()` checks each letter against the target word and returns the appropriate CSS class (`correct`, `present`, or `absent`)
+   > - For now, we're hardcoding `targetWord` and `guesses` - we'll make these dynamic with properties in the next lab!
+
+1. Now let's use our new helper! In your `render` method, find the `<div class="${styles.grid}">` section and **delete all the hardcoded rows and tiles inside it**. Replace them with a single function call:
+
+   ```typescript
+   <div class="${styles.grid}">
+     ${this.renderGrid()}
+   </div>
+   ```
+
+   That's it! One line replaces all 36 tiles we created manually. 🎉
+
+1. Your complete `render` method should now look like this:
+
+   ```typescript
+   public render(): void {
+     this.domElement.innerHTML = `
+       <div class="${styles.wordle}">
+         <div class="${styles.title}">
+           Wordle
+         </div>
+         <div class="${styles.grid}">
+           ${this.renderGrid()}
+         </div>
+       </div>`;
+   }
+   ```
+
+1. Save and refresh the browser. It should look very similar to what you before, except this time you guessed the word correctly the first time! GO YOU!
+
+   ![Preview of the web part with colored tiles](assets/dynamicGrid.png)
+
+1. **Bonus:** Try changing the hardcoded values in `renderGrid()` to see different results:
+   - Change `guesses` to `['WORLD', 'HELPS', 'HELLO']` to see multiple guesses
+
+<details>
+<summary>:hedgehog: Full WordleWebPart.ts</summary>
+
+```TypeScript
+import { Version } from '@microsoft/sp-core-library';
+import {
+  type IPropertyPaneConfiguration,
+  PropertyPaneTextField
+} from '@microsoft/sp-property-pane';
+import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
+
+import styles from './WordleWebPart.module.scss';
+import * as strings from 'WordleWebPartStrings';
+
+export interface IWordleWebPartProps {
+  description: string;
+}
+
+export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+  private renderGrid(): string {
+    const targetWord = 'HELLO';
+    const guesses = ['HELLO'];
+    let gridHtml = '';
+    
+    for (let row = 0; row < 6; row++) {
+      gridHtml += `<div class="${styles.row}">`;
+      
+      const guess = guesses[row] || '';
+      
+      for (let col = 0; col < 5; col++) {
+        const letter = guess[col] || '';
+        const stateClass = guess ? this.getTileState(guess, col, targetWord) : '';
+        gridHtml += `<div class="${styles.tile} ${stateClass}">${letter}</div>`;
+      }
+      
+      gridHtml += '</div>';
+    }
+    
+    return gridHtml;
+  }
+
+  private getTileState(guess: string, index: number, targetWord: string): string {
+    const letter = guess[index];
+    
+    if (letter === targetWord[index]) {
+      return styles.correct;
+    } else if (targetWord.indexOf(letter) >= 0) {
+      return styles.present;
+    } else {
+      return styles.absent;
+    }
+  }
+
+  public render(): void {
+     this.domElement.innerHTML = `
+       <div class="${styles.wordle}">
+         <div class="${ styles.title }">
+           Wordle
+         </div>
+         <div class="${ styles.grid }">
+            ${ this.renderGrid() }
+         </div>
+       </div>`;
+}
+  protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
+    if (!currentTheme) {
+      return;
+    }
+    const {
+      semanticColors
+    } = currentTheme;
+
+    if (semanticColors) {
+      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
+      this.domElement.style.setProperty('--link', semanticColors.link || null);
+      this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
+    }
+
+  }
+
+  protected get dataVersion(): Version {
+    return Version.parse('1.0');
+  }
+
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+    return {
+      pages: [
+        {
+          header: {
+            description: strings.PropertyPaneDescription
+          },
+          groups: [
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
+                })
+              ]
+            }
+          ]
+        }
+      ]
+    };
+  }
+}
+
+```
+
+</details>
 
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-In our next lab, we'll look at using properties stored with the instance of your web part and use them to replace some of these hardcoded values!
+In our next lab, we'll look at using properties stored with the instance of your web part to manage the game!
 
 # [Previous](../Lab03/README.md) | [Next](../Lab05/README.md)

@@ -1,16 +1,8 @@
-# Lab 12: Localization
+# Lab 12: Publishing Your App
 
-You may have noticed that, throughout our code, we have some hard-coded text values; while it may be acceptable to hard-code text literals in your code when building a test application, we strongly recommend avoiding doing so for production solutions -- even if you're not planning to support multiple languages.
+So far, we have been testing our web part using the workbench and bundling the solution in debug mode.
 
-Imagine this scenario: you have been working on a web part solution for weeks (or maybe months); it has been reviewed by stakeholders, tested, and thoroughly reviewed by everyone. The day before deploying your web part, some _genius_ finds a typo in the company name -- something that can't be ignored -- and the name is used throughout the application.
-
-"Easy", you may think, "I'll just search and replace the company name throughout". But changing _any_ code in an application invalidates any testing that was done, and introduces chances for new bugs -- the last thing to do when you want something to be stable is to change it (that's why Hugo always annoyingly says "Don't shake the jell-o!").
-
-But what if you could separate string literals (i.e. the hard-coded text you show on the screen) from the rest of the code? Fixing a typo (or any such changes) would be limited to a single location -- it would still require testing, but it would significantly reduce the potential for introducing bugs.
-
-And when another _genius_ stakeholder announces "Good news, we're expanding to the [insert foreign language here] market!", the effort required to support another language is nominal (mostly).
-
-Let's go add support for [insert foreign language here]!
+In this lab, we'll show you how to prepare your app for release to production, and how to deploy and upgrade your app.
 
 <details>
 <summary><b>Legend</b></summary>
@@ -30,347 +22,358 @@ Let's go add support for [insert foreign language here]!
 <details>
 <summary><b>Exercises</b></summary>
 
-  1. [Understanding localization in SPFx](#rocket-exercise-1-understanding-localization-in-spfx)
-  1. [Localizing our strings](#rocket-exercise-2-localizing-our-strings)
-  1. [Use the SPFx Localization extension](#rocket-exercise-3-use-the-spfx-localization-extension)
-  1. [Localizing entire sentences](#rocket-exercise-4-localizing-entire-sentences)
-  1. [Testing localizations](#rocket-exercise-5-testing-localizations)
-  1. [Utilizing psuedolocales](#rocket-exercise-6-utilizing-pseudolocales)
+  1. [Testing outside the workbench](#rocket-exercise-1-testing-outside-the-workbench)
+  1. [Updating solution metadata](#rocket-exercise-2-updating-solution-metadata)
+  1. [Updating web part metadata](#rocket-exercise-3-updating-web-part-metadata)
+  1. [Packaging and deploying](#rocket-exercise-4-packaging-and-deploying)
 </details>
 
 <details>
 <summary><b>Starter Code</b></summary>
 
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 12 Starter](https://github.com/SPFxHeroes/JARBIS/tree/Start-of-Lab-12) branch.
+If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 12 Starter](https://github.com/nicknow/Wordle-Labs/tree/Start-of-Lab-12) branch.
 
 </details>
 
-## :rocket: Exercise 1: Understanding localization in SPFx
+## :rocket: Exercise 1: Testing outside the workbench
 
-Each component you add to an SPFx solution will also have a **loc** folder added. Inside that folder is a **mystrings.d.ts** file and a default localized strings file for US English called **en-us.js**.
+Before you package your app, you should probably test your web part outside of the workbench.
 
-   ![loc files](./assets/webpartlocfiles.png)
+Thankfully, you can debug web parts in regular SharePoint pages by following these instructions:
 
-   > :bulb: You may have noticed that here we use `.js` and `.d.ts` files, unlike the rest of the web part code, which seems to favor `.ts` code. `
+1. Using the terminal in VSCode, run `gulp serve --nobrowser` as usual
+1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string:**, followed by a query string
+1. Copy the query string provided 
+   ![Use this query string](assets/debuginprod.png)
+1. Using your dev tenant, go to a SharePoint page (in the same site as your workbench, so you don't have to deploy the WordleWords list)
+1. While on the page, append the query string you copied in the earlier step and append it to the page URL.
+1. When prompted to **Allow debug scripts?**, select **Load debug scripts**
+1. You can now edit the page and insert the **Wordle** web part on the page.
+1. When you're done testing the web part, you can stop `gulp serve`.
+
+
+## :rocket: Exercise 2: Updating solution metadata
+
+The solution's metadata controls how the app will appear in the App store. You can (and should!) change the solution's metadata by changing the **package-solution.json**.
+
+1. Open the **package-solution.json** under the **config** folder.
+1. In the `solution` node, change the `name` property to `Wordle`.
+
+   > In your app name, don't use words matching features in Microsoft Teams or SharePoint, such as **Chat, Contacts, Calendar, Calls, Files, Meeting, Activity, Teams, Apps, Help, SharePoint, List, Page**, etc. as these names could be confused with the standard functionality in Teams and SharePoint.
    >
-   > `.d.ts` files are _declaration_ files; they help create libraries with no types to be used by TypeScript and JavaScript code.
+   > If your app is named after a common word, such as **Orders**, you should include your company name as well to clearly differentiate it from other apps, for example, **Contoso Orders**.
    >
-   > At runtime, the SharePoint framework will detect the user's preferred browser locale and try to find and load a matching `.js` file. Since browsers don't understand `.ts` files (at least, not yet), we need the localization files like **en-us.js** to be in JavaScript, but we also need our TypeScript code to understand it as we're writing our code -- hence the use of a  **mystrings.d.ts** declaration file
+   > Wordle is a well-known game, so people will recognize it :-)
 
-Generally, you'll have one set of localized strings per component, though it is possible to break these up into multiple files each with their own set of localized values by configuring them in your **config** > **config.json** file under `localizedResources`. This is an advanced scenario and unlikely to come up much if at all.
+1. Below the `name` property, add a `title` property using the following JSON:
 
-At the risk of oversimplifying, here's how it works:
-
-- Every string you show to the end user should have an entry in ALL files in the **loc** folder
-- You add the name of the string to the interface in **mystrings.d.ts** and this makes your web part code aware of it so you can easily use it
-- You add the English value of the string using the name used above as the key in **en-us.js**
-- Add any additional locales you want to support by naming them **[locale].js** and ensuring they have all the same values
-- SharePoint will automatically load the correct locale.js file along with your web part's bundle and will use the correct values for your text
-
-#### :books: Resources
-- [Localize web parts](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts)
-
-
-## :rocket: Exercise 2: Localizing our strings
-
-Fortunately, we don't have many strings so going back and localizing our web part won't be too hard. However, this is the kind of thing that can get tough if you wait on it.
-
-We recommend using string literals during the early stages of development where you're just trying to get some of the design nailed down. But you should be regularly testing with pseudolocales (more on that soon) and building in the wiring for localization (even if the localized values will come much later and be provided by someone else) as you progress.
-
-1. Open **mystrings.d.ts** in the **loc** folder within your web part's directory
-
-1. This is just an interface that describes what strings are available. The second part is the export code and we wont need to touch it.
-
-1. We're no longer using any of these (they came from the sample code SPFx generated), so let's remove those and add a value for our generate button's label. Make your **mystrings.d.ts** file look like this:
-   ```TypeScript
-   declare interface IJarbisWebPartStrings {
-     /**
-      * The label for the generate button
-      */
-     GenerateButtonLabel: string;
-   }
-    
-   declare module 'JarbisWebPartStrings' {
-     const strings: IJarbisWebPartStrings;
-     export = strings;
-   }
-
+   ```json
+   "title": "Wordle Game",
    ```
 
-1. Now let's open **en-us.js**. You'll see those same keys from before with English values for them. We can remove all of these and instead add a value using the same key we used above. Your **en-us.js** file should look like this"
-   ```JavaScript
-   define([], function() {
-     return {
-       GenerateButtonLabel: "Generate",
-     }
-   });
+1. In the solution's **sharepoint** folder, add a folder called **images**
+1. From VSCode, right-click on the new folder and select **Copy path**
+1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **wordle.png** in the path you just copied.
 
+   ![Save as wordle.png](assets/hero.png)
+
+   > Your app icon can be any `.png` image, but it must be 96 pixels wide by 96 pixels high.
+
+1. Back in the **package-solution.json** file, add the following line of JSON below the `title` line:
+
+   ```json
+   "iconPath": "images/wordle.png",
    ```
 
-1. We've got the initial plumbing for this value in place, now let's go utilize it in our code! Back in **JarbisWebPart.ts** we prevously commented out our strings import. Let's uncomment that now so that it looks like this:
-   ```TypeScript
-   import * as strings from 'JarbisWebPartStrings';
+   > The `iconPath` should be relative path, starting from the **sharepoint** folder.
+
+1. In the `metadata` node, change the `shortDescription`'s `default` to `Contains the Wordle web part and the WordleWords list`
+
+   > The description should always clearly describe what different components (web parts, application customizers, etc.) are included in the package to manage user expectations and help them understand the impact of using your application.
+   >
+   > The `shortDescription` is what will be displayed on the **Add an app** page.
+
+1. Change the `longDescription` to `A word guessing game for SharePoint.\n\nContains the following:\n- Wordle web part for playing the word game\n- The WordleWords list, which contains a list of five-letter words and their categories used for the game.`
+
+   > The `longDescription` will be displayed on your app's **About** page. According to the documentation, you _should_ be able to use `HTML` in the `longDescription` (but we haven't had any luck doing so... yet).
+
+1. Change the `version` property to `1.0.0.1`
+
+   > You should increment the version number any time you bundle and package your app and make changes; this will signal any sites where your app has been deployed that an update is available
+
+1. Add above `metadata` and after `developer` or if exists, change the `supportedLocales` property with the following values:
+
+   ```json
+   "supportedLocales": [
+     "en-us",
+     "fr-fr"
+   ],
    ```
 
-1. Head down to the **render** method and update the line:
-   ```TypeScript
-   const generateButton = `<button class=${styles.generateButton}>Generate</button>`;
+   > You may have noticed that we're not listing the pseudo-locale as a supported locale, even though we provided localized resources for it; that's because the pseudo-locale is not really a locale that we want to support -- it is used for testing only. We only want to support English (U.S.) and French (France).
+
+1. Save the following image as **shot1.png** in the **sharepoint\images** folder.
+
+   ![Save as shot1.png](assets/shot1.png)
+
+1. Save the following image as **shot2.png** in the **sharepoint\images** folder.
+
+   ![Save as shot2.png](assets/shot2.png)
+
+1. Save the following image as **shot3.png** in the **sharepoint\images** folder.
+
+   ![Save as shot3.png](assets/shot3.png)
+
+1. Save the following image as **shot4.png** in the **sharepoint\images** folder.
+
+   ![Save as shot4.png](assets/shot4.png)
+
+1. Update the `screenshotPaths` property with the following code:
+
+   ```json
+   "screenshotPaths": [
+     "images/shot1.png",
+     "images/shot2.png",
+     "images/shot3.png",
+     "images/shot4.png",
+     "https://github.com/nicknow/Wordle-Labs/raw/main/assets/wordlepreview.gif"
+   ],
    ```
 
-   To this:
-   ```TypeScript
-   const generateButton = `<button class=${styles.generateButton}>${strings.GenerateButtonLabel}</button>`;
+   > You can have up to 5 screenshots, which can be stored as a relative path or as an absolute URL
+
+1. Set the `videoUrl` as follows:
+
+   ```json
+   "videoUrl": "https://youtu.be/xfr64zoBTAQ",
    ```
 
-   > :bulb: Did you notice the extra benefit of using strongly-typed string literals (because of the declaration file)? You don't have to worry about bugs due to typos in your code, because as soon as you start typing `${strings.` in VSCode, it will automatically suggest `GenerateButtonLabel` as the only possible choice.
+1. Set the `categories` property as follows:
 
-1. This isn't our only string literal we need to take care of. Head down to the **getPropertyPaneConfiguration** method and you'll see that we're currently using 3 literal values for our show powers toggle (`label`, `onText`, and `offText`). You can repeat the steps above for each of these if you'd like or you can continue on and use one of the VSCode extensions we recommended in lab 1 to make this far less tedious!
-
-#### :books: Resources
-- [Localize web part contents](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#localize-web-part-contents)
-
-## :rocket: Exercise 3: Use the SPFx Localization extension
-
-If you installed the VSCode extensions we recommended at the start of this course, you already have an extension ([SPFx Localization](https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-spfx-localization), by Elio Struyf) that automatically creates the localization key and inserts it into your code for you.
-   > :bulb: It's not too late! If you didn't install it then, why not install it now?
-
-1. In the **getPropertyPaneConfiguration** method at the bottom of the **JarbisWebPart.ts** file, select the word `"Powers"` (quotes included) then use the VSCode command palette (<kbd>F1</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd>), and type **SPFx create and insert localization key for selected text**:
-   ![Command palette](assets/commandpalette.png)
-   
-   When prompted to **Specify the key to create**, type `ShowPowersFieldLabel`
-   
-   ![Specify the key to create](assets/showpowersfieldlabel.png)
-   
-   When prompted to **surround the localized key with curly brackets**, select **no**
-   
-   ![Select no](assets/showcurlybrackets.png)  
-
-1. Repeat the previous steps to replace the word `"Visible"` using the key `ShowPowersToggleOnText` and the word `"Hidden"` using the key `ShowPowersToggleOffText`. The final `getPropertyPaneConfiguration` method should look like this:
-
-   ```TypeScript
-   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    return {
-      pages: [
-        {
-          groups: [
-            {
-              groupFields: [
-                PropertyPaneToggle('powersVisible', {
-                  label: strings.ShowPowersFieldLabel,
-                  onText: strings.ShowPowersToggleOnText,
-                  offText: strings.ShowPowersToggleOffText
-                })
-              ]
-            }
-          ]
-        }
-      ]
-    };
-   }
+   ```json
+   "categories": [
+     "Productivity"
+   ]
    ```
 
-1. If you check **en-us.js** you'll see our key's and the values we were previously using have been added for us!
-   > :bulb: If the formatting looks off, right-click in the editor and choose **Format Document**
+   > You can use up to 3 categories; the valid choices are:
+   >
+   > - Accounting + Finance
+   > - Collaboration
+   > - Content management
+   > - CRM
+   > - Data+Analytics
+   > - File managers
+   > - IT/admin
+   > - Legal + HR
+   > - News + Weather
+   > - Productivity
+   > - Project management
+   > - Reference
+   > - Sales + Marketing
+   > - Site Design
+   > - Social
+   > - Workflow & Process Management
 
-  The content of **en-us.js** should look like this:
+1. Finally, replace the `developer` section as follows:
 
-  ```TypeScript
-  define([], function () {
-    return {
-      GenerateButtonLabel: "Generate",
-      ShowPowersFieldLabel: "Powers",
-      ShowPowersToggleOffText: "Hidden",
-      ShowPowersToggleOnText: "Visible",
-    }
-  });
-  ```
-
-1. Similarly, when you open **mystrings.d.ts** you'll see the keys added as expected.
-
-    The content of **mystrings.d.ts** should look like this (add the JSDoc comments manually):
-
-    ```typescript
-    declare interface IJarbisWebPartStrings {
-
-      /**
-       * The label for the generate button
-       */
-      GenerateButtonLabel: string;
-    
-      /**
-       * The label for the "Show Powers" property field in the web part properties
-       */
-      ShowPowersFieldLabel: string;
-    
-      /*
-       * The label for the "Show Powers" toggle when it is off
-       */
-      ShowPowersToggleOffText: string;
-    
-      /*
-       * The label for the "Show Powers" toggle when it is on
-       */
-      ShowPowersToggleOnText: string;
-    }
-    
-    declare module 'JarbisWebPartStrings' {
-      const strings: IJarbisWebPartStrings;
-      export = strings;
-    }
-    ```
-
-#### :books: Resources
-- [SPFx Localization VSCode extension](https://marketplace.visualstudio.com/items?itemName=eliostruyf.vscode-spfx-localization)
-
-## :rocket: Exercise 4: Localizing entire sentences
-
-Sometimes, you need to create localizable sentences -- not just words -- which may require the order of the words to be different in different languages.
-
-For example, if you wanted your web part to say "Today is **month name** **day of the month**" (and you didn't want to use date formatting functions), you might be tempted to write the following interpolated string:
-
-```typescript
-`Today is ${monthName} ${monthDay}`
-```
-
-...but the same sentence in French would need to be:
-
-```typescript
-`Aujourd'hui, c'est le ${monthDay} de ${monthName}`
-```
-
-...which requires `monthDay` and `monthName` to appear in different order in the string literal.
-
-To solve issues like these, our favorite way is to store a localized sentence with placeholders (like `{0}` and `{1}` or `{monthDay}` and `{monthName}`) and replace the placeholders at runtime.
-
-In our code, we use `The ${escape(this.properties.name)}` to display the hero name, but some languages may require the word "The" to appear _after_ the hero name (or not at all).
-
-Let's replace the hero description to use a localized sentence!
-
-1. In **mystrings.d.ts**, add a new `HeroDescription` string property:
-
-  ```TypeScript
-  /**
-   * The description for the hero (e.g. The Mighty Coder)
-   */
-  HeroDescription: string;
-  ```
-
-1. In **en-us.js**, add a `HeroDescription` literal value:
-
-  ```javascript
-  HeroDescription: "The {0}",
-  ```
-
-1. In the `render` method in the **JarbisWebPart.ts** file, find `The ${escape(this.properties.name)}` and replace it with:
-
-   ```TypeScript
-   ${strings.HeroDescription.replace("{0}", escape(this.properties.name))}
+   ```json
+   "developer": {
+     "name": "SPFx Wordle Workshop",
+     "websiteUrl": "https://github.com/nicknow/Wordle-Labs",
+     "privacyUrl": "https://github.com/nicknow/Wordle-Labs#privacy",
+     "termsOfUseUrl": "https://github.com/nicknow/Wordle-Labs#terms-of-use",
+     "mpnId": ""
+   },
    ```
 
-   Which, at runtime will load the localized string literal and replace the `{0}` placeholder with the `name` property.
+   > The `developer` section is how you can identify who wrote the app. It is used by the **SharePoint Store**, where you can publish and sell your web parts to other organizations.
+   >
+   > Even if you only plan to promote your web parts within your organization, we recommend that you always take the time to update the `developer` property.
 
-   > :bulb: In the real world, we would most likely retrieve localized data from the list rather than just retrieving English values... but we're not going to go into that in the scope of this workshop.
 
-> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small udates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> (<kbd>CMD</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> on a :apple: mac) - you can also customize that shortcut to something less annoying)
+## :rocket: Exercise 3: Updating web part metadata
 
-#### :books: Resources
-- [Vent your frustration](http://www.omglasergunspewpewpew.com/)
+A solution can contain more than 1 web part (you can add another web part by re-running the Yeoman generator from within an existing SPFx project). Because of this, SPFx keeps the metadata about the solution separately from the web part metadata.
 
-## :rocket: Exercise 5: Testing localizations
+In the previous exercise, we worked on the solution metadata; in this exercise, we'll update our web part's metadata.
 
-We've only got the one localization, but we can tell things are working because they look exactly the same meaning the English values are getting mapped correctly. But it sure would be easier to understand things if we had another localization and a way to test it.
+1. In the **WordleWebPart.manifest.json**, change the `supportedHosts` property using the following code:
 
-1. Just to anger Hugo, we're going to create a French localization using my cartoon level of understanding of the French language!
-   ![Le skunk](assets/pepelepew.jpg)
-
-1. Add a new file to the **loc** folder called **fr-fr.js**. Here's the contents we'll use:
-   ```TypeScript
-   define([], function () {
-     return {
-       GenerateButtonLabel: "Le Jenarate",
-       ShowPowersFieldLabel: "Le Powers",
-       ShowPowersToggleOffText: "Le no see",
-       ShowPowersToggleOnText: "Le see",
-       HeroDescription: "Le {0}, baguette",
-     }
-   });
-   ```
-   > :warning: If you find this offensive, then David wrote this
-
-1. To test a locale, we can add a `--locale` parameter to our gulp serve. Re-serve your project using this command:
-   ```bash
-   gulp serve --nobrowser --locale=fr-fr
+   ```json
+   "supportedHosts": [
+     "SharePointWebPart"
+   ],
    ```
 
-   ![Definitely French!](assets/definitelyfrench.png)
+   > The `supportedHosts` property tells SharePoint and Teams where you can run your web part.
+   >
+   > The accepted choices can be any combination of the following hosts:
+   >
+   > - `SharePointFullPage`
+   > - `SharePointWebPart`
+   > - `TeamsTab`
+   > - `TeamsPersonalApp`
+   > - `TeamsMeetingApp`
+   >
+   > If you don't specify this property, SharePoint will assume that your web part is intended to run as a `SharePointFullPage` app.
+   >
+   > Due to time constraints, we'll only cover the `SharePointWebPart` host in the workshop.
 
-   Wow, that's definitely French!
+1. The `preconfiguredEntries` section defines how the web part will appear in the **Add a web part** toolbox, and what default settings the web part should use when you add it to a page. Change the `groupId` to `cf066440-0614-43d6-98ae-0b31cf14c7c3`.
 
-#### :books: Resources
-- [Locales](https://saimana.com/list-of-country-locale-code/)
-- [Learn French](https://www.duolingo.com/course/fr/en/Learn-French)
+   > The `groupId` will specify which group to list your web part in the **Add a web part** toolbox. You can use any one of the following values:
+   >
+   > Value | Group
+   > ---|---
+   > cf066440-0614-43d6-98ae-0b31cf14c7c3 | Text, media, and content
+   > 1edbd9a8-0bfb-4aa2-9afd-14b8c45dd489 | Documents, lists, and libraries
+   > 75e22ed5-fa14-4829-850a-c890608aca2d | Feeds
+   > 1bc7927e-4a5e-4520-b540-71305c79c20a | News, people and events
+   > 4aca9e90-eff5-4fa1-bac7-728f5f157b66 | Data Analysis
+   > cfc8bda5-cb9b-49e3-8526-2ee6e52b256a | Regional information
+   > 5c03119e-3074-46fd-976b-c60198311f70 | Advanced
+   >
+   > The initial value is `5c03119e-3074-46fd-976b-c60198311f70`, but if you don't specify one (or you use an incorrect value), your web part will appear under **Other**
+
+1. The `group` property is only used by Classic SharePoint pages. We can ignore it for this workshop.
+
+1. Under the `group` property, add a new string array property called `tags` using the following code:
+
+   ```json
+   "tags": [
+     "wordle",
+     "game",
+     "puzzle",
+     "words",
+     "guessing"
+   ],
+   ```
+
+   > This field is used to tag a web part with keywords that are different from the web part group name. Tags can be used for categorization and searching of web parts. For example, in the web part toolbox.
+
+1. Change the `default` value under `title` to `Wordle`
+
+1. Add a new French title under the `default` value (but within the `title` property) and set the value to `Wordle`. Your final `title` property should look as follows:
+
+   ```json
+   "title": {
+     "default": "Wordle",
+     "fr-fr": "Wordle"
+   },
+   ```
+
+1. Change the `default` property under the `description` property to `A word guessing game where you try to guess a five-letter word in six attempts`.
+
+1. Add a French description, and set the value to `Un jeu de devinette de mots où vous essayez de deviner un mot de cinq lettres en six tentatives`. Your final `description` property should look as follows:
+
+   ```json
+   "description": {
+     "default": "A word guessing game where you try to guess a five-letter word in six attempts",
+     "fr-fr": "Un jeu de devinette de mots où vous essayez de deviner un mot de cinq lettres en six tentatives"
+   },
+   ```
+
+1. By default, your web part only allows you to use Office Fabric icon names -- using the `officeFabricIconFontName`, but you can use custom SVG icons if you know this little trick: right-click the SVG image below and select **Save image as...**
+
+   ![Wordle SVG](assets/hero.svg)
+
+   > You can use almost any square SVG that has `width` and `height` attributes
+
+1. Using **File** > **Open File...** from within VSCode, open the `.svg` file you just saved.
+
+1. Copy the entire content of the `.svg` file to your clipboard (<kbd>CTRL</kbd>+<kbd>A</kbd>, followed by <kbd>CTRL</kbd>+<kbd>C</kbd>)
+
+1. Browse to <https://tahoeninja.blog/posts/fixing-base64-svg-icons-in-spfx/>
+
+1. Skip all the boring blah blah blah and scroll to **Customize this article**.
+
+1. On the **Original SVG** row, paste the SVG in the **Value** textbox
+
+   ![Original SVG](assets/originalsvg.png)  
+
+1. Scroll a little further down and select **Copy to clipboard**
+
+   ![Encoded SVG](assets/encodedsvg.png)
+
+1. Back to **WordleWebPart.manifest.json**, replace the `officeFabricFontName` line by pasting the code you copied from that super-awesome-fantastic blog post.
+
+   > This is not witchcraft: we simply _Base64_-encoded an SVG file and converted in to a _data URI_ value.
+   > If you want to use any other types of images, you can also specify any other absolute image URL, as long as your image is 38px by 38px, but any size SVG will do -- provided they are square.
+   >
+   > Remember to _remove_ the `officeFabricFontName` property from your manifest, or SharePoint will simply ignore your fancy new SVG icon.
 
 
-## :rocket: Exercise 6: Utilizing pseudolocales
+## :rocket: Exercise 4: Packaging and deploying
 
-Using localization when building web parts offers clear benefits but is also something that developers overlook easily. Often, translations to other locales are provided later in the project and it's difficult for testers to verify that all code properly supports the different locales.
+Let's finally package your app for production!!!
 
-The same words in different locales have different lengths. For example, the same sentence translated from English to German or Dutch can become 35% longer. Without all translations available upfront, it's difficult for developers and designers to ensure that the user interface can properly accommodate longer strings.
+> Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. Feel free to test with `gulp bundle` and `gulp package-solution` first, if you wish, then perform the steps below. 
+>
+> But, let's face it, you know your app is already _perfect_, don't you?!
 
-Some languages use special characters beyond the standard ASCII character set. If designers use a non-standard font, its possible that the font doesn't properly support some special characters.
+1. If you're still running `gulp serve`, you can stop it now.
 
-Finding out about all these issues late in the project will likely lead to delays and costly fixes. This will make you cry.
-
-To avoid running into such issues, we recommend using a _pseudo-locale_. Pseudo-locales are locales designed to test software for proper support of the different aspects of the localization process, such as support for special characters, right-to-left languages, or accommodating longer strings in the user interface.
-
-To add a localized resources, add a `.js` file with the locale code in the **src/webparts/jarbis/loc**. For example, to add French support, you'd add a file called **fr-fr.js**, to add support for Dutch, you'd add a file called **nl-nl.js**, for Spanish (Mexico), **es-mx.js**, and so on.
-
-In this lab, we'll add a pseudo-locale, but you can use [any other locale](https://saimana.com/list-of-country-locale-code/) you want.
-
-> To generate your pseudo-locale resources, use [this site](http://www.pseudolocalize.com/).
-
-1. In the **src/webparts/jarbis/loc**, add a file called **qps-ploc.js**
-
-  > :bulb: The `qps-ploc` name isn't something we made up. It's a standard pseudo-locale name used in Windows and is often used for exactly what we're testing (spacing). What the heck is that name though? Well, `qps` was chosen because it isn't reserved for any existing locales. It doesn't stand for anything. The `ploc` part, however, is likely shorthand for "psuedo localization".
-  >
-  > There are even other standard pseduo-locales like `qps-ploca` used for East Asian character testing and `qps-plocm` used for testing mirrored (right-to-left) locales. Wowee!
-
-1. Paste the following code in the new file you created:
-
-    ```javascript
-    define([], function () {
-      return {
-        GenerateButtonLabel: "[!!! Gèñèřáƭè ℓ !!!]",
-        HeroDescription: "[!!! Tλè {0} ℓ !!!]",
-        ShowPowersFieldLabel: "[!!! Þôωèřƨ ℓ !!!]",
-        ShowPowersToggleOffText: "[!!! Hïδδèñ ℓ !!!]",
-        ShowPowersToggleOnText: "[!!! Vïƨïβℓè ℓ !!!]",
-      }
-    });
-    ```
-
-1. Re-serve your solution using this command:
+1. From the terminal, run the following command:
 
    ```bash
-   gulp serve --nobrowser --locale=qps-ploc
+   gulp bundle --ship
    ```
 
-  ![Psuedo locale](assets/pseudolocale.png)
+1. Run the following command:
 
-   > :warning: Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+   ```bash
+   gulp package-solution --ship
+   ```
 
-Make it a habit to routinely review your string literals to ensure they're represented in your localization files. You should also routinely test with an oversized locale like `qps-ploc` when implementing new UI changes. CSS is hard enough as it is without having to try and adjust a specific style after the fact.
+1. Find the **wordle.sppkg** file and drag and drop it to your tenant's app store.
 
-Also, keep in mind that while we've been forcing the locale during testing using the `--locale` parameter, the actual resource string swapping and localization detection is handled for you by the SharePoint Framework.
+1. If prompted to replace the existing file, select **Replace**
 
-#### :books: Resources
-- [Pseudolocalize.com](http://www.pseudolocalize.com/)
-- [Pseudo Locales in SPFx](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#improve-globalizing-and-localizing-web-parts-by-using-pseudo-locales)
+   ![Yes, replace](assets/yesreplace.png)
+
+1. When prompted to **Enable App**, make sure that the text under **This app gets data from:** says **SharePoint**
+
+   ![Enable app](assets/deploytoprod.png)
+
+1. Under **App availability**, select **Only enable this app** and select **Enable app** at the bottom of the pane.
+
+   ![Only enable app](assets/onlyenableapp.png)
+
+1. Your new web part is now published in production! Make sure that your new app has the correct **Icon**, **Title**, and that the state is **Enabled** and the **Available for** column shows a SharePoint logo.
+
+   ![Valid package is deployed](assets/itsalive.png)
+
+1. Go to a new SharePoint site (where you did not already deploy your web part in previous labs)
+
+1. Navigate to a page and select **New** followed by **App**
+
+   ![New app](assets/newapp.png)
+
+1. In the **Manage apps** page, under **Apps you can add**, select the **Add** button for the **Wordle Game**
+
+   ![Apps you can add](assets/appsyoucanadd.png)
+
+1. Go back to your new page, select **Edit** and add your **Wordle** web part to the page
+
+   ![Add the web part to a page](assets/addwebpart.png)
 
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-Our web part is basically complete. In our next lab we're going to get it deployed!
+Congratulations! You have successfully completed this workshop. You've built a fully functional Wordle game as a SharePoint web part!
 
-# [Previous](../Lab11/README.md) | [Next](../Lab13/README.md)
+You learned how to:
+- 🛠️ Scaffold and configure an SPFx project
+- 🎨 Style your web part with SCSS
+- 🎮 Handle user input and game logic
+- 📦 Provision and retrieve data from SharePoint lists
+- 🎲 Implement random word selection
+- ⚙️ Make your web part configurable
+- 🌍 Localize your web part for multiple languages
+- 🚀 Package and deploy your app to production
+
+Now go challenge your coworkers to a Wordle battle! 🎉
+
+# [Previous](../Lab11/README.md)
