@@ -225,7 +225,12 @@ You can technically use any code editor or IDE that supports client-side develop
 
 [Yeoman](https://yeoman.io/) helps you kick-start new projects, and prescribes best practices and tools to help you stay productive. We will use this for project scaffolding.
 
-1. From the command prompt, enter the following command to install Yeoman: `npm install yo -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command to install Yeoman: 
+ ```console
+ npm install yo -g
+ ```
+followed by <kbd>Enter</kbd>.
+
 
    > :bulb: We used `--global` when installing heft, here we're using `-g` which is just a shortcut. Both will install the package globally for a given version of Node
 
