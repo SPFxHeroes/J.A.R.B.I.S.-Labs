@@ -150,7 +150,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
 
 #### :books: Resources
 - [NVS Homepage](https://github.com/jasongin/nvs)
-- [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
+- [SPFx development environment compatibility](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 
 > :bulb: To see all versions of Node installed and available to NVS: `nvs ls`
 
@@ -160,7 +160,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
 
 Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.22.2**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.22.2) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.22.2**](https://learn.microsoft.com/sharepoint/dev/spfx/release-1.22.2) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
 
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). See above for instructions.
 
@@ -175,8 +175,8 @@ Node.js maintains two different releases at all times: LTS & Current version. SP
 
 #### :books: Resources
 
-- [SPFx Node.js instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
-- [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
+- [SPFx Node.js instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
+- [SPFx development environment compatibility](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 - :bulb: [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
@@ -193,7 +193,7 @@ You can technically use any code editor or IDE that supports client-side develop
 
 #### :books: Resources
 
-- [SPFx code editor instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-a-code-editor)
+- [SPFx code editor instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-a-code-editor)
 - [Getting started with VS Code](https://code.visualstudio.com/docs/)
 
 ## :rocket: Exercise 4: Install Heft
@@ -218,7 +218,7 @@ You can technically use any code editor or IDE that supports client-side develop
 
 #### :books: Resources
 
-- [SPFx Heft instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-heft)
+- [SPFx Heft instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-heft)
 - [NPM Install](https://docs.npmjs.com/cli/v10/commands/npm-install)
 
 ## :rocket: Exercise 5: Install Yeoman
@@ -324,7 +324,7 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
 
 Working in production is generally not a good idea. Besides, you're rarely going to be a global admin in your primary tenant. This can make trying out features, creating app registrations, provisioning assets, etc. challenging or plain impossible.
 
-Thanks to [Midnight Blizzard](https://www.microsoft.com/en-us/security/blog/tag/midnight-blizzard-nobelium/?sort-by=newest-oldest&date=any) (a large scale security incident that led to the pause of the dev program), you are not currently able to get a developer tenant for free.
+Thanks to [Midnight Blizzard](https://www.microsoft.com/security/blog/tag/midnight-blizzard-nobelium/?sort-by=newest-oldest&date=any) (a large scale security incident that led to the pause of the dev program), you are not currently able to get a developer tenant for free.
 
 If you already have a developer tenant, you can use that for these labs or you can use a company tenant (You will need permission to deploy to an app catalog). We also have a number of temporary accounts available with the required permissions if you're in the room.
 
@@ -334,7 +334,7 @@ Details about these changes:
 - [Exciting updates coming to the Microsoft 365 Developer Program - April 23, 2025](https://devblogs.microsoft.com/microsoft365dev/exciting-updates-coming-to-the-microsoft-365-developer-program/)
 - [Exiting new capabilities and enhancements for M365 Developer Program - October 16, 2025](https://devblogs.microsoft.com/microsoft365dev/new-capabilities-and-enhancements-for-m365-developer-program/)
 
-**TLDR**: A dev sandbox is available for [some people](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-), but most people are out of luck.
+**TLDR**: A dev sandbox is available for [some people](https://learn.microsoft.com/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-), but most people are out of luck.
 
 ~~Good news! Microsoft will provide you a FREE tenant to do development work in!~~
 
@@ -397,7 +397,7 @@ These instructions are for Microsoft Edge. You can also use **User profiles** in
 
 - [Sign in and create multiple profiles in Microsoft Edge](https://support.microsoft.com/topic/sign-in-and-create-multiple-profiles-in-microsoft-edge-df94e622-2061-49ae-ad1d-6f0e43ce6435)
 - [Use Chrome with multiple profiles](https://support.google.com/chrome/answer/2364824)
-- [Profile Manager - Create, remove or switch Firefox profiles](https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles)
+- [Profile Manager - Create, remove or switch Firefox profiles](https://support.mozilla.org/kb/profile-manager-create-remove-switch-firefox-profiles)
 
 ## :tada: All Done
 

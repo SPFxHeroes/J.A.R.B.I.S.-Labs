@@ -82,7 +82,7 @@ Now we're going to take a brief tour of our web part's code so we can see what w
   ![getPropertyPaneConfiguration](./assets/anatomy9.png)
 
 #### :books: Resources
-- [SPFx Web part project structure](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
+- [SPFx Web part project structure](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
 - [SharePoint Framework Web Part and Property Pane Lifecycles](https://www.vrdmn.com/2019/12/sharepoint-framework-web-part-and.html)
 
 ## :rocket: Exercise 2: Cleanup
@@ -229,7 +229,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 </details>
 
 #### :books: Resources
-- [SPFx Web part project structure](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
+- [SPFx Web part project structure](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
 
 ## :rocket: Exercise 3: Style setup
 
@@ -305,13 +305,13 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
    }
    ```
 
-   > :bulb: You might not be familiar with that weird syntax we're using. It's called [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) and makes it a lot easier to build complex strings.
+   > :bulb: You might not be familiar with that weird syntax we're using. It's called [Template literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) and makes it a lot easier to build complex strings.
    >
    > Basically, you wrap everything in a backtick (<kbd>\`</kbd>) instead of quotes. Then whenever you need to break out into an expression (code, variable, etc.), you start the expression with `${` and then end it with `}`.
 
 #### :books: Resources
-- [SPFx CSS Recommendations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/css-recommendations)
-- [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [SPFx CSS Recommendations](https://learn.microsoft.com/sharepoint/dev/spfx/css-recommendations)
+- [Template Literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals)
 
 ## :rocket: Exercise 4: Basic styles
 
@@ -387,9 +387,9 @@ If you run into any trouble or don't really want to do the steps above, you can 
 </details>
 
 #### :books: Resources
-- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
-- [Available theme tokens and Default values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
-- [SharePoint themes and colors](https://learn.microsoft.com/en-us/sharepoint/dev/design/themes-colors)
+- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
+- [Available theme tokens and Default values](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
+- [SharePoint themes and colors](https://learn.microsoft.com/sharepoint/dev/design/themes-colors)
 - [The definitive guide to SCSS](https://blog.logrocket.com/the-definitive-guide-to-scss/)
 
 

@@ -205,7 +205,7 @@ Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant
    >
    > You're welcome to update your tenant URL where it says `{tenantDomain}`, but if you're using different credentials (or a different browser profile) for your tenant, you'll almost invariably get an "Access denied" error, which will cause you to have to close the browser/tab every time.
    >
-   > Alternatively, you can configure the [SPFX_SERVE_TENANT_DOMAIN OS environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional) as part of your setup to have the `{tenantDomain}` always resolve but that's outside the scope of this lab.
+   > Alternatively, you can configure the [SPFX_SERVE_TENANT_DOMAIN OS environment variable](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional) as part of your setup to have the `{tenantDomain}` always resolve but that's outside the scope of this lab.
    >
    > By using `heft start --nobrowser`, you can connect to an existing browser/tab instance without launching a new session every single time.
    >
@@ -249,7 +249,7 @@ Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant
 1. Head back to the command prompt and hit <kbd>CTRL</kbd>+<kbd>C</kbd> to stop the code from running
 
 #### :books: Resources
-- [Set the SPFX_SERVE_TENANT_DOMAIN environment variable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional)
+- [Set the SPFX_SERVE_TENANT_DOMAIN environment variable](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#set-the-spfx_serve_tenant_domain-environment-variable-optional)
  - [An endless horse](http://endless.horse/)
 
 
@@ -332,7 +332,7 @@ Generic icons are not cool! Nor are generic descriptions. In this exercise, we'l
 
 #### :books: Resources
 - [Flicon](https://flicon.io)
-- [SPFx Configure web part icon](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/configure-web-part-icon)
+- [SPFx Configure web part icon](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/configure-web-part-icon)
 - [Example of using animated Christopher Walken with Googly Eyes](https://thechriskent.com/2017/06/01/setting-your-spfx-webpart-icon/)
 
 ## :rocket: Exercise 7: Add a project color (optional)
