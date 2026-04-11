@@ -41,7 +41,7 @@ Welcome to your first lab! This lab is all about getting your **development envi
 
 This step will configure a **Windows** workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this excercise if using a Mac :apple:. In later exercises, steps for MacOS specifications are called out when they differ.
+> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this exercise if using MacOS :apple:. In later exercises, steps for MacOS specifications are called out when they differ.
 
 1. From your Windows machine, use the **Start menu** and search for **Use developer features**
 1. On the **System > Advanced** page, under **For Developers**, look for **Developer Mode - Install apps from any source, including loose files**:
