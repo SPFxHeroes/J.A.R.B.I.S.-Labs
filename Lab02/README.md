@@ -96,7 +96,7 @@ We've gotten everything installed and we're ready to start working on something!
 - [SPFx Yeoman Generator project template options](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro#project-template-options)
 
 
-## :rocket: Exercise 2: Add a .nvmrc file  (optional)
+## :rocket: Exercise 2: Add a .nvmrc file (optional)
 
 In our previous lab we discussed Node version requirements and strongly recommended installing a version manager like NVS. As mentioned, this is because different versions of SPFx require different versions of Node. This can be a source of frustration as you move between projects or attempt to run samples. So let's make it easier to know exactly what version of node is used in a project.
 
