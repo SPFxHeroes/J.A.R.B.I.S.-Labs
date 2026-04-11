@@ -136,8 +136,8 @@ The default, no-framework web part comes with some extra junk. It's a combinatio
    this._isDarkTheme = !!currentTheme.isInverted;
    ```
 
-1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes.
-    > :bulb: If you keep gulp serve running, your code will rebuild on every save and you can just refresh the page after every step in this lab so you can understand the impact of every change.
+1. If you aren't already doing so, run `heft start --nobrowser` and refresh the page to see your changes.
+    > :bulb: If you keep heft running, your code will rebuild on every save and you can just refresh the page after every step in this lab so you can understand the impact of every change.
 
 Your web part should look something like this:
 ![Bare bones generator web part](assets/basicrender.png)
