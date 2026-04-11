@@ -76,7 +76,7 @@ Not only is our button not doing anything, it's gross to look at (like Hugo). So
 > :bulb: Your button might be a different color depending on your site's theme (which is what we want)
 
 #### :books: Resources
-- [Available theme tokens and their occurrences](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
+- [Available theme tokens and their occurrences](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
 - [SCSS Parent Selector (&)](https://sass-lang.com/documentation/style-rules/parent-selector)
 
 
@@ -97,26 +97,26 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
   
 1. Within the `render` method, add the following code after the last line of code:
    ```TypeScript
-    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;;
     for (let b = 0; b < buttons.length; b++) {
       buttons[b].addEventListener('click', this.onGenerateHero);
     }
    ```
-   > :bulb: This code finds all the buttons matching the `generateButton` CSS class name and adds an event handler for the `click` event. If there aren't any found (page is in Read mode), then nothing will happen.
+   > :bulb: This code finds all the buttons matching the `generateButton` CSS class name and adds an event handler for the `click` event. If there aren't any found (page is in Read mode), then nothing will happen. The `as` keyword tells typescript what the elements are so that it knows about the `addEventListener` method.
 
 1. At the top of the `render` method, before all the code, add the following:
     ```TypeScript
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
     ```
-    > :bulb: This code removes any existing event handlers before the web part is rendered; this is to prevent adding duplicate event handlers when the web part is refreshed.
+    > :bulb: This code removes any existing event handlers before the web part is rendered; this is to prevent adding duplicate event handlers when the web part is refreshed. No elements yet, no problem.
 
 1. Add the following code below the `onGenerateHero` method:
     ```TypeScript
     protected onDispose(): void {
-      const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+      const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;;
       for (let b = 0; b < oldbuttons.length; b++) {
         oldbuttons[b].removeEventListener('click', this.onGenerateHero);
       }
@@ -126,7 +126,11 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
 
 1. Refresh your browser and try opening the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools**.
 
-1. Try hitting the button and see that the `console.log` entries are written in the Developer tools' console.
+1. Alternatively, if you are using the SPFx Local Workbench, there is a dev tools button in the panel's title bar. Clicking this will open the dev tools where you can switch to the console tab to see the output:
+
+  ![SPFx Local Workbench with dev tools](assets/localworkbenchdevtools.png)
+
+1. Try hitting the Generate button and see that the `console.log` entries are written in the Developer tools' console.
    ![Console action](assets/console.png)  
 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.ts** file with the following:
@@ -162,7 +166,7 @@ export interface IJarbisWebPartProps {
 export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
 
   public render(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -184,10 +188,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
-
-    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
+    
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < buttons.length; b++) {
       buttons[b].addEventListener('click', this.onGenerateHero);
     }
@@ -198,7 +202,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   protected onDispose(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -237,10 +241,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('foregroundIcon', {
-                  label: "Foreground icon",
+                  label: "Foreground Icon"
                 }),
                 PropertyPaneTextField('primaryPower', {
-                  label: "Primary power",
+                  label: "Primary Power"
                 })
               ]
             }
@@ -250,13 +254,14 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     };
   }
 }
+
 ```
 
 </details>
 
 #### :books: Resources
-- [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
-- [removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
+- [addEventListener](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener)
+- [removeEventListener](https://developer.mozilla.org/docs/Web/API/EventTarget/removeEventListener)
 
 
 ## :tada: All Done!
