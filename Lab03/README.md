@@ -63,7 +63,7 @@ Now we're going to take a brief tour of our web part's code so we can see what w
 
   ![onInit](./assets/anatomy5.png)
 
-1. The `_getEnvironmentMessage` method starting on **line 58** is an example method showing how to determine where your code is running is used by the sample render. You could safely delete it and all references to it. And, in fact, we'll be doing that soon.
+1. The `_getEnvironmentMessage` method starting on **line 58** is an *example* method showing how to determine where your code is running and is used by the sample render. You could safely delete it and all references to it. And, in fact, we'll be doing that soon.
 
   ![_getEnvironmentMessage](./assets/anatomy6.png)
 
@@ -72,6 +72,7 @@ Now we're going to take a brief tour of our web part's code so we can see what w
   ![onThemeChanged](./assets/anatomy7.png)
 
 1. The `dataVersion` method on **line 103** returns the version of the stored properties structure for your web part instance. This value is used when deserializing your web part instance's properties. If you make changes to this structure and want existing web parts to be able to understand, you'll change the return value of this method and then handle things in the `onAfterDeserialize` method .
+    
     > :bulb: This is an advanced scenario and not one to worry about at this time, we just wanted you to have it for reference.
 
   ![dataVersion](./assets/anatomy8.png)
@@ -129,7 +130,7 @@ The default, no-framework web part comes with some extra junk. It's a combinatio
 1. Delete the entire `_getEnvironmentMessage` method
    > This is just a sample method to determine where our web part is running. It might be helpful on your next part, but it's unneeded here
 
-1. Delete the assignment of `_isDarkTheme` on **line 38**:
+1. Delete the assignment of `_isDarkTheme` on **line 38** in the `onThemeChanged` method:
    
    ```TypeScript
    this._isDarkTheme = !!currentTheme.isInverted;
@@ -149,11 +150,11 @@ If you run into any trouble or don't really want to do the steps above, you can 
 ```TypeScript
 import { Version } from '@microsoft/sp-core-library';
 import {
-  IPropertyPaneConfiguration,
+  type IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
 import * as strings from 'JarbisWebPartStrings';
@@ -222,6 +223,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     };
   }
 }
+
 ```
 
 </details>
@@ -255,6 +257,7 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
         color: inherit;
       }
     }
+
     ```
 
    The **JarvisWebPart.module.scss** generates a Cascading Style Sheet for your web part; it controls the look and feel of your web part.
@@ -283,7 +286,7 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
    >
    > SPFx helps you out even further by using CSS modules. This means that at build, SPFx appends a unique hash to your classes to ensure they don't conflict with other web parts using those same class names or even other instances of your web part! It's not something you have to worry about during development, but it might throw you for a loop if you inspect the page and don't know what's happening.
 
-1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.CLASSNAME }"` using the correct class name that we created earlier. The render method should look as follows:
+1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.CLASSNAME }"` using the correct class name that we created earlier. The render method should now look like this:
 
    ```typescript
    public render(): void {
@@ -343,7 +346,11 @@ Although we wired up the classes into our rendered HTML, the classes themselves 
 
 1. Refresh the workbench. Your web part should start looking better!
 
-![Web Part Preview](assets/webpartpreview.png)
+  ![Web Part Preview](assets/webpartpreview.png)
+
+  Alternatively, if you're using the Local Workbench, you can use the theme switcher in the lower-right corner to pick one of the dark themes to show how using the theme variables above ensured our web part is legible regardless of theme. If we had just specified black for the text, our web part would be useless in dark themes:
+
+  ![Web Part Preview in Local Workbench](assets/localworkbenchthemeswitcher.png)
 
 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.module.scss** file with the following:
