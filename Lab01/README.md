@@ -158,7 +158,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
 
 <b>NOTE: This is not necessary if you completed step 1a and are using NVS.</b> You did do that didn't you?!
 
-Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
+Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Heft, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
 Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.22.2**](https://learn.microsoft.com/sharepoint/dev/spfx/release-1.22.2) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
 
