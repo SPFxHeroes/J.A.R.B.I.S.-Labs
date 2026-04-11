@@ -210,7 +210,7 @@ You can technically use any code editor or IDE that supports client-side develop
 
    > Note: :apple: MacOS users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install @rushstack/heft --global`
 
-1. Do a dance
+1. Do a dance 💃🏻🕺🏻🪩
 
 > :bulb: npm stands for Node Package Manager and it was installed as part of Node.js. npm is used to manage and install libraries, frameworks, and tools (like Heft). You will use it relatively often so it's a good tool to get comfortable with!
 
