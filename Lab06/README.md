@@ -33,9 +33,9 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 ## :rocket: Exercise 1: Chunk it up
 
-We've got a relatively small amount of HTML we are rendering. Doing this all as single string combined with [template literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) is ok, but it can quickly get hard to read. Especially, if you want to do something dynamic.
+We've got a relatively small amount of HTML we are rendering. Doing this all as single string combined with [template literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) is ok, but it can quickly get hard to read. Especially if you want to do something dynamic.
 
-We're going to start "chunking" our code into some individual strings and then we can put them all back together at the end. This will give us more control over what renders when and it makes it easier to add comments and read.
+We're going to start "chunking" our code into some individual strings and then we can put them all back together at the end. This will give us more control over what renders when and it makes it easier to add comments and read. Basically instead of one big string, we're going to make a few then concatenate them all.
 
 1. At the top of your `render` method (before the `this.domElement...`) add:
    ```TypeScript
@@ -246,6 +246,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 1. Refresh your workbench page and try toggling the page display mode between **Preview** and **Edit** and see how the web part renders differently between each mode.
    ![Toggle mode](assets/displaymode.png)
+   
    > :bulb: Unlike normal SharePoint pages, the workbench defaults to Edit mode
 
 #### :books: Resources
