@@ -152,9 +152,9 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 1. But what about all the other property set calls that are still in error? Well, we said in our `IJarbisWebPartProps` interface that all of these properties were strings and not `undefined` so potentially setting them to `undefined` is problematic.
 
-1. We can fix that by saying, if the result of the call is `undefined` then just use the value we've already got. We could write temp variables and if statements to validate each but that's no fun. Instead, we're going to use the [Nullish Coalescing Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) (`??`)
+1. We can fix that by saying, if the result of the call is `undefined` then just use the value we've already got. We could write temp variables and if statements to validate each but that's no fun. Instead, we're going to use the [Nullish Coalescing Operator](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) (`??`)
 
-    > :bulb: The [Nullish Coalescing Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) returns the right-hand value only if the left-hand value is `null` or `undefined`; otherwise it returns the left-hand value.
+    > :bulb: The [Nullish Coalescing Operator](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing) returns the right-hand value only if the left-hand value is `null` or `undefined`; otherwise it returns the left-hand value.
 
 1. On each of the `this.properties.` lines add the `??` operator to the end with the right-hand value being itself. For instance, change this line:
 
@@ -452,10 +452,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 
 #### :books: Resources
-- [Math.random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
-- [Math.floor()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor)
-- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
-- [Nullish Coalescing Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing)
+- [Math.random()](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+- [Math.floor()](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/floor)
+- [Spread syntax](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+- [Nullish Coalescing Operator](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing)
 - [TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
 
 ## :tada: All Done!

@@ -68,7 +68,7 @@ At the risk of oversimplifying, here's how it works:
 - SharePoint will automatically load the correct locale.js file along with your web part's bundle and will use the correct values for your text
 
 #### :books: Resources
-- [Localize web parts](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts)
+- [Localize web parts](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts)
 
 
 ## :rocket: Exercise 2: Localizing our strings
@@ -127,7 +127,7 @@ We recommend using string literals during the early stages of development where 
 1. This isn't our only string literal we need to take care of. Head down to the **getPropertyPaneConfiguration** method and you'll see that we're currently using 3 literal values for our show powers toggle (`label`, `onText`, and `offText`). You can repeat the steps above for each of these if you'd like or you can continue on and use one of the VSCode extensions we recommended in lab 1 to make this far less tedious!
 
 #### :books: Resources
-- [Localize web part contents](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#localize-web-part-contents)
+- [Localize web part contents](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#localize-web-part-contents)
 
 ## :rocket: Exercise 3: Use the SPFx Localization extension
 
@@ -365,7 +365,7 @@ Also, keep in mind that while we've been forcing the locale during testing using
 
 #### :books: Resources
 - [Pseudolocalize.com](http://www.pseudolocalize.com/)
-- [Pseudo Locales in SPFx](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#improve-globalizing-and-localizing-web-parts-by-using-pseudo-locales)
+- [Pseudo Locales in SPFx](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts#improve-globalizing-and-localizing-web-parts-by-using-pseudo-locales)
 
 
 ## :tada: All Done!

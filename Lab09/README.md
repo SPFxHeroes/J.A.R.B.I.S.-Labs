@@ -238,8 +238,8 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
 
 #### :books: Resources
 - [PnPjs Getting started with the SharePoint Framework](https://pnp.github.io/pnpjs/getting-started/#getting-started-with-sharepoint-framework)
-- [Add an external library to your SharePoint client-side web part](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/add-an-external-library)
-- [Use existing JavaScript libraries in SharePoint Framework client-side web parts](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/use-existing-javascript-libraries)
+- [Add an external library to your SharePoint client-side web part](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/add-an-external-library)
+- [Use existing JavaScript libraries in SharePoint Framework client-side web parts](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/use-existing-javascript-libraries)
 
 ## :rocket: Exercise 3: Caching our requests
 
@@ -483,7 +483,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 </details>
 
 #### :books: Resources
-- [SPFx StatusRenderer](https://learn.microsoft.com/en-us/javascript/api/sp-webpart-base/iclientsidewebpartstatusrenderer?view=sp-typescript-latest)
+- [SPFx StatusRenderer](https://learn.microsoft.com/javascript/api/sp-webpart-base/iclientsidewebpartstatusrenderer?view=sp-typescript-latest)
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
