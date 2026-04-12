@@ -97,7 +97,7 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
   
 1. Within the `render` method, add the following code after the last line of code:
    ```TypeScript
-    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;;
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < buttons.length; b++) {
       buttons[b].addEventListener('click', this.onGenerateHero);
     }
@@ -116,7 +116,7 @@ Since we're handling the lifecycle of our generated HTML, we also have to handle
 1. Add the following code below the `onGenerateHero` method:
     ```TypeScript
     protected onDispose(): void {
-      const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;;
+      const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
       for (let b = 0; b < oldbuttons.length; b++) {
         oldbuttons[b].removeEventListener('click', this.onGenerateHero);
       }
