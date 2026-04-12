@@ -10,7 +10,7 @@ Welcome to your first lab! This lab is all about getting your **development envi
 |Icon|Meaning|
 |---|---|
 |:rocket:|Exercise|
-|:apple:|MacOS specific instructions|
+|:apple:|Mac specific instructions|
 |:shield:|Admin mode required|
 |:bulb:|Hot tip!|
 |:hedgehog:|Code catch-up|
@@ -41,7 +41,7 @@ Welcome to your first lab! This lab is all about getting your **development envi
 
 This step will configure a **Windows** workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this exercise if using MacOS :apple:. In later exercises, steps for MacOS specifications are called out when they differ.
+> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this exercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
 
 1. From your Windows machine, use the **Start menu** and search for **Use developer features**
 1. On the **System > Advanced** page, under **For Developers**, look for **Developer Mode - Install apps from any source, including loose files**:
@@ -78,7 +78,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
     
     ![run dialog](assets/rundialog.png)
 
-#### :apple: MacOS Installation
+#### :apple: Mac Installation
 
 1. Open a terminal by launching the app launcher (click on Apps in your dock) and then type Terminal in the app search. If you have more than one option, choose the non-windows terminal:
 
@@ -165,7 +165,7 @@ Node.js maintains two different releases at all times: LTS & Current version. SP
 > :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). See above for instructions.
 
 1. Using your browser, go to https://nodejs.org/dist/latest-v22.x/
-1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on MacOS :apple:, use the **.pkg** version:
+1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
@@ -208,7 +208,7 @@ You can technically use any code editor or IDE that supports client-side develop
    npm install @rushstack/heft --global
    ```
 
-   > Note: :apple: MacOS users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install @rushstack/heft --global`
+   > Note: :apple: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install @rushstack/heft --global`
 
 1. Do a dance 💃🏻🕺🏻🪩
 
