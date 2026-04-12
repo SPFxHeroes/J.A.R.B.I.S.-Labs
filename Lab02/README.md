@@ -178,7 +178,7 @@ Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant
 
 ### Using the SPFx Local Workbench
 
-1. Click the **SPFx Workbench** button in VS Code task bar"
+1. Click the **SPFx Workbench** button in the VS Code task bar:
 
    ![SPFx Local Workbench launch button](assets/localworkbenchlaunchbutton.png)
 

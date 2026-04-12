@@ -156,7 +156,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
 
 ## :rocket: Exercise 2: Install Node.js
 
-<b>NOTE: This is not necessary if you completed step 1a and are using NVS.</b> You did do that didn't you?!
+<b>NOTE: This is not necessary if you completed step 1.1 and are using NVS.</b> You did do that didn't you?!
 
 Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Heft, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
