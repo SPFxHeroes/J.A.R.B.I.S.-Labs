@@ -574,7 +574,7 @@ Therefore, to include the files, we must define the feature configuration in our
 
 1. Change the `name` value on **line 4** from `jarbis-client-side-solution` to `JARBIS - Hero Generator`. A good name makes solutions much easier to identify in the App Catalog.
 
-1. In the **features** node starting on **line 28**, you'll see there's already a feature with a title of `jarbis Feature`. Let's extend this feature by adding our provisioning files as assets. Add a comma after `"version": "1.0.0.0"` then paste the following"
+1. In the **features** node starting on **line 28**, you'll see there's already a feature with a title of `jarbis Feature`. Let's extend this feature by adding our provisioning files as assets. Add a comma after `"version": "1.0.0.0"` then paste the following:
 
     ```json
      "assets": {
@@ -595,7 +595,7 @@ We'll be making a _non-production_ build just to verify our provisioning is corr
 
 1. If your `heft start` is still running in the terminal, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to stop it.
 
-1. In the terminal in VS Code, execute the following command to bundle and package your client-side solution that contains the web part (combines and minimize your final javascript and packages everything up):
+1. In the terminal in VS Code, execute the following command to bundle and package your client-side solution that contains the web part (combines and minimize your final JavaScript and packages everything up):
    ```bash
    heft test --clean && heft package-solution
    ```
@@ -629,7 +629,7 @@ For those using the SPFx Local Workbench, you can absolutely do these steps and 
 
    ![SharePoint admin center](assets/admincenter.png)
 
-1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
+1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer. Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
 
    ![Reveal in File Explorer](assets/reveal.png)
 
@@ -651,11 +651,11 @@ Even in a dev tenant, it can be helpful to take advantage of site collection app
 
   ![Settings > Site contents](assets/settings-sitecontents.png)
 
-1. Click on the **Apps for SharePoint** list
+1. Click on the **Apps for SharePoint** library.
 
   ![Apps for SharePoint](assets/appsforsharepoint.png)
 
-1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
+1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer. Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
 
    ![Reveal in File Explorer](assets/reveal.png)
 
@@ -667,7 +667,7 @@ Even in a dev tenant, it can be helpful to take advantage of site collection app
 
   ![Site Collection App Catalog Deploy](assets/sitecollectionappcatalogdeploy.png)
 
-> :warning: In some cases the expected dialog doesn't show up. This seems more common if your site collection app catalog was just recently added. If you are never shown the dialog, delete the package from the library, refresh, and try again. If after a few minutes you continue to experience the same issue, please reach out for help. In a few cases we've seen a need to remove and redploy the site collection app catalog, but this should be a rare occurrence and not something you're likely to experience (probably).
+> :warning: In some cases the expected dialog doesn't show up. This seems more common if your site collection app catalog was just recently added. If you are never shown the dialog, delete the package from the library, refresh, and try again. If after a few minutes you continue to experience the same issue, please reach out for help. In a few cases we've seen a need to remove and redeploy the site collection app catalog, but this should be a rare occurrence and not something you're likely to experience (probably).
 
 ### Add to your site
 
