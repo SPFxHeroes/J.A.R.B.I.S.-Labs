@@ -23,10 +23,10 @@ Welcome to your first lab! This lab is all about getting your **development envi
 <summary><b>Exercises</b></summary>
 
   1. [Configure your Windows workstation for development](#rocket-exercise-1-configure-your-windows-workstation-for-development)
-  1. [Insall Node Version Switcher (Optional)](#rocket-exercise-1a-optional-install-node-version-switcher)
+  1. [Install Node Version Switcher (Optional)](#rocket-exercise-11-optional-install-node-version-switcher)
   1. [Install Node.js](#rocket-exercise-2-install-nodejs)
   1. [Install VS Code](#rocket-exercise-3-install-vs-code)
-  1. [Install the Gulp CLI](#rocket-exercise-4--install-the-gulp-cli)
+  1. [Install Heft](#rocket-exercise-4-install-heft)
   1. [Install Yeoman](#rocket-exercise-5-install-yeoman)
   1. [Install Yeoman SharePoint Generator](#rocket-exercise-6-install-yeoman-sharepoint-generator)
   1. [Install TypeScript](#rocket-exercise-7-install-typescript)
@@ -41,10 +41,10 @@ Welcome to your first lab! This lab is all about getting your **development envi
 
 This step will configure a **Windows** workstation as a development workstation by configuring the least privileges required to be able to work well with SPFx development.
 
-> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this excercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
+> The instructions assume the use of a Windows machine. However, this is **not required** for SPFx development. You can [skip](#rocket-exercise-2-install-nodejs) this exercise if using a Mac :apple:. In later exercises, steps for Mac users are called out when they differ.
 
 1. From your Windows machine, use the **Start menu** and search for **Use developer features**
-1. On the **Privacy & Security > For developers** page, under **Developer Mode**, look for **Install apps from any source, including loose files**:
+1. On the **System > Advanced** page, under **For Developers**, look for **Developer Mode - Install apps from any source, including loose files**:
 
     ![Developer mode setting in Windows 11](assets/devmodewin11.png)
 
@@ -62,11 +62,15 @@ This step will configure a **Windows** workstation as a development workstation 
 - [Enable your device for development](https://learn.microsoft.com/windows/apps/get-started/enable-your-device-for-development)
 - [PowerShell execution policies](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 
-## :rocket: Exercise 1a (optional): Install Node Version Switcher
+## :rocket: Exercise 1.1 (optional): Install Node Version Switcher
 
-Note: While we recommend using NVS, if you prefer to install Node directly without the ability to switch between versions of Node, skip to [Exercise 2: Install Node.js](#rocket-exercise-2-install-nodejs)
+While we **recommend** using NVS, if you prefer to install Node directly without the ability to switch between versions of Node, skip to [Exercise 2: Install Node.js](#rocket-exercise-2-install-nodejs)
 
-:: Windows Installation
+> :bulb: But also, definitely do this. The need to switch your version of node WILL come up and it WILL be a pain unless you do this.
+
+### Installing NVS
+
+#### Windows Installation
 
 1. Download the [NVS Windows Installer](https://github.com/jasongin/nvs/releases/download/v1.7.1/nvs-1.7.1.msi).
 1. Install NVS by double clicking on the downloaded installer.
@@ -74,17 +78,67 @@ Note: While we recommend using NVS, if you prefer to install Node directly witho
     
     ![run dialog](assets/rundialog.png)
 
-1. In the Command Prompt Dialog type the follwing to install Node Version 18:
+#### :apple: Mac Installation
+
+1. Open a terminal by launching the app launcher (click on Apps in your dock) and then type Terminal in the app search. If you have more than one option, choose the non-windows terminal:
+
+   ![launch a mac terminal](assets/launchTerminalOnMac.png)
+
+1. Now we'll set an environment variable for the shell that will determine where NVS will be installed. 
+
+   > :bulb: The default location is directly in the home folder as shown below, but you can change it if you like. For instance, I have mine installed in `$HOME/Code/.nvs` to match where I put all my code and because I'm fancy!
+
+1. In the terminal, run this:
+
+   ```console
+   export NVS_HOME="$HOME/.nvs"
+   ```
+
+1. Now we'll clone the NVS repository to that location:
+
+   ```console
+   git clone https://github.com/jasongin/nvs "$NVS_HOME"
+   ```
+
+1. Now we'll run the install script:
+
+   ```console
+   . "$NVS_HOME/nvs.sh" install
+   ```
+
+1. Now, let's open a new terminal window to ensure the `nvs` function is available. In the terminal app, use the **Shell** menu to select **New Window** then choose either the standard or one of the fancy choices like **Grass** to get a cool green terminal. Wowee!
+
+   ![new shell window](assets/newTerminalMac.png)
+
+### Setting up Node with NVS
+
+1. In the terminal, verify NVS is installed correctly and accessible with the following command:
+
+   ```console
+   nvs --version
+   ```
+
+   > The latest version is 1.7.1, if you get an error like command not found or anything else, please check the official [README](https://github.com/jasongin/nvs?tab=readme-ov-file) for troubleshooting tips or reach out to one of us for assistance
+
+1. In the terminal, type the following to install Node Version 22:
    
    ```console
-    nvs add 18
+    nvs add 22
     ```
 
-1. In the Command Prompt Dialog type the following to use Node Version 18:
+1. In the terminal type the following to use Node Version 22:
    
    ```console
-    nvs use 18
+    nvs use 22
     ```
+
+    > :bulb: If you have multiple minor versions, this will use the latest matching major version. You can also just type `nvs use` to be shown all the versions of node you have and easily switch between them
+
+1. Optionally, set the default version of node:
+
+   ```console
+   nvs link
+   ```
 
 1. In the Command Prompt Dialog type the following to confirm what version of Node is currently installed:
    
@@ -92,40 +146,37 @@ Note: While we recommend using NVS, if you prefer to install Node directly witho
     node -v
     ```
 
-If installed successfully you should see the following in your command prompt:
-![Node Version](assets/nodeversion.png)
+![nvs commands](assets/nvsTerminal.png)
 
 #### :books: Resources
-> [NVS Homepage](https://github.com/jasongin/nvs)
+- [NVS Homepage](https://github.com/jasongin/nvs)
+- [SPFx development environment compatibility](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 
-> :bulb: Command Console Prompt to see all versions of Node installed and available to NVS:
-    ```
-    nvs ls
-    ```
+> :bulb: To see all versions of Node installed and available to NVS: `nvs ls`
 
 ## :rocket: Exercise 2: Install Node.js
 
-<b>NOTE: This is not necessary if you completed step 1a and are using NVS.</b>
+<b>NOTE: This is not necessary if you completed step 1.1 and are using NVS.</b> You did do that didn't you?!
 
-Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Gulp, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
+Node.js provides a runtime environment to execute JavaScript outside a browser and lets us use tools like Heft, Yeoman, and npm - which are all needed to scaffold, develop, and build SPFx projects.
 
-Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.20.0**](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/release-1.21) which uses [**LTS Node.js v18**](https://nodejs.org/dist/latest-v18.x/).
+Node.js maintains two different releases at all times: LTS & Current version. SPFx is only supported on **LTS (Long Term Support) versions**. The specific version to use [depends on the version of SPFx you're using](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility). We are targeting [**SPFx 1.22.2**](https://learn.microsoft.com/sharepoint/dev/spfx/release-1.22.2) which uses [**LTS Node.js v22**](https://nodejs.org/dist/latest-v22.x/).
 
-> :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). Once installed, you can open a command prompt and enter `nvs` and it will ask you to choose a version of Node.js and will get it setup to be used locally (choose the latest).
+> :bulb: Admin privileges are required to install Node.js directly using the .msi. You can get around this by using [Node Version Switcher (NVS)](https://github.com/jasongin/nvs?tab=readme-ov-file#nvs-node-version-switcher). See above for instructions.
 
-1. Using your browser, go to <https://nodejs.org/dist/latest-v18.x/>
+1. Using your browser, go to https://nodejs.org/dist/latest-v22.x/
 1. Pick and download the latest version of Node in that page (highest number) which is compatible with your workstation. For Windows, use the correct **.msi** version and on Mac :apple:, use the **.pkg** version:
 
     ![Node file listing](assets/nodefiles.png)
 
 1. :shield: Install using all the default options. When asked about tools for Native Modules you can leave this unchecked (not needed for SPFx development)
 
-> :bulb: The use of a Node version manager is highly recommended but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v18 using some of the links below but it is an advanced configuration and NOT required.
+> :bulb: The use of a Node version manager is **highly recommended** but beyond the scope of these labs. You're welcome to follow the instructions to get these configured and using the latest version of LTS Node.js v22 using some of the links below but it is an advanced configuration and NOT required (There are instructions for NVS above).
 
 #### :books: Resources
 
-- [SPFx Node.js instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
-- [SPFx development environment compatibility](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
+- [SPFx Node.js instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-nodejs)
+- [SPFx development environment compatibility](https://learn.microsoft.com/sharepoint/dev/spfx/compatibility#spfx-development-environment-compatibility)
 - :bulb: [Node Version Switcher (NVS)](https://github.com/jasongin/nvs)
 - :apple: [Node Version Manager (for Linux/Mac)](https://github.com/nvm-sh/nvm)
 - :shield: [NVM for Windows](https://github.com/coreybutler/nvm-windows)
@@ -142,39 +193,47 @@ You can technically use any code editor or IDE that supports client-side develop
 
 #### :books: Resources
 
-- [SPFx code editor instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-a-code-editor)
+- [SPFx code editor instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-a-code-editor)
 - [Getting started with VS Code](https://code.visualstudio.com/docs/)
 
-## :rocket: Exercise 4:  Install the Gulp CLI
+## :rocket: Exercise 4: Install Heft
 
-[Gulp](https://gulpjs.com) is a JavaScript-based task runner used to automate repetitive tasks. The SharePoint Framework build toolchain uses Gulp tasks to build projects, create JavaScript bundles, and the resulting packages used to deploy solutions.
+[Heft](https://heft.rushstack.io/) is a configuration-driven toolchain that wraps up a bunch of other tools. In SPFx, we use it to build, serve, package, and more.
 
-1. From a command prompt, enter the following command to install the Gulp CLI: `npm install gulp-cli -g`, followed by <kbd>Enter</kbd>.
-    > Note: :apple: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install gulp-cli -g`
-1. This might take a little bit of time. Now is a good time to stretch your legs. Feel free to stand up and dance!
-1. Once completed, you can verify that Gulp is installed by entering `gulp -v`, followed by <kbd>Enter</kbd>. It should display:
+> Heft replaces [Gulp](https://gulpjs.com) which is used in earlier versions of SPFx.
+
+1. From a command prompt, enter the following command to install Heft globally
 
    ```console
-    CLI version: 3.0.0
-    Local version: Unknown
-    ```
+   npm install @rushstack/heft --global
+   ```
 
-    ![Testing Gulp](assets/gulpinstall.png)
+   > Note: :apple: Mac users should use the `sudo` prefix if encountering an `EACCES` error. I.e.: `sudo npm install @rushstack/heft --global`
 
-> Note: You may not see a `Local version` if you're not currently in a project folder (we installed globally by using `-g`). That's OK!
+1. Do a dance 💃🏻🕺🏻🪩
 
-> :bulb: npm stands for Node Package Manager and it was installed as part of Node.js. npm is used to manage and install libraries, frameworks, and tools (like Gulp). You will use it relatively often so it's a good tool to get comfortable with!
+> :bulb: npm stands for Node Package Manager and it was installed as part of Node.js. npm is used to manage and install libraries, frameworks, and tools (like Heft). You will use it relatively often so it's a good tool to get comfortable with!
+
+![install heft](assets/installHeft.png)
 
 #### :books: Resources
 
-- [SPFx Gulp instructions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment#install-gulp)
-- [NPM Install](https://docs.npmjs.com/cli/v9/commands/npm-install)
+- [SPFx Heft instructions](https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment#install-heft)
+- [NPM Install](https://docs.npmjs.com/cli/v10/commands/npm-install)
 
 ## :rocket: Exercise 5: Install Yeoman
 
 [Yeoman](https://yeoman.io/) helps you kick-start new projects, and prescribes best practices and tools to help you stay productive. We will use this for project scaffolding.
 
-1. From the command prompt, enter the following command to install Yeoman: `npm install yo -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command to install Yeoman: 
+ ```console
+ npm install yo -g
+ ```
+followed by <kbd>Enter</kbd>.
+
+
+   > :bulb: We used `--global` when installing heft, here we're using `-g` which is just a shortcut. Both will install the package globally for a given version of Node
+
 1. Do another dance!
 1. To verify the installation, type `yo`, followed by <kbd>Enter</kbd>.
 1. If you see **Allo! What would you like to do?**, use your arrow keys to select **Get me out of here!** and hit <kbd>Enter</kbd>.
@@ -189,11 +248,11 @@ You can technically use any code editor or IDE that supports client-side develop
 
 The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code (starter project).
 
-1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.20.0 -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.22.2 -g`, followed by <kbd>Enter</kbd>.
 
-   > :bulb: We are specifying an exact version of the generator by tacking `@1.20.0` to the end of the package name.
+   > :bulb: We are specifying an exact version of the generator by tacking `@1.22.2` to the end of the package name.
    >
-   > :warning: If the latest version of SPFx has a minor version of 0, unless you specifically need something that was added in that version, use the one before it. In this case, the latest version is 1.21.0 released in April (see that zero, that's evil) which is, unfortunately, providing a perfect case-in-point for this tip as it is broken and a version 1.21.1 is imminent.
+   > :warning: If the latest version of SPFx has a minor version of 0, unless you specifically need something that was added in that version, use the one before it. In this case, the latest version is 1.23.0 released in April (see that zero, that's evil). Technically, it's just a release candidate and still in beta and so a generator hasn't been released - which is another reason to use the last stable version
 
 2. A bazillion years later, when the installation is complete and your latest dance finished, enter `yo`, followed by <kbd>Enter</kbd>.
 3. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
@@ -216,7 +275,7 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
 1. From the command prompt, enter the following command: `npm install typescript -g`, followed by <kbd>Enter</kbd>.
 1. Don't panic, the installation is very quick!
-1. When the installation is complete, enter `tsc --version`, followed by <kbd>Enter</kbd>. You should see the version number listed.
+1. When the installation is complete, enter `tsc --version`, followed by <kbd>Enter</kbd>. You should see a version number listed (your's may be different than the image below).
 
    ![Testing TypeScript](assets/tscinstall.png)
 
@@ -253,6 +312,7 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
    ![SPFx Toolkit](assets/spfxtoolkit.png) 
 1. Repeat steps 3-5 with the following extensions:
     - [**SPFx Essentials**](https://marketplace.visualstudio.com/items?itemName=eliostruyf.spfx-essentials)
+    - TODO: SPFx Local Workbench (if this still says TODO, then just ask us for the link)
     - [**GitHub Repositories**](https://marketplace.visualstudio.com/items?itemName=GitHub.remotehub)
     - [**Live Server**](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
     - [**Live Share**](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
@@ -269,11 +329,17 @@ Visual Studio Code extensions are plugins for VS Code that provide extra functio
 
 Working in production is generally not a good idea. Besides, you're rarely going to be a global admin in your primary tenant. This can make trying out features, creating app registrations, provisioning assets, etc. challenging or plain impossible.
 
-Thanks to [Midnight Blizzard](https://www.microsoft.com/en-us/security/blog/tag/midnight-blizzard-nobelium/?sort-by=newest-oldest&date=any) (a large scale security incident that led to the pause of the dev program), you are not currently able to get a developer tenant for free.
+Thanks to [Midnight Blizzard](https://www.microsoft.com/security/blog/tag/midnight-blizzard-nobelium/?sort-by=newest-oldest&date=any) (a large scale security incident that led to the pause of the dev program), you are not currently able to get a developer tenant for free.
 
 If you already have a developer tenant, you can use that for these labs or you can use a company tenant (You will need permission to deploy to an app catalog). We also have a number of temporary accounts available with the required permissions if you're in the room.
 
-[Exciting updates coming to the Microsoft 365 Developer Program - April 23, 2025](https://devblogs.microsoft.com/microsoft365dev/exciting-updates-coming-to-the-microsoft-365-developer-program/)
+Even more exciting, we have a *beta* VS Code extension, **SPFx Local Workbench**, that we had you install earlier and will allow you to proceed with nearly all of the labs without a tenant! Instructions will reference both the extension AND a live tenant depending on your preference.
+
+Details about these changes:
+- [Exciting updates coming to the Microsoft 365 Developer Program - April 23, 2025](https://devblogs.microsoft.com/microsoft365dev/exciting-updates-coming-to-the-microsoft-365-developer-program/)
+- [Exiting new capabilities and enhancements for M365 Developer Program - October 16, 2025](https://devblogs.microsoft.com/microsoft365dev/new-capabilities-and-enhancements-for-m365-developer-program/)
+
+**TLDR**: A dev sandbox is available for [some people](https://learn.microsoft.com/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-), but most people are out of luck.
 
 ~~Good news! Microsoft will provide you a FREE tenant to do development work in!~~
 
@@ -336,7 +402,7 @@ These instructions are for Microsoft Edge. You can also use **User profiles** in
 
 - [Sign in and create multiple profiles in Microsoft Edge](https://support.microsoft.com/topic/sign-in-and-create-multiple-profiles-in-microsoft-edge-df94e622-2061-49ae-ad1d-6f0e43ce6435)
 - [Use Chrome with multiple profiles](https://support.google.com/chrome/answer/2364824)
-- [Profile Manager - Create, remove or switch Firefox profiles](https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles)
+- [Profile Manager - Create, remove or switch Firefox profiles](https://support.mozilla.org/kb/profile-manager-create-remove-switch-firefox-profiles)
 
 ## :tada: All Done
 

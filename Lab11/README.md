@@ -430,9 +430,9 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 
 #### :books: Resources
-- [SPFx property pane overview](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
+- [SPFx property pane overview](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
 - [PnP SPFx Property Controls](https://pnp.github.io/sp-dev-fx-property-controls/)
-- [Build custom controls for the property pane](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/build-custom-property-pane-controls)
+- [Build custom controls for the property pane](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/build-custom-property-pane-controls)
 
 
 ## :rocket: Exercise 2: Reactive vs nonreactive
@@ -456,7 +456,7 @@ To disable reactive property panes, you simply need to add the following code ab
 1. Do a dance
 
 #### :books: Resources
-- [Reactive and nonreactive SharePoint web parts](https://learn.microsoft.com/en-us/sharepoint/dev/design/reactive-and-nonreactive-web-parts)
+- [Reactive and nonreactive SharePoint web parts](https://learn.microsoft.com/sharepoint/dev/design/reactive-and-nonreactive-web-parts)
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)

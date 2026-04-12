@@ -36,7 +36,7 @@ FluentUI is a design language provided by Microsoft and is used all over M365. T
 
 For our purposes, we're just going to be using some of the icons. We've already seen where we could use the icons for the web part icon shown in the authoring canvas. Now let's take a look at adding them in our rendered web part!
 
-The FluentUI Icons can be accessed in multiple ways. The traditional way is to use predefined icon classes that will use an icon font. You can reference that font via CDN, by using utility classes (that's what we'll be doing), or even generating your own subset of icons into a custom icon font using https://uifabricicons.azurewebsites.net/.
+The FluentUI Icons can be accessed in multiple ways. The traditional way is to use predefined icon classes that will use an icon font. You can reference that font via CDN or by using utility classes (that's what we'll be doing).
 
 There are also libraries specific to react to provide icon components and to easily integrate with other react controls. Additionally, there is an SVG package that makes using the icons as raw SVG files easy.
 
@@ -49,7 +49,7 @@ Like we said, big topic. But when it comes to the icons, in general, use the app
     <i class=""></i>
     ```
 
-  > :bulb: We're using the `<i>` element for our icons. This is the [Idiomatic Text](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/i) element and was originally used to indicate italic text similar to how the `<b>` element can be used for bold. However, this usage has evolved and it's common practice to use these for icons (`span` elements are the other common option). We're following that convention here, but know it isn't doing anything special and could easily be a `span` or other inline element.
+  > :bulb: We're using the `<i>` element for our icons. This is the [Idiomatic Text](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/i) element and was originally used to indicate italic text similar to how the `<b>` element can be used for bold. However, this usage has evolved and it's common practice to use these for icons (`span` elements are the other common option). We're following that convention here, but know it isn't doing anything special and could easily be a `span` or other inline element.
 
 1. To display a fluent icon, we just need to apply the correct class. There are some predefined classes you'll find out there (start with `ms-Icon--*`) but we're going to use a utility method that provides us with just a little more power.
 
@@ -91,7 +91,6 @@ Like we said, big topic. But when it comes to the icons, in general, use the app
 
 #### :books: Resources
 - [Flicon Icon Search](https://flicon.io)
-- [FluentUI Icon Font Generator](https://uifabricicons.azurewebsites.net)
 
 
 ## :rocket: Exercise 2: Making icons pretty
@@ -127,7 +126,7 @@ One of the nice things about working with our icons as an icon font, is that we 
   ```
 
 #### :books: Resources
-- [CSS Named Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color)
+- [CSS Named Colors](https://developer.mozilla.org/docs/Web/CSS/named-color)
 
 
 ## :rocket: Exercise 3: Making icons even prettier
@@ -157,6 +156,8 @@ Having the colors be inline and setable in code will make more sense once we sta
     }
     ```
     > :bulb: By now you may have noticed that unlike traditional CSS, we're nesting child styles rather than having each style have a specific selector. This is one of the benefits of SCSS. In the end, it will generate all the specific selectors for us but lets us write the styles in a far less tedious and more understandable way. It'll handle composing it all back together and we get to just use our classes.
+
+    > :bulb: If you are cutting and pasting code from this window into VS Code you might be manually formatting the pasted code by adding necessary tabs, etc. Alternatively, right-click and choose **Format Document** to have these automatically fixed.
 
 1. Back in the **JarbisWebPart.ts** file, add another import below the `getIconClassName` import we did previously:
 
@@ -246,9 +247,9 @@ If things don't look quite right, review the `render` code above and ensure your
 
 #### :books: Resources
 - [CSS Modules](https://github.com/css-modules/css-modules)
-- [SPFx CSS Recommendations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/css-recommendations)
-- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
-- [Available theme tokens and Default values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
+- [SPFx CSS Recommendations](https://learn.microsoft.com/sharepoint/dev/spfx/css-recommendations)
+- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
+- [Available theme tokens and Default values](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
 
 
 ## :tada: All Done!

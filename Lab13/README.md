@@ -205,7 +205,7 @@ The solution's metadata controls how the app will appear in the App store. You c
    > Even if you only plan to promote your web parts within your organization, we recommend that you always take the time to update the `developer` property.
 
 #### :books: Resources
-- [SharePoint solution packaging](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
+- [SharePoint solution packaging](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
 
 
 ## :rocket: Exercise 3: Update web part metadata
@@ -312,7 +312,7 @@ If you want to use any other types of images, you can also specify any other abs
 Remember to _remove_ the `officeFabricFontName` property from your manifest, or SharePoint will simply ignore your fancy new SVG icon. You should now have an `iconImageURL` property instead.
 
 #### :books: Resources
-- [Web part preconfigured entries](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/simplify-adding-web-parts-with-preconfigured-entries#web-part-preconfigured-entries)
+- [Web part preconfigured entries](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/simplify-adding-web-parts-with-preconfigured-entries#web-part-preconfigured-entries)
 
 
 ## :rocket: Exercise 4: Deploy a production build
@@ -390,7 +390,7 @@ Let's finally package this app for production!!
 It runs without needing a local `gulp serve` running and other people can even see/use it! WOWEE!!!
 
 #### :books: Resources
-- [Deploy your client-side web part to a SharePoint page](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/serve-your-web-part-in-a-sharepoint-page)
+- [Deploy your client-side web part to a SharePoint page](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/serve-your-web-part-in-a-sharepoint-page)
 
 
 Congratulations! You have successfully completed this workshop.

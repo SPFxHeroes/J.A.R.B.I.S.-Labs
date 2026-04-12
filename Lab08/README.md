@@ -507,9 +507,9 @@ There are a few things to take note of from this XML:
 - In addition to structure, we're also provisioning default list items. This makes our list immediately usable and is generally a good way to get people started when using this approach.
 
 #### :books: Resources
-- [Provision SharePoint assets (SPFx)](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets)
+- [Provision SharePoint assets (SPFx)](https://learn.microsoft.com/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets)
 - [Using Features in SharePoint Foundation](https://learn.microsoft.com/previous-versions/office/developer/sharepoint-2010/ms460318(v=office.14)?redirectedfrom=MSDN).
-- [Element manifest file](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#element-manifest-file)
+- [Element manifest file](https://learn.microsoft.com/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#element-manifest-file)
 
 
 ## :rocket: Exercise 2: Add a schema.xml file for defining list structure
@@ -560,7 +560,7 @@ Any supported files that accompany the element manifest (like the **schema.xml**
     ```
 
 #### :books: Resources
-- [Element files](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#element-file)
+- [Element files](https://learn.microsoft.com/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#element-file)
 
 
 ## :rocket: Exercise 3: Configure the SharePoint feature
@@ -587,7 +587,7 @@ To include the files, we must define the feature configuration in our project. W
     ```
 
 #### :books: Resources
-- [Configure the SharePoint feature in SPFx](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#configure-the-sharepoint-feature)
+- [Configure the SharePoint feature in SPFx](https://learn.microsoft.com/sharepoint/dev/spfx/toolchain/provision-sharepoint-assets#configure-the-sharepoint-feature)
 
 
 ## :rocket: Exercise 4: Bundle and package the solution
@@ -616,7 +616,7 @@ We'll be making a _non-production_ build just to verify our provisioning is corr
    ![gulp package-solution](./assets/gulppackagesolution.png)
 
 #### :books: Resources
-- [Package solutions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
+- [Package solutions](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
 
 
 ## :rocket: Exercise 5: Deploy and provision to a site

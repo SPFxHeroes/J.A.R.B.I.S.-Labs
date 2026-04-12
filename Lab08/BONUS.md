@@ -142,7 +142,7 @@ The icons look much better and are far easier to use. But the next column is jus
    > :bulb: This format takes advantage of the fact that our choices are all CSS named colors so it can use them the same way our web part does! This is especially helpful for those weird ones that don't quite look like you might expect (like Hugo).
 
 #### :books: Resources
-- [CSS Named Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color)
+- [CSS Named Colors](https://developer.mozilla.org/docs/Web/CSS/named-color)
 
 
 ## :rocket: Exercise 3: Choice pills

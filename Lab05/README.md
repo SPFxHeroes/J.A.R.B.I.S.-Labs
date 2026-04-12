@@ -81,7 +81,7 @@ Let's change the `IJarbisWebPartProps` interface to cache all the values we retr
     }
     ```
 
-1. The **.manifest.json** file for a web part defines the settings that a web part should use on a page - including the default values for your properties (they'll be `undefined` otherwise). Let's set some default values so that our users don't get an error when they first use our web part. In the **JarbisWebPart.manifest.json**, find the `properties` node, located under `preConfiguredEntries` and replace the `description` property (which is no longer used) with the following default values:
+1. The **.manifest.json** file for a web part defines the default values for settings that a web part should use on a page (they'll be `undefined` otherwise). Let's set some default values so that our users don't get an error when they first use our web part. In the **JarbisWebPart.manifest.json**, find the `properties` node, located under `preConfiguredEntries` and replace the `description` property (which is no longer used) with the following default values:
 
     ```json
     "name": "Lab Rat",
@@ -159,20 +159,20 @@ Let's change the `IJarbisWebPartProps` interface to cache all the values we retr
   }
   ```
 
-If you had `gulp serve` running and simply refresh the page, you may see that some of the values return as `undefined`. This is because the web part was added to the page before the **.manifest.json** was updated with the defaults and the defaults are only applied when the web part is added.
+If you had `heft start` running and simply refresh the page, you may see that some of the values return as `undefined`. This is because the web part was added to the page before the **.manifest.json** was updated with the defaults and the defaults are only applied when the web part is added.
 
 ![Undefined properties](assets/undefinedproperties.png)
 
   > :bulb: See? Reading these tips is great because you could've already guessed that would happen if you read the one above! Wowee!
 
-You'll need to stop and start `gulp serve --nobrowser` to get the manifest updates included. Then in the workbench, remove the current instance of the web part, and add a new instance to the page. The default values should now appear -- instead of `undefined`.
+You'll need to stop and start `heft start --nobrowser` to get the manifest updates included. Then in the workbench, remove the current instance of the web part, and add a new instance to the page. The default values should now appear -- instead of `undefined`.
 
 BEHOLD THE BEAUTY!!
 
 ![Defined properties](assets/defaultproperties.png)
 
 #### :books: Resources
-- [Integrate web part properties with SharePoint](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
+- [Integrate web part properties with SharePoint](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
 
 ## :rocket: Exercise 2: Working with the property pane
 
@@ -216,7 +216,7 @@ Just kidding, that's only because we haven't implemented any logic to change the
       }
    ```
 
-1. Run `gulp serve --nobrowser` (if not still running) and try changing some of the web part properties. Click the pencil icon next to the web part to show the property pane:
+1. Run `heft start --nobrowser` (if not still running) and try changing some of the web part properties. Click the pencil icon next to the web part to show the property pane:
 
   ![edit button](./assets/editpropertypane.png)
 
@@ -227,8 +227,8 @@ Just kidding, that's only because we haven't implemented any logic to change the
 ![property pane](assets/propertypane.png)
 
 #### :books: Resources
-- [Make your SharePoint client-side web part configurable](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/integrate-with-property-pane)
-- [Reactive and nonreactive SharePoint web parts](https://learn.microsoft.com/en-us/sharepoint/dev/design/reactive-and-nonreactive-web-parts)
+- [Make your SharePoint client-side web part configurable](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/integrate-with-property-pane)
+- [Reactive and nonreactive SharePoint web parts](https://learn.microsoft.com/sharepoint/dev/design/reactive-and-nonreactive-web-parts)
 - [PnP Property Pane Controls](https://pnp.github.io/sp-dev-fx-property-controls/)
 
 ## :rocket: Exercise 3: Escaping properties
@@ -241,13 +241,13 @@ However, as a general rule, you should always verify input provided by users to 
 
 In this exercise, we'll demonstrate why you should always escape values that can be stored or entered by users before you display them on the screen.
 
-1. While still running `gulp serve`, change the **Primary power** of any of your currently added web parts to `<span style='color:red'>Science</span>` and observe what happens in the page.
+1. While still running `heft start`, change the **Primary power** of any of your currently added web parts to `<span style='color:red'>Science</span>` and observe what happens in the page.
    ![bad naughty bad](assets/maliciouscode.png)
-   > :bulb: Injecting custom HTML is arguably tame, but the same technique could be used to inject custom JavaScript for malicious intent.
+   > :bulb: Injecting custom HTML is arguably tame, but the same technique could be used to inject iframes or other content for malicious intent.
    >
    > If you dare, paste this **MaStEr hAcK** into **Primary power** to see what we mean:
    ```html
-   <img src="https://picsum.photos/24" onLoad="javascript:eval(String.fromCharCode(97, 108, 101, 114, 116, 40, 39, 89, 111, 117, 32, 98, 101, 32, 104, 97, 99, 107, 101, 100, 33, 33, 32, 39, 41));"/>`
+   <iframe style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:450px;z-index:9999;border:5px solid red;" src="https://www.youtube.com/embed/i6vAiG1G1Xs?autoplay=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
    ```
 
 1. At the top of **JarbisWebPart.ts**, insert the following import:
@@ -288,7 +288,7 @@ In this exercise, we'll demonstrate why you should always escape values that can
 > :bulb: Pro-tip, you can quickly reset your property values by pressing **Discard** and then adding the web part again. So much time saved!
 
 #### :books: Resources
-- [Validate web part property values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/validate-web-part-property-values)
+- [Validate web part property values](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/validate-web-part-property-values)
 
 
 ## :tada: All Done!
