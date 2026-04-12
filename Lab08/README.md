@@ -31,6 +31,7 @@ In this lab, we're going to automatically provision a list when our web part is 
   1. [Configure the SharePoint feature](#rocket-exercise-3-configure-the-sharepoint-feature)
   1. [Bundle and package the solution](#rocket-exercise-4-bundle-and-package-the-solution)
   1. [Deploy and provision to a site](#rocket-exercise-5-deploy-and-provision-to-a-site)
+  1. [Configure a mock list for the SPFx Local Workbench](#rocket-exercise-6-configure-a-mock-list-for-the-spfx-local-workbench)
 </details>
 
 <details>
@@ -565,24 +566,20 @@ Any supported files that accompany the element manifest (like the **schema.xml**
 
 ## :rocket: Exercise 3: Configure the SharePoint feature
 
-At this point, we've created the files for provisioning SharePoint assets using the Feature schema from the solution when it's deployed. The next step is to include them in the SharePoint package (***.sppkg** file) that will be created when we package our solution up.
+At this point, we've created the files for provisioning SharePoint assets using the Feature schema from the solution when it's deployed. This is what defines the shape and content of our list, but we need to tell our project about them. So, the next step is to include them in the SharePoint package (***.sppkg** file) that will be created when we package our solution up. What ends up in the package is defined in the **package-solution.json** configuration file.
 
-To include the files, we must define the feature configuration in our project. We do this in the **config** > **package-solution.json** file. This file contains the metadata used by the build task (`gulp package-solution`) and determines the contents of the generated ***sppkg** file.
+Therefore, to include the files, we must define the feature configuration in our project in the **config** > **package-solution.json** file. This file contains the metadata used by the build task (`heft package-solution`) and determines the contents of the generated ***sppkg** file.
 
 1. Open **package-solution.json** from the **config** folder.
 
-1. Change the `name` value on **line 4** from `jarbis-client-side-solution` to `JARBIS - Hero Generator`.
+1. Change the `name` value on **line 4** from `jarbis-client-side-solution` to `JARBIS - Hero Generator`. A good name makes solutions much easier to identify in the App Catalog.
 
-1. In the **features** node, you'll see there's already a feature with a title of `jarbis Feature` and we'll be adding our provisioning files as assets to this feature. Add a comma after `"version": "1.0.0.0"` then paste the following"
+1. In the **features** node starting on **line 28**, you'll see there's already a feature with a title of `jarbis Feature`. Let's extend this feature by adding our provisioning files as assets. Add a comma after `"version": "1.0.0.0"` then paste the following"
 
     ```json
      "assets": {
-        "elementManifests": [
-          "elements.xml"
-        ],
-        "elementFiles":[
-          "schema.xml"
-        ]
+        "elementManifests": ["elements.xml"],
+        "elementFiles":["schema.xml"]
       }
     ```
 
@@ -592,28 +589,25 @@ To include the files, we must define the feature configuration in our project. W
 
 ## :rocket: Exercise 4: Bundle and package the solution
 
-Now you're ready to deploy the solution to SharePoint. Because we're provisioning assets directly to the SharePoint sites when the solution is installed, you can't test the provisioning capability in the Workbench.
+Now you're ready to deploy the solution to SharePoint. Because we're provisioning assets directly to the SharePoint sites when the solution is installed, you can't test the provisioning capability in the Online Workbench.
 
-We'll be making a _non-production_ build just to verify our provisioning is correct (and to make the list and its content available while we're developing).
+We'll be making a _non-production_ build just to verify our provisioning is correct (and to make the list and its content available while we're developing). If you're using a tenant, this will actually create the list on the site even though we're still working on the web part.
 
-1. If your `gulp serve` is still running in the terminal, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to stop it.
+1. If your `heft start` is still running in the terminal, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to stop it.
 
-1. In the terminal in VS Code, execute the following command to bundle your client-side solution that contains the web part (combine and minimize your final javascript) to get the basic structure ready for packaging:
+1. In the terminal in VS Code, execute the following command to bundle and package your client-side solution that contains the web part (combines and minimize your final javascript and packages everything up):
    ```bash
-   gulp bundle
+   heft test --clean && heft package-solution
    ```
 
-   ![gulp bundle](./assets/gulpbundle.png)
+   ![heft build](./assets/heftdebugpackage.png)
 
-1. Once complete, execute the following command to create the solution package:
-   ```bash
-   gulp package-solution
-   ```
+   > :bulb: The above is actually 2 commands tied together with the `&&`. The first is a `test` command which runs the full build (bundle and minimize) but also will run any tests you may have defined (we haven't defined any, but it's good practice). The `--clean` parameter cleans previous outputs before getting started.
+   > The second command, `package-solution` is what creates the `.sppkg` file. By leaving out `--production` the actual bundle files will be loaded from our local machine rather than be deployed to SharePoint.
+   
    > :bulb: The command creates the **jarbis.sppkg** package in the **sharepoint/solution** folder.
 
-   > :warning: You will see a warning message indicating that the solution is not a production build, and another one indicating that Feature.xml elements are not automatically applied unless the solution is explicitly installed on a site; both warnings are expected.
-
-   ![gulp package-solution](./assets/gulppackagesolution.png)
+   > :warning: You will see a warning message indicating that the solution is not a production build, this warning is expected.
 
 #### :books: Resources
 - [Package solutions](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
@@ -623,7 +617,11 @@ We'll be making a _non-production_ build just to verify our provisioning is corr
 
 Now that we've got a package file, we need to deploy it to our app catalog to make it available to be added to our site.
 
-> :warning: We are assuming you are using a development tenant and so deploying a half-baked solution to the primary app catalog is fine. Don't do this on production! If you must use a production tenant, then you should be working in a Site Collection App Catalog. Setting this up is beyond the scope of this lab, but more details can be found in the links below.
+For those using the SPFx Local Workbench, you can absolutely do these steps and work with a list in an actual tenant. But if you're using the SPFx Local Workbench specifically because you don't have access to a tenant that you can deploy to or if you're interested in what options there are for mocking up responses, Exercise 6 is for you.
+
+> :warning: We are assuming you are using a development tenant and so deploying a half-baked solution to the primary app catalog is fine. Don't do this on production! If you must use a production tenant, then you should be working in a [Site Collection App Catalog](https://learn.microsoft.com/en-us/sharepoint/dev/general-development/site-collection-app-catalog#create-a-site-collection-app-catalog). Setting this up, while not hard, is beyond the scope of this lab - but if you've got one, steps can be found below. **If you are using an account we provided, then a site collection app catalog has already been setup for you.**
+
+### Deploy to the tenant app catalog
 
 1. In the browser, navigate to your tenant's app catalog by heading to the SharePoint Admin center (`https://YOURTENANT-admin.sharepoint.com`) - where `YOURTENANT` is your Microsoft 365 developer tenant name.
 
@@ -631,7 +629,7 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 
    ![SharePoint admin center](assets/admincenter.png)
 
-1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer**
+1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
 
    ![Reveal in File Explorer](assets/reveal.png)
 
@@ -643,7 +641,35 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 
    ![Enable app](assets/addapp.png)
 
-   > :bulb: Notice that the **Enable app** pane indicates **This app gets data from: https://localhost:4321/dist**; this is because the solution that we just bundled is _not_ intended for production and will only run while you debug the web part. We'll fix this in later labs, when we deploy the production web part.
+   > :bulb: Notice that the **Enable app** pane indicates **This app gets data from: https://localhost:4321/dist**; this is because the solution that we just bundled is _not_ intended for production and will only run while you debug the web part. We'll change this in later labs when we deploy the production web part.
+
+### Deploy to a site collection app catalog
+
+Even in a dev tenant, it can be helpful to take advantage of site collection app catalogs. The traditional way of deploying apps to the tenant app catalog has a lot of benefits such as centralized management, tenant-wide deployment, and administrative control. However, there are also several potential issues that site collection app catalogs help solve: targeted deployments, non-global permission requirements, multiple catalogs, etc.
+
+1. Return to your workbench and select the **Settings** gear icon, followed by **Site contents** to view the site content where your workbench is located.
+
+  ![Settings > Site contents](assets/settings-sitecontents.png)
+
+1. Click on the **Apps for SharePoint** list
+
+  ![Apps for SharePoint](assets/appsforsharepoint.png)
+
+1. Find the **jarbis.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer** (**Reveal in Finder** for Mac :apple: users):
+
+   ![Reveal in File Explorer](assets/reveal.png)
+
+1. Drag and drop **jarbis.sppkg** from **File Explorer** onto the **Apps for SharePoint** library or select **Upload** and select the **jarbis.sppkg** file from your desktop.
+
+   ![Site Collection App Catalog](assets/sitecollectionappcatalogupload.png)
+
+1. A dialog should appear after a few moments. Because this is not a production package, you can see that it will be served locally. We're only interested in the asset deployment for now so it doesn't matter. Click Deploy.
+
+  ![Site Collection App Catalog Deploy](assets/sitecollectionappcatalogdeploy.png)
+
+> :warning: In some cases the expected dialog doesn't show up. This seems more common if your site collection app catalog was just recently added. If you are never shown the dialog, delete the package from the library, refresh, and try again. If after a few minutes you continue to experience the same issue, please reach out for help. In a few cases we've seen a need to remove and redploy the site collection app catalog, but this should be a rare occurrence and not something you're likely to experience (probably).
+
+### Add to your site
 
 1. Return to your workbench and select the **Settings** gear icon, followed by **Site contents** to view the site content where your workbench is located.
 
@@ -668,6 +694,15 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 1. You'll see a list with several records. This is good!!!
 
    ![I've got the Powers!](assets/powers.png)
+
+#### :books: Resources
+- [Use the site collection app catalog](https://learn.microsoft.com/sharepoint/dev/general-development/site-collection-app-catalog)
+- [Tenant-scoped solution deployment](https://learn.microsoft.com/sharepoint/dev/spfx/tenant-scoped-deployment)
+
+
+## :rocket: Exercise 6: Configure a mock list for the SPFx Local Workbench
+
+TODO: Actually fill this section out
 
 #### :books: Resources
 - [Take a closer look](https://zoomquilt.org/)
