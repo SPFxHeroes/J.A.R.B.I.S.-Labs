@@ -245,7 +245,7 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
 
   ![Powers logged in the console](assets/powersintheconsole.png)
 
-  > :bulb: Notice that the filename shown for the source of the message is not our generated bundle js file. SPFx has provided mappings to the browser so that we can see where the message occured in our actual source file! We can even click on it to see the code in the source browser and set breakpoints!
+  > :bulb: Notice that the filename shown for the source of the message is not our generated bundle js file. SPFx has provided mappings to the browser so that we can see where the message occurred in our actual source file! We can even click on it to see the code in the source browser and set breakpoints!
   >
   > :bulb: You will likely have additional properties in your IPowerItem results (`odata.*`). This is expected and not something to worry about. If you wanted to access those values in code, you would add them to your interface - but we don't care about them in this case.
 
