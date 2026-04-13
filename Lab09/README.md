@@ -45,7 +45,7 @@ When we retrieve and work with items from a datasource, in this case SharePoint,
 
 We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/objects.html). Interfaces simply describe an object through property names and types (the "shape" of an object). TypeScript then uses this object "contract" to validate that you should expect to have certain properties and to be use them in specific ways when working with the object. Interfaces don't hold actual values; they just describe how things should "look".
 
-1. In VSCode, add a new file named **IPowerItem.ts** in the same folder as **JarbisWebPart.ts**
+1. In VSCode, add a new file named **IPowerItem.ts** in the same folder as **JarbisWebPart.ts** (**src** > **webparts** > **jarbis**).
 1. Paste the following code into the newly-created file:
 
     ```typescript
@@ -90,6 +90,7 @@ We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/o
        */
       Prefix: string[];
     }
+
     ```
 
     > You'll notice that we're starting to add comments to our code; this is not only to teach you how the code works as you're using it in the labs, but also to impart some coding best-practices.
@@ -99,6 +100,8 @@ We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/o
     > Neato!!!
 
     ![IPowerItem intellisense card](./assets/interfaceintellisense.png)
+
+    > :bulb: We are also following the old school practice of prefixing interfaces with an `I`. This is not required and isn't a mainstream recommendation for TypeScript anyway (types and interfaces are often used relatively interchangeably). But we still like it!
 
 1. Back in **JarbisWebPart.ts**, add an import to the newly-created `IPowerItem` interface by appending the following code at the bottom of all the `import` statements:
 
@@ -176,7 +179,7 @@ So far we've only been using either what SPFx gave us or what we've coded oursel
 
 We'll be demonstrating integrating packages from PnPjs (v4.x) but there are links below to help you with other libraries (like jQuery).
 
-1. Using the terminal, add the required PnPjs modules to your solution by typing the following command (if you're still running `gulp serve` you'll need to kill it first with <kbd>CTRL</kbd>+<kbd>C</kbd>):
+1. Using the terminal, add the required PnPjs modules to your solution by typing the following command (if you're still running `heft start` you'll need to kill it first with <kbd>CTRL</kbd>+<kbd>C</kbd>):
 
     ```bash
     npm install @pnp/sp
@@ -184,9 +187,9 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
     
     > :bulb: Unlike the previous times we ran the `npm install` command, we omitted the `-g` parameter, because the `-g` parameter means that we want to install the node module _globally_ (i.e.: at the Operating System level); without the `-g` parameter, the node module will be installed _locally_ (i.e.: at the solution-level).
     >
-    > This is because we need the `@pnp/sp` module for our solution only, not for all solutions on our system. This also creates an entry in our **package.json** file listing this as a dependency. This will ensure that when the next developer starts work on the project they can simply run the `npm install` command and all packages including ones you've added will be installed.
+    > This is because we need the `@pnp/sp` module for our solution only, not for all solutions on our system. This also creates an entry in our **package.json** file listing this as a dependency. This will ensure that when the next developer starts work on the project they can simply run the `npm install` command and all packages, including ones you've added, will be installed.
     >
-    > Typically, tools like Gulp, Yeoman, etc. will be installed globally and packages referenced in your solution will be installed locally
+    > Typically, tools like Heft, Yeoman, etc. will be installed globally and packages referenced in your solution will be installed locally
 
 1. Add the following `import` statements to the top of **JarbisWebPart.ts**, below the `import {IPowerItem }` line:
 
@@ -197,11 +200,11 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
     import '@pnp/sp/items';
     ```
 
-    > You may wonder why adding PnPjs requires adding so many imports. The answer is simple: PnPjs provides a _lot_ of functionality, but we don't need to use _every_ single feature provided by PnPjs - otherwise the codebase for your web part would be a lot bigger and could potentially make the SharePoint page where someone added your web part render slowly and appear sluggish and sad.
+    > :bulb: You may wonder why adding PnPjs requires adding so many imports. The answer is simple: PnPjs provides a _lot_ of functionality, but we don't need to use _every_ single feature provided by PnPjs - otherwise the codebase for your web part would be a lot bigger and could potentially make the SharePoint page where someone added your web part render slowly and appear sluggish and sad.
     >
-    > By importing _only_ the features we need (i.e. SharePoint, webs, lists, list items), we help keep the web part code base as small as possible. But if you are surprised an endpoint isn't showing up for you, check your imports to make sure you've made that available.
+    > By importing _only_ the features we need (i.e. SharePoint, webs, lists, list items), we help keep the web part code base as small as possible. But if you are surprised an endpoint isn't showing up for you, check your imports to make sure you've made that available. This is a powerful but sometimes confusing aspect of PnPjs - especially when first getting started.
 
-1. After the `render` method, add the following method to retrieving the list of powers from SharePoint: 
+1. After the `render` method, add the following method to retrieve the list of powers from SharePoint: 
 
     ```TypeScript
     /**
@@ -220,26 +223,42 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
 
    > :bulb: Notice that the actual call to the REST endpoint isn't written as a string but it's built with full support for intellisense. The above code is the equivalent to writing something like `"_api/web/lists/getbytitle(${this.properties.list})/items?$top=2000&$select=Title,Icon,Colors,Prefix,Main"` and that's relatively straightforward. Imagine needing to add filters, expansions, batching, etc. PnPjs will make all that just as easy as we're seeing here (you'll see).
 
-   > :bulb: Sometimes pasting code makes it look wonky. You can always right-click in VS Code within the editor window and select **Format Document** (or press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>F</kbd>) to make it pretty again.
+   > :bulb: Sometimes pasting code makes it look wonky. You can always right-click in VS Code within the editor window and select **Format Document** (or press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>F</kbd> on Windows or <kbd>OPTION</kbd>+<kbd>SHIFT</kbd>+<kbd>F</kbd> on Mac :apple:) to make it pretty again.
 
 1. Now we've got a method to retrieve list items, but we actually need to call it! At the top of the `render` method just after our oldButtons cleanup code add the following:
+
    ```TypeScript
    //load the powers
    this.getPowers().catch((error) => console.error(error));
    ```
 
-1. In the terminal, run `gulp serve --nobrowser` to reserve your web part. You'll also want to remove and readd it to the workbench since we changed the manifest and added a new property with a default value.
-
-1. Open the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools** then switching to the Console. You should see where we dumped the `powers` array and if you expand it you can see the properties are nicely mapped thanks to our `IPowerItem` interface. Wowee!
-   ![Powers logged in the console](assets/powersintheconsole.png)
-   > :bulb: Notice that the filename shown for the source of the message is not our generated bundle js file. SPFx has provided mappings to the browser so that we can see where the message occured in our actual source file! We can even click on it to see the code in the browser and set breakpoints!
+   > :bulb: This calls our function but because it's an async function we'll run into an error if we aren't awaiting it or catching any potential errors. This is because SPFx ships with several opinionated guidelines to prevent common mistakes (like accidentally swallowing errors). These rules are part of the eslint configuration and this particular rule is called `no-floating-promises`.
    >
-   > :bulb: You will likely have additional properties in your IPowerItem results (`odata.*`). This is expected and not something to worry about. If you wanted to access those values in code, you would add them to your interface - but we don't care about them in this case.
+   > You can customize these rules as needed or disable them on individual lines or for entire files. In this case, just putting a small callback like the above is a quick way to satisfy the condition temporarily.
+
+1. In the terminal, run `heft start --nobrowser` to serve your web part again. You'll also want to remove and re-add it to the workbench since we changed the manifest and added a new property with a default value.
+
+1. For the online workbench, open the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools**. If using the SPFx Local Workbench, click the dev tools button in the panel title bar.
+
+1. In dev tools, switch to the Console tab. You should see where we dumped the `powers` array and if you expand it you can see the properties are nicely mapped thanks to our `IPowerItem` interface. Wowee!
+
+  ![Powers logged in the console](assets/powersintheconsole.png)
+
+  > :bulb: Notice that the filename shown for the source of the message is not our generated bundle js file. SPFx has provided mappings to the browser so that we can see where the message occurred in our actual source file! We can even click on it to see the code in the source browser and set breakpoints!
+  >
+  > :bulb: You will likely have additional properties in your IPowerItem results (`odata.*`). This is expected and not something to worry about. If you wanted to access those values in code, you would add them to your interface - but we don't care about them in this case.
+
+  > :warning: If you're using the SPFx Local Workbench and you aren't seeing the Powers array in the console and are seeing some errors instead like these:
+
+  ![Site errors](assets/spfxlocalworkbenchsiteerror.png)
+
+  > Verify your settings to ensure the API Proxy wasn't disabled (it's on by default). If it's on, go back to Lab 08 and double check the mock configuration exercise.
 
 #### :books: Resources
 - [PnPjs Getting started with the SharePoint Framework](https://pnp.github.io/pnpjs/getting-started/#getting-started-with-sharepoint-framework)
 - [Add an external library to your SharePoint client-side web part](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/add-an-external-library)
 - [Use existing JavaScript libraries in SharePoint Framework client-side web parts](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/use-existing-javascript-libraries)
+
 
 ## :rocket: Exercise 3: Caching our requests
 
@@ -247,14 +266,24 @@ You might be curious why we would put a call to get data *every time* we render.
 
 This might be a small call, but you shouldn't abuse people's networks nor risk your code being sluggish because you're being overly aggressive with data retrieval.
 
-Time to implement caching! Fortunately, PnPjs makes it super easy!
+Time to implement caching! Fortunately, PnPjs makes it super easy! Let's start by looking at how the web part operates without caching.
 
-1. Start by testing the web part without caching: using your browser's developer tools, switch to the **Network** tab and filter for **Fetch / XHR** requests -- which are the types of network calls your web part makes when retrieving items from the list. Since we're only dealing with a single endpoint, we can make it even easier by adding the keyword `items` to our Filter:
+### Test caching in the Online Workbench
+
+1. Using your browser's developer tools, switch to the **Network** tab and filter for **Fetch / XHR** requests -- which are the types of network calls your web part makes when retrieving items from the list. Since we're only dealing with a single endpoint, we can make it even easier by adding the keyword `items` to our Filter:
    ![Fetch/XHR](assets/xhr.png)
 
 1. Refresh the workbench page
 
 1. Refresh the page several times, making sure to note that the `items` API is called every time. Also, note how much time the call takes every time. Toggling between Preview and Edit will show additional calls as the web part rerenders. Oh my!
+
+### Test caching in the SPFx Local Workbench
+
+1. Switch to the **OUTPUT** tab in the terminal pane and use the dropdown to select `SPFx API Proxy`. Here we can see details about all proxied calls. Add and remove the web part a few times to see the call happens every time. This makes our hearts heavy with grief.
+
+  ![SPFx API Proxy](assets/spfxlocalworkbenchapiproxylog.png)
+
+### Caching time!
 
 1. Return to **JarbisWebPart.ts** and add the following import:
 
@@ -270,9 +299,10 @@ Time to implement caching! Fortunately, PnPjs makes it super easy!
    this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching())();
    ```
 
-1. Refresh the web part. You may not immediately notice a difference, but the web part only queries the list _once_ -- unless there are changes or the cache has expired.
+1. Repeat the testing steps from above. You may not immediately notice a difference, but the web part only queries the list _once_ -- unless there are changes or the cache has expired.
 
 1. To verify that the cache is used, look for a call to the `items` API in the network calls; the first time you load the web part, you should see a call to it, but refreshing the page should not cause the web part to call the API every subsequent time.
+
    > :bulb: Yet we are still getting the `powers` dumped to the console each time even as we toggle Preview/Edit in the workbench!
 
    > :bulb: We didn't specify any configuration and are just using the caching defaults (5 minute timeout). We can adjust this in our overall configuration for PnPjs to apply to all calls or we can specify this as a parameter to the `Caching` function on a per call basis!

@@ -617,9 +617,9 @@ We'll be making a _non-production_ build just to verify our provisioning is corr
 
 Now that we've got a package file, we need to deploy it to our app catalog to make it available to be added to our site.
 
-For those using the SPFx Local Workbench, you can absolutely do these steps and work with a list in an actual tenant. But if you're using the SPFx Local Workbench specifically because you don't have access to a tenant that you can deploy to or if you're interested in what options there are for mocking up responses, Exercise 6 is for you.
+For those using the **SPFx Local Workbench**, you can absolutely do these steps and work with a list in an actual tenant. But if you're using the SPFx Local Workbench specifically because you don't have access to a tenant that you can deploy to, skip to Exercise 6. Even if you haven't been using the SPFx Local Workbench, if you're interested in what options there are for mocking up responses, there's no reason you can't do it too.
 
-> :warning: We are assuming you are using a development tenant and so deploying a half-baked solution to the primary app catalog is fine. Don't do this on production! If you must use a production tenant, then you should be working in a [Site Collection App Catalog](https://learn.microsoft.com/en-us/sharepoint/dev/general-development/site-collection-app-catalog#create-a-site-collection-app-catalog). Setting this up, while not hard, is beyond the scope of this lab - but if you've got one, steps can be found below. **If you are using an account we provided, then a site collection app catalog has already been setup for you.**
+> :warning: We are assuming you are using a development tenant and so deploying a half-baked solution to the primary app catalog is fine. Don't do this on production! If you must use a production tenant, then you should be working in a [Site Collection App Catalog](https://learn.microsoft.com/sharepoint/dev/general-development/site-collection-app-catalog#create-a-site-collection-app-catalog). Setting this up, while not hard, is beyond the scope of this lab - but if you've got one, steps can be found below. **If you are using an account we provided, then a site collection app catalog has already been setup for you.**
 
 ### Deploy to the tenant app catalog
 
@@ -702,7 +702,65 @@ Even in a dev tenant, it can be helpful to take advantage of site collection app
 
 ## :rocket: Exercise 6: Configure a mock list for the SPFx Local Workbench
 
-TODO: Actually fill this section out
+The SPFx Local Workbench comes with a powerful mocking engine that lets you create repeatable, testable scenarios to focus on your code without relying on external API calls. This mocking engine is what allows your components to think they are deployed to an actual SharePoint site and lets you control what data is returned without your code having to be aware.
+
+There are many scenarios where you may want to test against a list that doesn't exist, control the exact data that's returned (without querying a real system or having to create test data in production), to test adverse scenarios it can be hard to simulate, and more. In our case, we've got a list we'll eventually deploy and the web part will connect to, but we have nowhere to deploy it yet so we need to mock it up.
+
+> If you're not using the SPFx Local Workbench, you can skip this exercise. But it won't hurt to give it a try (physically at least).
+
+The SPFx Local Workbench mocking engine helpfully provides several helpful helper methods to help mock responses that hopefully help. We're going to use a JSON file to mock a list response body. We'll include that file as part of our project. These can be pulled from actual list calls and can be updated as needed.
+
+> :bulb: You can also generate mock responses from CSV files and you can even record API calls coming from your components to help stub out the responses!
+
+1. Create a folder called **mocks** in the root of your solution.
+
+1. Download this file and put it in the **mocks** folder we just created:
+
+    :page_with_curl: [list_Powers.json](mocks/list_Powers.json)
+
+    ![list_Powers.json in solution](assets/mocksfile.png)
+
+1. Click the **Mock Data** button in the SPFx Local Workbench panel title:
+
+    ![Mock Data button](assets/spfxlocalworkbenchmockdatabutton.png)
+
+1. Select the **Import JSON File** action in the Mock Data command menu:
+
+    ![Import JSON File in Mock Data menu](assets/spfxlocalworkbenchmockdatamenu.png)
+
+1. In the file picker, select the **list_Powers.json** file in the **mocks** directory.
+
+1. Type `/_api/web/lists/getbytitle('powers')/items` for the URL Pattern and press <kbd>Enter</kbd>:
+
+    ![URL Pattern](assets/spfxlocalworkbenchmockdataurlpattern.png)
+
+    > :bulb: The URL Pattern for a mock rule will be a case-insensitive contains match by default. This is what lets us use just the `/_api` portion of our URL with whatever site is configured in our mock page context (this can be customized in settings as needed). This also means we can get as specific as we want. Here we're saying any call to items in the `powers` list will return the contents of our `list_Powers.json` file.
+    >
+    > Alternatively, you can edit your mock rule to specify that a URL Pattern should be treated as a regular expression giving you even more control. Hotdog!
+
+1. Choose `GET` for the HTTP Method:
+
+    ![HTTP Method - GET](assets/spfxlocalworkbenchmockdatamethod.png)
+
+1. Choose `Any` for Client Type:
+
+    ![Client Type - Any](assets/spfxlocalworkbenchmockdataclienttype.png)
+
+    > :bulb: Choosing `Any` is the simplest choice to ensure that any calls to this list return our expected JSON. There may be calls where you want to vary the response based on the specific client type, but that's typically going to be an advanced scenario.
+
+1. Choose `200 OK` for the Status Code since we're simulating a successful call:
+
+    ![Status Code - 200 OK](assets/spfxlocalworkbenchmockdatastatuscode.png)
+
+1. Choose `Reference file` for the body storage:
+
+    ![Body Storage - Reference file](assets/spfxlocalworkbenchmockdatabodystorage.png)
+
+    > :bulb: Normally you might think of a morgue when it comes to body storage, but we're choosing a file in this case. This is why we added the file to our solution rather than just importing from somewhere else. `Inline body` is typically going to be used for small responses and ones you aren't likely to change much. By keeping the body in its own file it makes it easier to track changes in source control, make updates, and keeps our `api-mocks.json` file clean.
+
+1. Assuming everything was a success, you should now have a `.spfx-workbench` directory with a `api-mocks.json` file inside:
+
+    ![api-mocks.json](assets/apimocks.png)
 
 #### :books: Resources
 - [Take a closer look](https://zoomquilt.org/)
