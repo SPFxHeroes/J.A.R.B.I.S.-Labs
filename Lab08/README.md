@@ -704,7 +704,7 @@ Even in a dev tenant, it can be helpful to take advantage of site collection app
 
 The SPFx Local Workbench comes with a powerful mocking engine that lets you create repeatable, testable scenarios to focus on your code without relying on external API calls. This mocking engine is what allows your components to think they are deployed to an actual SharePoint site and lets you control what data is returned without your code having to be aware.
 
-There are many scenarios where you may want to test against a list that doesn't exist, control the exact data that's returned (without querying a real system or having to create test data in production), to test adverse scenarios it can be hard to simulate, and more. In our case, we've got a list we'll eventually deploy and the web part will connect to, but we have no where to deploy it yet so we need to mock it up.
+There are many scenarios where you may want to test against a list that doesn't exist, control the exact data that's returned (without querying a real system or having to create test data in production), to test adverse scenarios it can be hard to simulate, and more. In our case, we've got a list we'll eventually deploy and the web part will connect to, but we have nowhere to deploy it yet so we need to mock it up.
 
 > If you're not using the SPFx Local Workbench, you can skip this exercise. But it won't hurt to give it a try (physically at least).
 
