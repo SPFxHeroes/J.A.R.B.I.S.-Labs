@@ -46,7 +46,6 @@ When we retrieve and work with items from a datasource, in this case SharePoint,
 We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/objects.html). Interfaces simply describe an object through property names and types (the "shape" of an object). TypeScript then uses this object "contract" to validate that you should expect to have certain properties and to be use them in specific ways when working with the object. Interfaces don't hold actual values; they just describe how things should "look".
 
 1. In VSCode, add a new file named **IPowerItem.ts** in the same folder as **JarbisWebPart.ts** (**src** > **webparts** > **jarbis**).
-IPo
 1. Paste the following code into the newly-created file:
 
     ```typescript
