@@ -157,7 +157,7 @@ Having trouble deciding? Here's a quick comparison:
 |Quick theme switching|❌|✅||
 |Quick locale switching|❌|✅||
 |Storybook integration|❌|✅|*<sup>The SPFx Local Workbench provides automatic story generation, storybook hosting in VS Code, and support for custom stories</sup>*|
-|Work with deployed assets|✅|❌|*<sup>Assets can be mocked with the SPFx Local Workbench API Proxy, authenticated passthrough calls are planned but not yet available</sup>*
+|Work with deployed assets|✅|❌|*<sup>Assets can be mocked with the SPFx Local Workbench API Proxy, authenticated passthrough calls are planned but not yet available</sup>*|
 |Work with mocked assets|❌|✅|
 |Integrates with Dev Proxy|❌|☑️|*<sup>The SPFx Local Workbench API Proxy supports passthrough mode to route calls through Dev Proxy</sup>*|
 |Call M365 APIs|✅|☑️|*<sup>The SPFx Local Workbench supports proxy endpoints for mocking responses, authenticated passthrough calls are planned but not yet available</sup>*|
