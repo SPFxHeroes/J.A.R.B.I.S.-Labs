@@ -101,7 +101,7 @@ We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/o
 
     ![IPowerItem intellisense card](./assets/interfaceintellisense.png)
 
-    > :bulb: We are also following the old school practice of prefixing interfaces with an `I`. This is not required and isn't a mainstream recommendation for TypeScript anyway (types and interfaces are often used relatively interchangably). But we still like it!
+    > :bulb: We are also following the old school practice of prefixing interfaces with an `I`. This is not required and isn't a mainstream recommendation for TypeScript anyway (types and interfaces are often used relatively interchangeably). But we still like it!
 
 1. Back in **JarbisWebPart.ts**, add an import to the newly-created `IPowerItem` interface by appending the following code at the bottom of all the `import` statements:
 
