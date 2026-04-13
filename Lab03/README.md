@@ -348,9 +348,9 @@ Although we wired up the classes into our rendered HTML, the classes themselves 
 
   ![Web Part Preview](assets/webpartpreview.png)
 
-  Alternatively, if you're using the Local Workbench, you can use the theme switcher in the lower-right corner to pick one of the dark themes to show how using the theme variables above ensured our web part is legible regardless of theme. If we had just specified black for the text, our web part would be useless in dark themes:
+  Alternatively, if you're using the SPFx Local Workbench, you can use the theme switcher in the lower-right corner to pick one of the dark themes to show how using the theme variables above ensured our web part is legible regardless of theme. If we had just specified black for the text, our web part would be useless in dark themes:
 
-  ![Web Part Preview in Local Workbench](assets/localworkbenchthemeswitcher.png)
+  ![Web Part Preview in the SPFx Local Workbench](assets/localworkbenchthemeswitcher.png)
 
 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **JarbisWebPart.module.scss** file with the following:

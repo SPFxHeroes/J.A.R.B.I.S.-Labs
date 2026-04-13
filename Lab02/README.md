@@ -151,18 +151,20 @@ We've got some files and we haven't broken them yet, so let's take a look at it!
 Having trouble deciding? Here's a quick comparison:
 ||Online Workbench|Local Workbench|Comments|
 |---|:---:|:---:|---|
-|Can work without a tenant|❌|✅|*<sup>Both approaches CAN work with a tenant, but it's not required for the Local Workbench</sup>*|
+|Can work without a tenant|❌|✅|*<sup>Both approaches can work with a tenant, but it's not required for the SPFx Local Workbench</sup>*|
 |Test web parts|✅|✅|
-|Test extensions|❌|☑️|*<sup>The Local Workbench supports App Customizers with plans to extend support to additional extensions. Extensions can also be tested online outside of the workbench</sup>*|
+|Test extensions|❌|☑️|*<sup>The SPFx Local Workbench supports App Customizers with plans to extend support to additional extensions. Extensions can also be tested online outside of the workbench</sup>*|
 |Quick theme switching|❌|✅||
 |Quick locale switching|❌|✅||
-|Storybook integration|❌|✅||
-|Work with deployed assets|✅|✅|
+|Storybook integration|❌|✅|*<sup>The SPFx Local Workbench provides automatic story generation, storybook hosting in VS Code, and support for custom stories</sup>*|
+|Work with deployed assets|✅|❌|*<sup>Assets can be mocked with the SPFx Local Workbench API Proxy, authenticated passthrough calls are planned but not yet available</sup>*
 |Work with mocked assets|❌|✅|
-|Call M365 APIs|✅|☑️|*<sup>The Local Workbench supports proxy endpoints for mocking responses, but you can also call them directly if you have access to a tenant</sup>*|
-|Supported by Microsoft|✅|❌|
+|Integrates with Dev Proxy|❌|☑️|*<sup>The SPFx Local Workbench API Proxy supports passthrough mode to route calls through Dev Proxy</sup>*|
+|Call M365 APIs|✅|☑️|*<sup>The SPFx Local Workbench supports proxy endpoints for mocking responses, authenticated passthrough calls are planned but not yet available</sup>*|
+|Can be used Offline|❌|✅||
+|Supported by Microsoft|✅|❌||
 
-Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant during development and adds some additional features - *but* it is in the very early stages and you may discover exciting new bugs along the way! There are also a couple of spots in the labs (deployment for instance), where it isn't going to help. Regardless, the Online workbench works great if it's available and it won't hurt our feelings if you go that route.
+Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant during development and adds some additional features - *but* it is in the very early stages and you may discover exciting new bugs along the way! There are also a couple of spots in the labs (deployment for instance), where it isn't going to help. Regardless, the Online workbench works great if one is available to you and it won't hurt our feelings if you go that route.
 
 ### Using the online workbench
 
