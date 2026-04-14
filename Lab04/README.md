@@ -346,7 +346,6 @@ If things don't look quite right, review the code above and ensure your **Wordle
 - [Use theme colors in your SPFx customizations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
 - [Available theme tokens and Default values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
 
-
 ## :rocket: Exercise 4: Creating a render helper
 
 That's a lot of HTML we wrote by hand! Imagine if we had to change something - we'd have to update 30 tiles. Let's make our code cleaner by creating a helper function that generates the grid for us.

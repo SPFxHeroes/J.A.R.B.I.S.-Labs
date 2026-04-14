@@ -107,7 +107,7 @@ Now let's make the game respond to keyboard input! When a user types a letter, i
    }
    ```
 
-1. Run `gulp serve` and try typing some letters! You should see them appear in the first row. Backspace should delete them.
+1. Run `heft start` and try typing some letters! You should see them appear in the first row. Backspace should delete them.
 
  ![typed letters](assets/typed.png)
 
@@ -382,7 +382,6 @@ protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
 #### :books: Resources
 - [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
 - [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
-
 
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)

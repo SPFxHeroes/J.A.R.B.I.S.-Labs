@@ -225,7 +225,7 @@ Any supported files that accompany the element manifest (like the **schema.xml**
 
 At this point, we've created the files for provisioning SharePoint assets using the Feature schema from the solution when it's deployed. The next step is to include them in the SharePoint package ***.sppkg** file that will be created when we package our solution up.
 
-To include the files, we must define the feature configuration in our project. We do this in the **config** > **package-solution.json** file. This file contains the metadata used by the build task (`gulp package-solution`) and determines the contents of the generated ***sppkg** file.
+To include the files, we must define the feature configuration in our project. We do this in the **config** > **package-solution.json** file. This file contains the metadata used by the build task (`heft package-solution`) and determines the contents of the generated ***sppkg** file.
 
 1. Open **package-solution.json** from the **config** folder.
 
@@ -252,7 +252,7 @@ Now you're ready to deploy the solution to SharePoint. Because we're provisionin
 
 We'll be making a non-production build just to verify our provisioning is correct (and to make the list and its content available while we're developing).
 
-1. If your `gulp serve` is still running in the terminal, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to stop it.
+1. If your `heft start` is still running in the terminal, hit <kbd>CTRL</kbd>-<kbd>C</kbd> to stop it.
 
 1. In the terminal in VS Code, execute the following command to bundle your client-side solution that contains the web part (combine and minimize your final javascript) to get the basic structure ready for packaging:
    ```bash

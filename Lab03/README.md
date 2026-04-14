@@ -44,18 +44,40 @@ Now we're going to take a brief tour of our web part's code so we can see what w
 1. From Visual Studio Code, open **src** > **webparts** > **wordle** > **WordleWebPart.ts**
    > :bulb: This is the primary starting place for your web part. You'll likely have additional code files later, but it all starts here and is the first place you should troubleshoot when having issues.
 1. The first section is a bunch of `import` statements. This is how you reference other files/packages. If you don't import it, your code can't see it.
-1. Starting on line 13, there's a basic interface that describes the properties that will be stored per web part instance and automatically loaded for you. We've just got `description` for now but we'll be adding more soon.
-1. Line 17 is the declaration of your web part class. This object inherits from the `BaseClientSideWebPart` which gives it several methods and properties universal to all SPFx web parts.
-1. The `render` method starting on line 22 is what determines what HTML gets output to your special box (the div the SharePoint page gives you). We'll be throwing all this starter junk away in just a minute.
-1. The `onInit` method starting on line 50 is a method that gets called just once when your web part is loaded. This is a great place to do initial configuration or start some data loading.
-1. The `_getEnvironmentMessage` method starting on line 58 is an example method showing how to determine where your code is running is used by the sample render. You could safely delete it and all references to it.
-1. The `onThemeChanged` method starting on line 85 ensures you've always got the latest information about the theme as well as ensure your web part responds to section background colors. We'll be leaving this one alone.
-1. The `dataVersion` method on line 103 returns the version of the stored properties structure for your web part instance. This value is used when deserializing your web part instance's properties. If you make changes to this structure and want existing web parts to be able to understand, you'll change the return value of this method and then handle things in the `onAfterDeserialize` method .
+
+  ![import statements](./assets/anatomy1.png)
+
+1. Starting on **line 13**, there's a basic interface that describes the properties that will be stored per web part instance and automatically loaded for you. We've just got `description` for now but we'll be adding more soon.
+
+  ![instance props](./assets/anatomy2.png)
+
+1. **Line 17** is the declaration of your web part class. This object inherits from the `BaseClientSideWebPart` which gives it several methods and properties universal to all SPFx web parts.
+
+  ![base class](./assets/anatomy3.png)
+
+1. The `render` method starting on **line 22** is what determines what HTML gets output to your special box (the div the SharePoint page gives you). We'll be throwing all this starter junk away in just a minute.
+
+  ![render](./assets/anatomy4.png)
+
+1. The `onInit` method starting on **line 50** is a method that gets called just once when your web part is loaded. This is a great place to do initial configuration or start some data loading.
+
+  ![onInit](./assets/anatomy5.png)
+
+1. The `_getEnvironmentMessage` method starting on **line 58** is an *example* method showing how to determine where your code is running and is used by the sample render. You could safely delete it and all references to it. And, in fact, we'll be doing that soon.
+
+  ![_getEnvironmentMessage](./assets/anatomy6.png)
+
+1. The `onThemeChanged` method starting on **line 85** ensures you've always got the latest information about the theme as well as ensure your web part responds to section background colors. We'll be leaving this one alone.
+
+  ![onThemeChanged](./assets/anatomy7.png)
+
+1. The `dataVersion` method on **line 103** returns the version of the stored properties structure for your web part instance. This value is used when deserializing your web part instance's properties. If you make changes to this structure and want existing web parts to be able to understand, you'll change the return value of this method and then handle things in the `onAfterDeserialize` method .
+    
     > :bulb: This is an advanced scenario and not one to worry about at this time, we just wanted you to have it for reference.
 1. Finally, the `getPropertyPaneConfiguration` method starting on line 107 is where you define what goes in the property pane when a user edit's your web part. There are a lot of options available, and PnP even provides an open source library of property pane controls. The goal of the method is to return a JSON configuration object that the property pane will use to map controls to values.  We'll be customizing this soon.
 
 #### :books: Resources
-- [SPFx Web part project structure](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
+- [SPFx Web part project structure](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
 - [SharePoint Framework Web Part and Property Pane Lifecycles](https://www.vrdmn.com/2019/12/sharepoint-framework-web-part-and.html)
 
 ## :rocket: Exercise 2: Cleanup
@@ -100,14 +122,14 @@ The default, no-framework web part comes with some extra junk. It's a combinatio
 1. Delete the entire `_getEnvironmentMessage` method
    > This is just a sample method to determine where our web part is running. It might be helpful on your next part, but it's unneeded here
 
-1. Delete the assignment of `_isDarkTheme` on line 38:
+1. Delete the assignment of `_isDarkTheme` on **line 38** in the `onThemeChanged` method:
    
    ```TypeScript
    this._isDarkTheme = !!currentTheme.isInverted;
    ```
 
-1. If you aren't already doing so, run `gulp serve --nobrowser` and refresh the page to see your changes.
-    > :bulb: If you keep gulp serve running, your code will rebuild on every save and you can just refresh the page after every step in this lab so you can understand the impact of every change.
+1. If you aren't already doing so, run `heft start --nobrowser` and refresh the page to see your changes.
+    > :bulb: If you keep heft running, your code will rebuild on every save and you can just refresh the page after every step in this lab so you can understand the impact of every change.
 
 Your web part should look something like this:
 
@@ -189,12 +211,13 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     };
   }
 }
+
 ```
 
 </details>
 
 #### :books: Resources
-- [SPFx Web part project structure](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
+- [SPFx Web part project structure](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part#web-part-project-structure)
 
 ## :rocket: Exercise 3: Style setup
 
@@ -219,6 +242,7 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
       }
     
     }
+
     ```
 
    The **WordleWebPart.module.scss** generates a Cascading Style Sheet for your web part; it controls the look and feel of your web part.
@@ -247,7 +271,7 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
    >
    > SPFx helps you out even further by using CSS modules. This means that at build, SPFx appends a unique hash to your classes to ensure they don't conflict with other web parts using those same class names or even other instances of your web part! It's not something you have to worry about during development, but it might throw you for a loop if you inspect the page and don't know what's happening.
 
-1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.CLASSNAME }"` using the correct class name that we created earlier. The render method should look as follows:
+1. Within the `render` method, look for `<div>` elements and add a CSS class by adding the following attribute `class="${ styles.CLASSNAME }"` using the correct class name that we created earlier. The render method should now look like this:
 
    ```typescript
    public render(): void {
@@ -263,13 +287,13 @@ SCSS lets you write your styles with enhanced CSS syntax. In fact, any valid CSS
    }
    ```
 
-   > :bulb: You might not be familiar with that weird syntax we're using. It's called [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) and makes it a lot easier to build complex strings.
+   > :bulb: You might not be familiar with that weird syntax we're using. It's called [Template literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) and makes it a lot easier to build complex strings.
    >
    > Basically, you wrap everything in a backtick (<kbd>\`</kbd>) instead of quotes. Then whenever you need to break out into an expression (code, variable, etc.), you start the expression with `${` and then end it with `}`.
 
 #### :books: Resources
-- [SPFx CSS Recommendations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/css-recommendations)
-- [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [SPFx CSS Recommendations](https://learn.microsoft.com/sharepoint/dev/spfx/css-recommendations)
+- [Template Literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals)
 
 ## Exercise 4: Basic styles
 
@@ -310,7 +334,11 @@ Although we wired up the classes into our rendered HTML, the classes themselves 
 
 1. Refresh the workbench. Your web part should start looking better!
 
-![Web Part Preview](assets/webpartpreview.png)
+  ![Web Part Preview](assets/webpartpreview.png)
+
+  Alternatively, if you're using the SPFx Local Workbench, you can use the theme switcher in the lower-right corner to pick one of the dark themes to show how using the theme variables above ensured our web part is legible regardless of theme. If we had just specified black for the text, our web part would be useless in dark themes:
+
+  ![Web Part Preview in the SPFx Local Workbench](assets/localworkbenchthemeswitcher.png)
 
 If you run into any trouble or don't really want to do the steps above, you can just replace the entire contents of the **WordleWebPart.module.scss** file with the following:
 
@@ -348,9 +376,9 @@ If you run into any trouble or don't really want to do the steps above, you can 
 </details>
 
 #### :books: Resources
-- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
-- [Available theme tokens and Default values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
-- [SharePoint themes and colors](https://learn.microsoft.com/en-us/sharepoint/dev/design/themes-colors)
+- [Use theme colors in your SPFx customizations](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations)
+- [Available theme tokens and Default values](https://learn.microsoft.com/sharepoint/dev/spfx/use-theme-colors-in-your-customizations#available-theme-tokens-and-their-occurrences)
+- [SharePoint themes and colors](https://learn.microsoft.com/sharepoint/dev/design/themes-colors)
 - [The definitive guide to SCSS](https://blog.logrocket.com/the-definitive-guide-to-scss/)
 
 

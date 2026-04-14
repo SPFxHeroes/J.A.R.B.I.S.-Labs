@@ -63,7 +63,7 @@ Let's set up two simple properties:
     > :bulb: These default values are used when someone first adds the web part to a page. Without defaults, your properties would be `undefined`!
 
 #### :books: Resources
-- [Integrate web part properties with SharePoint](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
+- [Integrate web part properties with SharePoint](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/integrate-web-part-properties-with-sharepoint)
 
 
 ## :rocket: Exercise 2: Using properties in render
@@ -192,7 +192,7 @@ Since users can type anything into the property pane, we need to make sure they 
    ![escaped property](assets/maliciouscodefoiled.png)
 
 #### :books: Resources
-- [Validate web part property values](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/validate-web-part-property-values)
+- [Validate web part property values](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/validate-web-part-property-values)
 
 
 ## :rocket: Exercise 5: Adding game state variables
