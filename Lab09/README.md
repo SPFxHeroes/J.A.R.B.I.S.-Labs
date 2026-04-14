@@ -114,7 +114,7 @@ We do this through [interfaces](https://www.typescriptlang.org/docs/handbook/2/o
  1. Inside the `JarbisWebPart` class, above the `render` method, add a variable to store an array of `IPowerItem` after they have been loaded from SharePoint by adding the following code:
 
     ```TypeScript
-    private powers: IPowerItem[];
+    private powers: IPowerItem[] | undefined;
     ```
 
 1. In the `IJarbisWebPartProps` interface located just under the imports in the **JarbisWebPart.ts** file, add a string property called `list`, which will store the name of the list where powers will be retrieved from by adding the following code:
@@ -279,9 +279,17 @@ Time to implement caching! Fortunately, PnPjs makes it super easy! Let's start b
 
 ### Test caching in the SPFx Local Workbench
 
-1. Switch to the **OUTPUT** tab in the terminal pane and use the dropdown to select `SPFx API Proxy`. Here we can see details about all proxied calls. Add and remove the web part a few times to see the call happens every time. This makes our hearts heavy with grief.
+1. Click the **Mock Data** button in the SPFx Local Workbench panel title:
 
-  ![SPFx API Proxy](assets/spfxlocalworkbenchapiproxylog.png)
+    ![Mock Data button](assets/spfxlocalworkbenchmockdatabutton.png)
+
+1. Choose **Show API Proxy Log** to have the **OUTPUT** panel shown and filtered to the **SPFx API Proxy** output channel:
+
+    ![Show API Proxy Log command](assets/spfxlocalworkbenchmockdatashowlog.png)
+
+1. Here we can see details about all proxied calls. Add and remove the web part a few times to see that the call happens every time. This makes our hearts heavy with grief.
+
+    ![SPFx API Proxy](assets/spfxlocalworkbenchapiproxylog.png)
 
 ### Caching time!
 
@@ -315,9 +323,9 @@ Time to implement caching! Fortunately, PnPjs makes it super easy! Let's start b
 
 Now we're loading data and we're doing it smarterly with caching. But we've still got the issue that we're loading the data on *every* render which is just unnecessary.
 
-We also only need to load the data when we're generating a random hero which is something we only do when in Edit mode. The intent is that the web part will pull the hero values from its property bag when the page is in Read mode.
+We also only need to load the data when we're generating a random hero which is something we will only do when in Edit mode. The intent is that the web part will pull the hero values from its property bag when the page is in Read mode.
 
-There's also no indicator to the end user that something is being loaded behind the scenes. You can cover a lot of performance issues (many of which might be out of your control) by simply providing feedback to the user - preferably through animation.
+There's also no indicator to the end user that something is being loaded behind the scenes. You can cover a lot of performance issues (many of which might be out of your control) by simply providing feedback to the user - preferably through **animation**.
 
 1. In the `render` method, replace the `this.getPowers()...` call with the following:
     ```TypeScript
@@ -391,7 +399,7 @@ export interface IJarbisWebPartProps {
 
 export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
 
-  private powers: IPowerItem[];
+  private powers: IPowerItem[] | undefined;
 
   public render(): void {
     const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
