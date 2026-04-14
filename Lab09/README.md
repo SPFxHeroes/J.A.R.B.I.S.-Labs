@@ -285,9 +285,9 @@ Time to implement caching! Fortunately, PnPjs makes it super easy! Let's start b
 
 1. Choose **Show API Proxy Log** to have the **OUTPUT** panel shown and filtered to the **SPFx API Proxy** output channel:
 
-    ![](assets/spfxlocalworkbenchmockdatashowlog.png)
+    ![Show API Proxy Log command](assets/spfxlocalworkbenchmockdatashowlog.png)
 
-1. Here we can see details about all proxied calls. Add and remove the web part a few times to see the call happens every time. This makes our hearts heavy with grief.
+1. Here we can see details about all proxied calls. Add and remove the web part a few times to see that the call happens every time. This makes our hearts heavy with grief.
 
     ![SPFx API Proxy](assets/spfxlocalworkbenchapiproxylog.png)
 
