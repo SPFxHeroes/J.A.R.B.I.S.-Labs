@@ -730,6 +730,12 @@ The SPFx Local Workbench mocking engine helpfully provides several helpful helpe
 
 1. In the file picker, select the **list_Powers.json** file in the **mocks** directory.
 
+1. Enter `Powers list items` for the Rule name:
+
+    ![Rule name](assets/spfxlocalworkbenchmockdatarulename.png)
+
+    > :bulb: The rule name is optional and is mostly used for identifying which rule was matched to a response in the output logs. If you don't provide it, the URL Pattern will be used instead. But it's typically a good idea to provide a name. Makes it easier to read the logs and to maintain your rules as your project grows.
+
 1. Type `/_api/web/lists/getbytitle('powers')/items` for the URL Pattern and press <kbd>Enter</kbd>:
 
     ![URL Pattern](assets/spfxlocalworkbenchmockdataurlpattern.png)
