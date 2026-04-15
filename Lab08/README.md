@@ -207,7 +207,7 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
    }
    ```
 
-1. In the terminal, run `gulp serve --nobrowser` to reserve your web part. You'll also want to remove and re-add it to the workbench since we changed the manifest and added a new property with a default value.
+1. In the terminal, run `heft start --nobrowser` to reserve your web part. You'll also want to remove and re-add it to the workbench since we changed the manifest and added a new property with a default value.
 
 1. Open the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools** then switching to the Console. You should see where we dumped the `words` array and if you expand it you can see the properties are nicely mapped thanks to our `IWordItem` interface. Wowee!
 

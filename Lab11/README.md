@@ -316,10 +316,10 @@ We've only got the one localization, but we can tell things are working because 
 
    > :warning: If you find this offensive, then David wrote this
 
-1. To test a locale, we can add a `--locale` parameter to our gulp serve. Re-serve your project using this command:
+1. To test a locale, we can add a `--locale` parameter to our heft start. Re-serve your project using this command:
 
    ```bash
-   gulp serve --nobrowser --locale=fr-fr
+   heft start --nobrowser --locale=fr-fr
    ```
 
    ![Definitely French!](assets/definitelyfrench.png)
@@ -368,12 +368,12 @@ In this lab, we'll add a pseudo-locale, but you can use [any other locale](https
 1. Re-serve your solution using this command:
 
    ```bash
-   gulp serve --nobrowser --locale=qps-ploc
+   heft start --nobrowser --locale=qps-ploc
    ```
 
    ![Pseudo locale](assets/pseudolocale.png)
 
-   > :warning: Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+   > :warning: Don't forget to remove the `--locale` parameter next time you're using `heft start`
 
 #### :books: Resources
 - [Pseudolocalize.com](http://www.pseudolocalize.com/)

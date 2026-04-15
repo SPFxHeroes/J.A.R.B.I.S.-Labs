@@ -17,22 +17,6 @@ In this lab, we'll make our Wordle game actually playable! We'll add keyboard in
 
 </details>
 
-<details>
-<summary><b>Exercises</b></summary>
-
-  1. [Adding game status](#rocket-exercise-1-adding-game-status)
-  1. [Handling keyboard input](#rocket-exercise-2-handling-keyboard-input)
-  1. [Submitting guesses](#rocket-exercise-3-submitting-guesses)
-  1. [Showing game results](#rocket-exercise-4-showing-game-results)
-</details>
-
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 06 Starter](https://github.com/nicochuck/Wordle/tree/Start-of-Lab-06) branch.
-
-</details>
-
 ## :rocket: Exercise 1: Adding game status
 
 Before we can play, we need a way to track whether the game is still in progress, won, or lost. Let's add a `gameStatus` variable.
@@ -82,7 +66,7 @@ Now let's make the game respond to keyboard input! When a user types a letter, i
    }
    ```
 
-   > :bulb: We check if the key is a single letter A-Z, and only add it if we haven't typed 5 letters yet.
+   > :bulb: We check if the key is a single letter A-Z, and only add it if we haven't typed 5 letters yet. If backspace is pressed, we remove the last letter. If enter is pressed, we submit the guess. For any other letter, we add it to the current guess and update the display.
 
 1. Now we need to attach this event listener when the web part loads, and remove it when it's disposed. Add this method:
 
@@ -107,7 +91,7 @@ Now let's make the game respond to keyboard input! When a user types a letter, i
    }
    ```
 
-1. Run `heft start` and try typing some letters! You should see them appear in the first row. Backspace should delete them.
+1. Run `heft start`, click within the Web Part and try typing some letters! You should see them appear in the first row. Backspace should delete them.
 
  ![typed letters](assets/typed.png)
 
@@ -146,12 +130,13 @@ Now let's make Enter actually submit the guess and check if it's correct!
 
    > :bulb: When you submit a guess, it gets added to the `guesses` array. The `renderGrid` method we wrote earlier already handles coloring submitted guesses!
 
-1. Refresh the workbench and try playing! Type a 5-letter word and press Enter. You should see:
+1. Refresh the workbench and try playing! For the best experience, click the `Preview` menu item in the online Workbench to enter display mode. Type a 5-letter word and press Enter. You should see:
    - The guess gets colored (green, yellow, gray)
    - You can start typing the next guess
    - If you guess correctly, the game stops accepting input
 
 ![Playing the game](assets/playinggame.png)
+
 
 ## :rocket: Exercise 4: Showing game results
 
@@ -180,8 +165,12 @@ Let's add some visual feedback when the game ends - showing whether you won or l
        </div>`;
    }
    ```
-
-   > :bulb: When you lose, we reveal what the word was. That's only fair!
+   **How it works:**
+   - **Winning:** When a player guesses correctly, the `gameStatus` is set to `'won'`. The code checks this and appends a 🎉 celebration emoji to the title.
+   - **Losing:** When a player makes 6 incorrect guesses, the `gameStatus` is set to `'lost'`. The code then:
+     - Appends a 😢 sad emoji to the title
+     - Reveals the target word in uppercase by escaping it (for security) and displaying it in the format: `(It was HELLO)`
+     - This feedback helps players learn what the word was after they fail
 
 1. Try it out! Play a game and win (the default word is HELLO). Then try losing by making 6 wrong guesses.
 
@@ -211,39 +200,39 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+
    // Game state - stored in memory (resets on page refresh)
   private guesses: string[] = [];
   private currentGuess: string = '';
   private maxGuesses: number = 6;
   private gameStatus: string = 'playing'; // 'playing', 'won', or 'lost'
-  
+
   private renderGrid(): string {
-  let gridHtml = '';
+    let gridHtml = '';
   
-  for (let row = 0; row < this.maxGuesses; row++) {
-    gridHtml += `<div class="${styles.row}">`;
-    
-    const guess = this.guesses[row] || '';
-    const isCurrentRow = row === this.guesses.length;
-    const displayGuess = isCurrentRow ? this.currentGuess : guess;
-    
-    for (let col = 0; col < 5; col++) {
-      const letter = displayGuess[col] || '';
-      const stateClass = guess ? this.getTileState(guess, col, this.properties.targetWord) : (letter ? styles.filled : '');
-      gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
-    }
-    
-    gridHtml += '</div>';
+    for (let row = 0; row < this.maxGuesses; row++) {
+      gridHtml += `<div class="${styles.row}">`;
+      
+      const guess = this.guesses[row] || '';
+      const isCurrentRow = row === this.guesses.length;
+      const displayGuess = isCurrentRow ? this.currentGuess : guess;
+      
+      for (let col = 0; col < 5; col++) {
+        const letter = displayGuess[col] || '';
+        const stateClass = guess ? this.getTileState(guess, col, this.properties.targetWord) : (letter ? styles.filled : '');
+        gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
+      }
+      
+      gridHtml += '</div>';
   }
   
   return gridHtml;
-}
+  }
 
   private getTileState(guess: string, index: number, targetWord: string): string {
     const letter = guess[index];
-    const target = this.properties.targetWord.toUpperCase();
-    
-    if (letter === target[index]) {
+
+    if (letter === targetWord[index]) {
       return styles.correct;
     } else if (targetWord.indexOf(letter) >= 0) {
       return styles.present;
@@ -275,9 +264,8 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
       }
     }
   }
-
   private submitGuess(): void {
-  // Must be exactly 5 letters
+     // Must be exactly 5 letters
     if (this.currentGuess.length !== 5) {
       return;
     }
@@ -299,47 +287,48 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     
     // Re-render to show the results
     this.render();
-}
-
-  public render(): void {
-  // Build the title with status emoji
-  let titleText = escape(this.properties.title);
-  if (this.gameStatus === 'won') {
-    titleText += ' 🎉';
-  } else if (this.gameStatus === 'lost') {
-    titleText += ' 😢 (It was ' + escape(this.properties.targetWord.toUpperCase()) + ')';
   }
 
-  this.domElement.innerHTML = `
-    <div class="${styles.wordle}">
-      <div class="${styles.title}">
-        ${titleText}
-      </div>
-      <div class="${styles.grid}">
-        ${this.renderGrid()}
-      </div>
-    </div>`;
-}
-
-protected onInit(): Promise<void> {
-  document.addEventListener('keydown', this.handleKeyDown);
-  return Promise.resolve();
-}
-
-protected onDispose(): void {
-  document.removeEventListener('keydown', this.handleKeyDown);
-}
-
-protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
-  if (!currentTheme) {
-    return;
+  protected onInit(): Promise<void> {
+    document.addEventListener('keydown', this.handleKeyDown);
+    return Promise.resolve();
   }
-  const {
-    semanticColors
-  } = currentTheme;
+  
+  protected onDispose(): void {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
 
-  if (semanticColors) {
-    this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
+   public render(): void {
+      // Build the title with status emoji
+      let titleText = escape(this.properties.title);
+      if (this.gameStatus === 'won') {
+        titleText += ' 🎉';
+      } else if (this.gameStatus === 'lost') {
+        titleText += ' 😢 (It was ' + escape(this.properties.targetWord.toUpperCase()) + ')';
+      }
+
+      this.domElement.innerHTML = `
+        <div class="${styles.wordle}">
+          <div class="${styles.title}">
+            ${titleText}
+          </div>
+          <div class="${styles.grid}">
+            ${this.renderGrid()}
+          </div>
+        </div>`;
+    }
+
+  protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
+    if (!currentTheme) {
+      return;
+    }
+
+    const {
+      semanticColors
+    } = currentTheme;
+
+    if (semanticColors) {
+      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
       this.domElement.style.setProperty('--link', semanticColors.link || null);
       this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
     }
@@ -358,18 +347,18 @@ protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
             description: strings.PropertyPaneDescription
           },
           groups: [
-          {
-            groupName: strings.BasicGroupName,
-            groupFields: [
-              PropertyPaneTextField('title', {
-                label: "Game Title"
-              }),
-              PropertyPaneTextField('targetWord', {
-                label: "Secret Word (5 letters)"
-              })
-            ]
-          }
-        ]
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneTextField('title', {
+                  label: "Game Title"
+                }),
+                PropertyPaneTextField('targetWord', {
+                  label: "Secret Word (5 letters)"
+                })
+              ]
+            }
+          ]
         }
       ]
     };

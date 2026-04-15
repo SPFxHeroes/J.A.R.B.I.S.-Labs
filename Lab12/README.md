@@ -41,7 +41,7 @@ Before you package your app, you should probably test your web part outside of t
 
 Thankfully, you can debug web parts in regular SharePoint pages by following these instructions:
 
-1. Using the terminal in VSCode, run `gulp serve --nobrowser` as usual
+1. Using the terminal in VSCode, run `heft start --nobrowser` as usual
 1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string:**, followed by a query string
 1. Copy the query string provided 
    ![Use this query string](assets/debuginprod.png)
@@ -49,7 +49,7 @@ Thankfully, you can debug web parts in regular SharePoint pages by following the
 1. While on the page, append the query string you copied in the earlier step and append it to the page URL.
 1. When prompted to **Allow debug scripts?**, select **Load debug scripts**
 1. You can now edit the page and insert the **Wordle** web part on the page.
-1. When you're done testing the web part, you can stop `gulp serve`.
+1. When you're done testing the web part, you can stop `heft start`.
 
 
 ## :rocket: Exercise 2: Updating solution metadata
@@ -308,22 +308,22 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
 
 Let's finally package your app for production!!!
 
-> Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. Feel free to test with `gulp bundle` and `gulp package-solution` first, if you wish, then perform the steps below. 
+> Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. Feel free to test with `heft build` and `heft package-solution` first, if you wish, then perform the steps below. 
 >
 > But, let's face it, you know your app is already _perfect_, don't you?!
 
-1. If you're still running `gulp serve`, you can stop it now.
+1. If you're still running `heft start`, you can stop it now.
 
 1. From the terminal, run the following command:
 
    ```bash
-   gulp bundle --ship
+   heft build --ship
    ```
 
 1. Run the following command:
 
    ```bash
-   gulp package-solution --ship
+   heft package-solution --ship
    ```
 
 1. Find the **wordle.sppkg** file and drag and drop it to your tenant's app store.

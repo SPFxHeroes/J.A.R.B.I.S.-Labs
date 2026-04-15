@@ -24,13 +24,6 @@
   1. [Creating a render helper](#rocket-exercise-4-creating-a-render-helper)
 </details>
 
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 04 Starter](https://github.com/nicochuck/Wordle/tree/Start-of-Lab-04) branch.
-
-</details>
-
 ## :rocket: Exercise 1: Creating the game grid
 
 Wordle uses a 6x5 grid - 6 rows for guesses and 5 columns for the letters in each word. Let's build it!
@@ -211,10 +204,6 @@ Now we need to make those tiles look like proper Wordle tiles. Let's add some st
 
    ![Grid with styled tiles](assets/basicGridWithStyles.png)
 
-#### :books: Resources
-- [CSS Box Model](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model)
-- [CSS Named Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color)
-
 
 ## :rocket: Exercise 3: Adding tile states
 
@@ -252,7 +241,8 @@ Let's add these state styles and see them in action!
     ```
     > :bulb: The `filled` class is for tiles that have a letter but haven't been evaluated yet. It gives visual feedback that a letter has been typed.
 
-1. Back in the **WordleWebPart.ts** file, let's add some sample letters to see how it looks. Update a few tiles in the first row to include letters and states:
+1. Back in the **WordleWebPart.ts** file, let's add some sample letters to see how it looks. Find the first `<div>` that uses `${styles.row}`. Update a few tiles in the first row to include letters and states:
+
    ```TypeScript
    <div class="${styles.row}">
      <div class="${styles.tile} ${styles.correct}">H</div>
@@ -276,12 +266,12 @@ If things don't look quite right, review the code above and ensure your **Wordle
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .wordle {
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: "[theme:bodyText, default: #323130]";
+    color: var(--bodyText);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 
   .title {
     font-weight: bold;
@@ -292,51 +282,51 @@ If things don't look quite right, review the code above and ensure your **Wordle
   }
 
   .grid {
-    display: flex;
+     display: flex;
     flex-direction: column;
     gap: 5px;
     margin-bottom: 20px;
   }
 
-  .row {
-    display: flex;
-    gap: 5px;
-  }
+    .row {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .tile {
+      width: 62px;
+      height: 62px;
+      border: 2px solid "[theme:neutralTertiaryAlt, default: #c8c6c4]";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-sizing: border-box;
+    }
 
-  .tile {
-    width: 62px;
-    height: 62px;
-    border: 2px solid "[theme:neutralTertiaryAlt, default: #c8c6c4]";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-sizing: border-box;
-  }
+    .correct {
+      background-color: #6aaa64;
+      border-color: #6aaa64;
+      color: white;
+    }
 
-  .correct {
-    background-color: #6aaa64;
-    border-color: #6aaa64;
-    color: white;
-  }
+    .present {
+      background-color: #c9b458;
+      border-color: #c9b458;
+      color: white;
+    }
 
-  .present {
-    background-color: #c9b458;
-    border-color: #c9b458;
-    color: white;
-  }
+    .absent {
+      background-color: #787c7e;
+      border-color: #787c7e;
+      color: white;
+    }
 
-  .absent {
-    background-color: #787c7e;
-    border-color: #787c7e;
-    color: white;
-  }
-
-  .filled {
-    border-color: "[theme:neutralPrimary, default: #333333]";
-  }
+    .filled {
+      border-color: "[theme:neutralPrimary, default: #333333]";
+    }
 }
 ```
 
@@ -391,9 +381,12 @@ That's a lot of HTML we wrote by hand! Imagine if we had to change something - w
    ```
 
    > :bulb: Let's break down what these functions do:
-   > - `renderGrid()` loops through each row (6 rows) and column (5 tiles), building the same HTML we wrote by hand
-   > - `getTileState()` checks each letter against the target word and returns the appropriate CSS class (`correct`, `present`, or `absent`)
-   > - For now, we're hardcoding `targetWord` and `guesses` - we'll make these dynamic with properties in the next lab!
+   > - **`renderGrid()`**: This loops through each guess (6 rows) and each letter (5 columns), creating the HTML for all tiles. Instead of writing 36 `<div>` tags by hand, this function generates them automatically!
+   > - **`getTileState()`**: This compares each guessed letter to the target word:
+   >   - If the letter is in the correct spot → returns `correct` class (green)
+   >   - If the letter exists in the word but wrong spot → returns `present` class (yellow)
+   >   - If the letter isn't in the word at all → returns `absent` class (gray)
+   > - **Note**: Right now `targetWord` and `guesses` are hardcoded (set to fixed values). This is temporary for testing—we'll make them dynamic with React properties in the next lab!
 
 1. Now let's use our new helper! In your `render` method, find the `<div class="${styles.grid}">` section and **delete all the hardcoded rows and tiles inside it**. Replace them with a single function call:
 
@@ -403,7 +396,7 @@ That's a lot of HTML we wrote by hand! Imagine if we had to change something - w
    </div>
    ```
 
-   That's it! One line replaces all 36 tiles we created manually. 🎉
+   That's it! One line replaces all 36 tiles we created manually. 🎉 We apologize for making you do all that work the first time.
 
 1. Your complete `render` method should now look like this:
 
@@ -448,6 +441,7 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+
   private renderGrid(): string {
     const targetWord = 'HELLO';
     const guesses = ['HELLO'];
@@ -482,21 +476,24 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     }
   }
 
-  public render(): void {
-     this.domElement.innerHTML = `
-       <div class="${styles.wordle}">
-         <div class="${ styles.title }">
+
+   public render(): void {
+    this.domElement.innerHTML = `
+      <div class="${styles.wordle}">
+        <div class="${styles.title}">
            Wordle
-         </div>
-         <div class="${ styles.grid }">
-            ${ this.renderGrid() }
-         </div>
-       </div>`;
-}
+        </div>
+        <div class="${styles.grid}">
+          ${this.renderGrid()}
+        </div>
+      </div>`;
+  }
+
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
+
     const {
       semanticColors
     } = currentTheme;

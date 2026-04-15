@@ -27,13 +27,6 @@ In this lab, we will look at storing configuration values in our web part's prop
   1. [Adding game state variables](#rocket-exercise-5-adding-game-state-variables)
 </details>
 
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 05 Starter](https://github.com/nicochuck/Wordle/tree/Start-of-Lab-05) branch.
-
-</details>
-
 ## :rocket: Exercise 1: Property plumbing
 
 The SharePoint Framework provides a web part property bag that persists configuration for your web part instance. These are called **Client-side properties** and the loading/saving is handled for you automatically. In code, we just use `this.properties` to access them.
@@ -68,7 +61,7 @@ Let's set up two simple properties:
 
 ## :rocket: Exercise 2: Using properties in render
 
-Now let's use our new properties in the web part! We'll update the title to use `this.properties.title` and update `getTileState()` to use `this.properties.targetWord`.
+Now let's use our new properties in the web part! We'll update the title to use `this.properties.title` and update `renderGrid()` to use `this.properties.targetWord` for our target word we want to guess.
 
 1. In **WordleWebPart.ts**, update your `render` method to use the `title` property:
 
@@ -86,26 +79,33 @@ Now let's use our new properties in the web part! We'll update the title to use 
     }
     ```
 
-1. Update your `getTileState()` method to use the `targetWord` property instead of the hardcoded value:
+1. Update your `renderGrid()` method by setting the `targetWord` variable to our dynamic property `this.properties.targetWord` instead of the hardcoded value:
 
    ```TypeScript
-   private getTileState(guess: string, index: number, targetWord: string): string {
-     const letter = guess[index];
-     const target = this.properties.targetWord.toUpperCase();
-     
-     if (letter === target[index]) {
-       return styles.correct;
-     } else if (target.includes(letter)) {
-       return styles.present;
-     } else {
-       return styles.absent;
-     }
-   }
+      private renderGrid(): string {
+        const targetWord = this.properties.targetWord.toUpperCase() || 'HELLO';
+        const guesses = ['HELLO'];
+        let gridHtml = '';
+        
+        for (let row = 0; row < 6; row++) {
+          gridHtml += `<div class="${styles.row}">`;
+          
+          const guess = guesses[row] || '';
+          
+          for (let col = 0; col < 5; col++) {
+            const letter = guess[col] || '';
+            const stateClass = guess ? this.getTileState(guess, col, targetWord) : '';
+            gridHtml += `<div class="${styles.tile} ${stateClass}">${letter}</div>`;
+          }
+          
+          gridHtml += '</div>';
+        }
+        
+        return gridHtml;
+      }
    ```
 
-   > :bulb: We're using `this.properties.targetWord` now instead of the `targetWord` parameter. We can remove that parameter, but let's leave it for now - we'll clean it up later.
-
-1. If you had `gulp serve` running, you'll need to **stop and restart it** to pick up the manifest changes. Then **remove the old web part** and **add a new instance** to the workbench.
+1. If you had `heft start` running, you'll need to **stop and restart it** to pick up the manifest changes. Then **remove the old web part** and **add a new instance** to the workbench.
 
 1. You should see the title "Wordle" displayed (from our default property value). The grid should still work as before.
 
@@ -146,7 +146,7 @@ Now let's set up the property pane so page editors can configure the title and t
    }
    ```
 
-1. Run `gulp serve` (restart if already running), remove the old web part, and add a new one.
+1. Run `heft start` (restart if already running), remove the old web part, and add a new one.
 
 1. Click **Edit** on the page, then click on your web part and select **Edit web part** (the pencil icon) to open the property pane.
 
@@ -167,7 +167,7 @@ Now let's set up the property pane so page editors can configure the title and t
 
 Since users can type anything into the property pane, we need to make sure they can't inject malicious code. Let's see why this matters and how to fix it.
 
-1. While running `gulp serve`, open the property pane and change the **Game Title** to `<span style='color:red'>HACKED!</span>` and observe what happens.
+1. While running `heft start`, open the property pane and change the **Game Title** to `<span style='color:red'>HACKED!</span>` and observe what happens.
 
    ![bad naughty bad](assets/maliciouscode.png)
 
@@ -191,6 +191,8 @@ Since users can type anything into the property pane, we need to make sure they 
 
    ![escaped property](assets/maliciouscodefoiled.png)
 
+1. Clear out the `Game Title` value and replace it with `WORDLE` again
+
 #### :books: Resources
 - [Validate web part property values](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/validate-web-part-property-values)
 
@@ -199,7 +201,7 @@ Since users can type anything into the property pane, we need to make sure they 
 
 Now that we understand properties, let's talk about what they're **NOT** good for: runtime game state.
 
-Think about it - if we stored guesses in properties, they would be permanently saved to SharePoint. Every user would see the same guesses, and they'd persist forever! That's not how Wordle works.
+Think about it - if we stored guesses in properties, they would be permanently saved to SharePoint. Every user would see the same guesses, and they'd persist forever! Silly goose, that's not how Wordle works.
 
 Instead, we'll use simple class variables for game state. These live in memory and reset when the page refreshes - perfect for a game!
 
@@ -244,6 +246,9 @@ Instead, we'll use simple class variables for game state. These live in memory a
    }
    ```
 
+   > :bulb: For each row, we check `this.guesses[row]` (a submitted guess) or use `this.currentGuess` (what the player is typing). If `guess` exists, we calculate the tile color with `this.getTileState()`; otherwise we just mark it as "filled" to show a letter was typed.
+
+
 1. To test that everything is working, temporarily add some test data. Add these lines at the very beginning of the `render` method:
 
     ```typescript
@@ -259,7 +264,7 @@ Instead, we'll use simple class variables for game state. These live in memory a
 
    ![wordle final](assets/wordlefinal.png)
 
-1. **Remove the test data** once you've confirmed it works - we'll wire up real input later!
+1. **Remove the test data** we just added once you've confirmed it works - we'll wire up real input later!
 
 <details>
 <summary>:hedgehog: Full WordleWebPart.ts</summary>
@@ -283,38 +288,38 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+
    // Game state - stored in memory (resets on page refresh)
   private guesses: string[] = [];
   private currentGuess: string = '';
   private maxGuesses: number = 6;
 
   private renderGrid(): string {
-  let gridHtml = '';
+    let gridHtml = '';
   
-  for (let row = 0; row < this.maxGuesses; row++) {
-    gridHtml += `<div class="${styles.row}">`;
-    
-    const guess = this.guesses[row] || '';
-    const isCurrentRow = row === this.guesses.length;
-    const displayGuess = isCurrentRow ? this.currentGuess : guess;
-    
-    for (let col = 0; col < 5; col++) {
-      const letter = displayGuess[col] || '';
-      const stateClass = guess ? this.getTileState(guess, col, this.properties.targetWord) : (letter ? styles.filled : '');
-      gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
-    }
-    
-    gridHtml += '</div>';
+    for (let row = 0; row < this.maxGuesses; row++) {
+      gridHtml += `<div class="${styles.row}">`;
+      
+      const guess = this.guesses[row] || '';
+      const isCurrentRow = row === this.guesses.length;
+      const displayGuess = isCurrentRow ? this.currentGuess : guess;
+      
+      for (let col = 0; col < 5; col++) {
+        const letter = displayGuess[col] || '';
+        const stateClass = guess ? this.getTileState(guess, col, this.properties.targetWord) : (letter ? styles.filled : '');
+        gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
+      }
+      
+      gridHtml += '</div>';
   }
   
   return gridHtml;
-}
+  }
 
   private getTileState(guess: string, index: number, targetWord: string): string {
     const letter = guess[index];
-    const target = this.properties.targetWord.toUpperCase();
-    
-    if (letter === target[index]) {
+
+    if (letter === targetWord[index]) {
       return styles.correct;
     } else if (targetWord.indexOf(letter) >= 0) {
       return styles.present;
@@ -323,22 +328,24 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     }
   }
 
-  public render(): void {
-    
-     this.domElement.innerHTML = `
-       <div class="${styles.wordle}">
-         <div class="${ styles.title }">
-            ${escape(this.properties.title)}
-         </div>
-         <div class="${ styles.grid }">
-            ${ this.renderGrid() }
-         </div>
-       </div>`;
-}
+   public render(): void {
+
+    this.domElement.innerHTML = `
+      <div class="${styles.wordle}">
+        <div class="${styles.title}">
+           ${escape(this.properties.title)}
+        </div>
+        <div class="${styles.grid}">
+          ${this.renderGrid()}
+        </div>
+      </div>`;
+  }
+
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
+
     const {
       semanticColors
     } = currentTheme;
@@ -363,18 +370,18 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
             description: strings.PropertyPaneDescription
           },
           groups: [
-          {
-            groupName: strings.BasicGroupName,
-            groupFields: [
-              PropertyPaneTextField('title', {
-                label: "Game Title"
-              }),
-              PropertyPaneTextField('targetWord', {
-                label: "Secret Word (5 letters)"
-              })
-            ]
-          }
-        ]
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneTextField('title', {
+                  label: "Game Title"
+                }),
+                PropertyPaneTextField('targetWord', {
+                  label: "Secret Word (5 letters)"
+                })
+              ]
+            }
+          ]
         }
       ]
     };
@@ -391,6 +398,6 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-In our next lab, we'll look at how we can make our rendering conditional based on the state of the page!
+In our next lab, we'll look at how we can actually make the game playable.
 
 # [Previous](../Lab04/README.md) | [Next](../Lab06/README.md)

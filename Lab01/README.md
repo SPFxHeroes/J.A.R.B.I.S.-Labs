@@ -1,6 +1,6 @@
 # Lab 1: Getting Your Environment Ready
 
-Welcome to your first lab! This lab is all about getting your development environment ready, adding some extra tools that will make your life easier, briefly introducing key TypeScript concepts, and setting up a tenant and your browser to keep things organized.
+Welcome to your first lab! This lab is all about getting your **development environment** ready, adding some extra tools that will make your life easier, briefly introducing key **TypeScript** concepts, and setting up a **tenant** and your **browser** to keep things organized.
 
 > :bulb: Even if you already have your development environment setup, please review each step as there are some extra items specific to the rest of the labs!
 

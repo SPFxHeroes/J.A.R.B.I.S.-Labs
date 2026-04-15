@@ -33,13 +33,6 @@ In this lab, we're going to automatically provision a list of words when our web
   1. [Deploy and provision to a site](#rocket-exercise-5-deploy-and-provision-to-a-site)
 </details>
 
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 07 Starter](https://github.com/nicknow/Wordle-Labs/tree/Start-of-Lab-07) branch.
-
-</details>
-
 ## :rocket: Exercise 1: Add an elements.xml file for SharePoint definitions
 
 SPFx lets you take advantage of the Feature Framework to provision SharePoint assets with your package. You can provision Fields, Content types, List instances, and List instances with custom schema.
@@ -256,12 +249,12 @@ We'll be making a non-production build just to verify our provisioning is correc
 
 1. In the terminal in VS Code, execute the following command to bundle your client-side solution that contains the web part (combine and minimize your final javascript) to get the basic structure ready for packaging:
    ```bash
-   gulp bundle
+   heft build
    ```
 
 1. Once complete, execute the following command to create the solution package:
    ```bash
-   gulp package-solution
+   heft package-solution
    ```
    > :bulb: The command creates the **wordle.sppkg** package in the **sharepoint/solution** folder.
 

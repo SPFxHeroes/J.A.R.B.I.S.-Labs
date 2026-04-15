@@ -196,7 +196,7 @@ Since we're now picking a random word from the list, we don't need `targetWord` 
    }
    ```
 
-1. Stop serving, re-serve with `gulp serve --nobrowser`, and remove/re-add your web part to pick up the manifest changes.
+1. Stop serving, re-serve with `heft start --nobrowser`, and remove/re-add your web part to pick up the manifest changes.
 
 1. Celebrate! 🎉 You now have a fully data-driven Wordle game!
 

@@ -76,7 +76,7 @@ We've gotten everything installed and we're ready to start working on something!
 
       > :bulb: We are choosing No framework today to keep things "simple" without adding the extra layer of React. However, if you are not currently using a framework, we highly recommend using React for future projects. It is the most common framework used in SPFx samples, there are open-source controls from PnP and Fluent UI, and it's [pretty neat](https://www.youtube.com/watch?v=OXZt4-LTtHw).
 
-1. Wait for the solution to be scaffolded (This may take a moment or 75 depending on the network quality).
+1. Wait for the solution to be scaffolded (This may take a moment or 75 hours depending on the network quality).
 
    ![We're done!](assets/generatorfinished.png)
 
@@ -99,7 +99,7 @@ This is NOT required but we recommend doing this step immediately after scaffold
 
 The standard way to declare which version of Node a project uses is to include a `.nvmrc` file in the root of the project with the version of Node in it.
 
-1. From a command prompt in your root jarbis directory you can create the file easily using this command:
+1. From a command prompt in your root wordle directory you can create the file easily using this command:
 
    ```console
    node -v > .nvmrc
@@ -217,11 +217,11 @@ Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant
 1. Back in the workbench, refresh the workbench page/panel as needed. Your web part should be available to add to your workbench (the warning from before won't show up).
 
 ### Adding the webpart to the Online Workbench
-1. Test the web part by adding it to the page (click the plus icon and select Jarbis)
+1. Test the web part by adding it to the page (click the plus icon and select Wordle)
 
    ![Web part exists!](assets/authoringcanvas.png)
 
-1. Look at your glorious web part! Fortunately, your's won't say Hugo Bernier!
+1. Look at your glorious web part! Fortunately, your's won't say Beau Cameron!
 
    ![Added web part to the page](assets/defaultwebpart.png)
 
@@ -233,7 +233,7 @@ Bottom line: The SPFx Local Workbench extension eliminates the need for a tenant
 
 1. If you are still seeing a No SPFx components found message, click the Refresh button in the panel title bar (or close and reload the panel).
 
-1. Test the web part by adding it to the workbench (click the plus icon and select Jarbis)
+1. Test the web part by adding it to the workbench (click the plus icon and select Wordle)
 
    ![Web part exists!](assets/localworkbenchaddwebpart.png)
 
@@ -262,7 +262,7 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
 
    > :bulb: Some people like to use a terminal outside of VS Code (as we've been doing) and there's nothing wrong with that. We often find it easier to use the integrated terminal (and that's what you'll be seeing in these labs) but it's up to you.
 
-1. Using the explorer pane, expand the **src** folder, followed by the **webparts** folder, and open the **JarbisWebPart.ts** file. On line 32, change `Welcome to SharePoint Framework!` to `Wowee!!`. Save the file.
+1. Using the explorer pane, expand the **src** folder, followed by the **webparts** folder, and open the **WordleWebPart.ts** file. On line 32, change `Welcome to SharePoint Framework!` to `I'm a braniac!!`. Save the file.
 
 1. In the terminal, type `heft start --nobrowser`
 
