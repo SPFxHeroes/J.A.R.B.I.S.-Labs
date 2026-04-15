@@ -257,7 +257,7 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
+import { Caching } from '@pnp/queryable';
 
 export interface IJarbisWebPartProps {
   name: string;
