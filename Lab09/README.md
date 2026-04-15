@@ -296,7 +296,7 @@ Time to implement caching! Fortunately, PnPjs makes it super easy! Let's start b
 1. Return to **JarbisWebPart.ts** and add the following import:
 
    ```Typescript
-   import { Caching } from "@pnp/queryable";
+   import { Caching } from '@pnp/queryable';
    ```
    > :bulb: We didn't have to install the `@pnp/queryable` package because it was marked as a dependency of the `@pnp/sp` package and was added automatically. Yipee!
 
@@ -380,7 +380,7 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
+import { Caching } from '@pnp/queryable';
 
 export interface IJarbisWebPartProps {
   name: string;
