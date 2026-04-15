@@ -100,7 +100,7 @@ If you skipped the previous step, or just want to start here, you can find the c
     this.render();
   }
   ```
-   > :bulb: The `...` you're seeing might not be super familiar to you. This is called the **spread** operator. When used preceding an array like we're seeing above, it has the affect of expanding the arguments. We're using it to automatically add the items of the array to a new array and by doing it with a secondary array it's an easy way to combine them into a temporary array making it simpler to choose an item across multiple arrays. Whoo Whoo!
+   > :bulb: The `...` you're seeing might not be super familiar to you. This is called the **spread** operator. When used before an array in an array literal like we're seeing above, it has the effect of expanding the array's elements *into* the new array. We're using it to automatically add the items of the array to a new array and by doing it with a secondary array it's an easy way to combine them into a temporary array, making it simpler to choose an item across multiple arrays. Whoo Whoo!
 
 1. Review the code and comments to understand what this method is doing. Here's a high-level summary:
 
@@ -276,7 +276,7 @@ export interface IJarbisWebPartProps {
 
 export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
 
-  private powers: IPowerItem[];
+  private powers: IPowerItem[] | undefined;
 
   public render(): void {
     const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
