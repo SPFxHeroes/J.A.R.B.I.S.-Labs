@@ -39,10 +39,10 @@ If you skipped the previous step, or just want to start here, you can find the c
     ```TypeScript
     /**
      * Gets a random value from an array of choices, excluding a specific value
-    *
-    * @param choices The array of choices to pick from
-    * @param exclusion The value to exclude from the choices
-    */
+     *
+     * @param choices The array of choices to pick from
+     * @param exclusion The value to exclude from the choices
+     */
     private getRandomItem = (choices: any[], exclusion?: any): any => {
       // Filter the choices to exclude the previous value
       const filteredChoices = choices.filter((value) => value !== exclusion);
@@ -68,10 +68,10 @@ If you skipped the previous step, or just want to start here, you can find the c
    */
   public onGenerateHero = (_event: MouseEvent): void => {
     // Get a random power (list item) from the list of powers
-    const power1 = this.getRandomItem(this.powers);
+    const power1 = this.getRandomItem(this.powers!);
 
     // Get another random power (list item) from the list of powers, excluding the first power
-    const power2 = this.getRandomItem(this.powers, power1);
+    const power2 = this.getRandomItem(this.powers!, power1);
 
     // Get the titles from each of the powers and save them to our properties
     this.properties.primaryPower = power1.Title;
@@ -100,7 +100,7 @@ If you skipped the previous step, or just want to start here, you can find the c
     this.render();
   }
   ```
-   > :bulb: The `...` you're seeing might not be super familiar to you. This is called the **spread** operator. When used preceding an array like we're seeing above it has the affect of expanding the arguments. We're using it to automatically add the items of the array to a new array and by doing it with a secondary array it's an easy way to combine them into a temporary array making it simpler to choose an item across multiple arrays. Whoo Whoo!
+   > :bulb: The `...` you're seeing might not be super familiar to you. This is called the **spread** operator. When used preceding an array like we're seeing above, it has the affect of expanding the arguments. We're using it to automatically add the items of the array to a new array and by doing it with a secondary array it's an easy way to combine them into a temporary array making it simpler to choose an item across multiple arrays. Whoo Whoo!
 
 1. Review the code and comments to understand what this method is doing. Here's a high-level summary:
 
@@ -113,6 +113,8 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 1. The `getRandomItem` method will work just fine as is, but you might have VS Code getting irritated with you and underlining all the use of `any` in the method signature. This is because, while `any` is allowed, it defeats a lot of the purpose of TypeScript by providing an escape hatch from the typing system that could potentially get you in trouble.
 
+    ![TypeScript flags in the getRandomItem signature](assets/anyerrors.png)
+
     > :bulb: This code is actually relatively safe because we know exactly how we're going to call it and the types of parameters we're going to give it. BUT that's rarely the case for long. We know how we're going to use it _now_, not how someone else might use it (even if that someone ends up being us).
     >
     > For instance, it's technically accurate to call this method with an array of numbers and pass an exclusion of type string. If you've worked with JavaScript for long, you might see where this is heading. String to number comparisons can have surprising results due to the quirkiness of how JavaScript coallesces values.
@@ -123,7 +125,7 @@ If you skipped the previous step, or just want to start here, you can find the c
 
     > The inferred type of `power1` is `any` which means we won't get intellisense or property validation when we reference sub props like `Title`. This is more than just an inconvience, it could easily lead to us not catching when interfaces change and having to track down a bug manually. Heaven forbid!
     >
-    > The "obvious" solution is to stop using inferred types by specifying the type of `power1` in our definition. This would fix some of our concerns, but we're still having to assume that the utility method will be consistent meaning we are relying on the method to return an item of the same type as the array of items we passed, but it's not guaranteed and could cause hard to track down issues once you're live.
+    > The "obvious" solution is to stop using inferred types by specifying the type of `power1` in our definition. This would fix some of our concerns, but we're still having to assume that the utility method will be consistent meaning we are relying on the method to return an item of the same type as the array of items we passed, but it's not guaranteed and could cause hard to find issues once you're live.
 
 1. So, let's improve this method with some TypeScript magic. Let's review. Our goal is to keep things generic so that we can pass an array of anything and a matching exclusion. But we want to ensure that all the things in the array are the same things and that the exclusion is of the same type so that we know our comparsion will go as expected. We also want to ensure that what we return is the same type as well. We don't want no surprises none!
 
@@ -137,9 +139,11 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 1. Uh oh, now we got more problems! Look at all the errors in the `onGenerateHero` method! Actually, we have the same problems we already had but we had inadvertantly covered them up by using `any`.
 
+    ![possibly undefined errors](assets/undefinederrors.png)
+
     > :bulb: The `getRandomItem` method _always_ had an edge case where the return value could end up being `undefined` (no items left in the array after the exclusion item is removed). We weren't handling that in our `onGenerateHero` but TypeScript wasn't flagging that we weren't handling it because it wasn't told it was a possibility. Now that it knows, it's doing us a favor and blowing our code up until we fix it.
 
-1. TypeScript is super smart. It just wants you to handle the `undefined` edge case. Once you've done that, it'll stop complaining. So let's add an `if` statement that will prevent us from causing errors by accessing sub props of `undefined` objects. Immediately after the `power2` add this `if` statement:
+1. TypeScript is super smart. It just wants you to handle the `undefined` edge case. Once you've done that, it'll stop complaining. So let's add an `if` statement that will prevent us from causing errors by accessing sub props of `undefined` objects. Immediately after setting `power2` and before setting `this.properties.primaryPower` add this `if` statement:
 
     ```TypeScript
     if (typeof power1 === 'undefined' || typeof power2 === 'undefined') {
@@ -168,7 +172,7 @@ If you skipped the previous step, or just want to start here, you can find the c
     this.properties.backgroundColor = this.getRandomItem([...power1.Colors, ...power2.Colors]) ?? this.properties.backgroundColor;
     ```
 
-    > :bulb: This code will set the value of the property to the result of the `getRandomItem` method except in the unlikely event that `getRandomItem` returns `undefined` in which case it'll just use it's own value since that's already typed to be a string.
+    > :bulb: This code will set the value of the property to the result of the `getRandomItem` method except in the unlikely event that `getRandomItem` returns `undefined` in which case it'll just use its own value since that's already typed to be a string.
 
 1. Your `onGenerateHero` method should now look like this:
 
@@ -180,10 +184,10 @@ If you skipped the previous step, or just want to start here, you can find the c
    */
   public onGenerateHero = (_event: MouseEvent): void => {
     // Get a random power (list item) from the list of powers
-    const power1 = this.getRandomItem(this.powers);
+    const power1 = this.getRandomItem(this.powers!);
 
     // Get another random power (list item) from the list of powers, excluding the first power
-    const power2 = this.getRandomItem(this.powers, power1);
+    const power2 = this.getRandomItem(this.powers!, power1);
 
     if (typeof power1 === 'undefined' || typeof power2 === 'undefined') {
       console.error("Unable to get powers");
@@ -317,8 +321,8 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   /**
-     * Gets the list of powers from SharePoint
-     */
+   * Gets the list of powers from SharePoint
+   */
   private getPowers = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
 
@@ -336,10 +340,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
    */
   public onGenerateHero = (_event: MouseEvent): void => {
     // Get a random power (list item) from the list of powers
-    const power1 = this.getRandomItem(this.powers);
+    const power1 = this.getRandomItem(this.powers!);
 
     // Get another random power (list item) from the list of powers, excluding the first power
-    const power2 = this.getRandomItem(this.powers, power1);
+    const power2 = this.getRandomItem(this.powers!, power1);
 
     if (typeof power1 === 'undefined' || typeof power2 === 'undefined') {
       console.error("Unable to get powers");
