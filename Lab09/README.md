@@ -380,7 +380,7 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from '@pnp/queryable';
+import { Caching } from "@pnp/queryable";
 
 export interface IJarbisWebPartProps {
   name: string;
@@ -398,11 +398,10 @@ export interface IJarbisWebPartProps {
 }
 
 export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
-
   private powers: IPowerItem[] | undefined;
 
   public render(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -434,18 +433,18 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
 
-    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < buttons.length; b++) {
       buttons[b].addEventListener('click', this.onGenerateHero);
     }
   }
 
   /**
-     * Gets the list of powers from SharePoint
-     */
+   * Gets the list of powers from SharePoint
+   */
   private getPowers = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
 
@@ -453,7 +452,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.powers = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Icon', 'Colors', 'Prefix', 'Main').using(Caching())();
 
     console.log("Powers", this.powers);
-
+    
     // Re-render the web part
     this.render();
   }
@@ -463,7 +462,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   protected onDispose(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -502,10 +501,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('foregroundIcon', {
-                  label: "Foreground icon",
+                  label: "Foreground Icon"
                 }),
                 PropertyPaneTextField('primaryPower', {
-                  label: "Primary power",
+                  label: "Primary Power"
                 })
               ]
             }
