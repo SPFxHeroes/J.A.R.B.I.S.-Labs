@@ -35,7 +35,7 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 ## :rocket: Exercise 1: End user view customization
 
-Our web part display is looking great. However, some user's have requested we give them the option to display the powers or not (nobody actually requested anything, we're just pretending. But it's fun!). So, let's make that configurable!
+Our web part display is looking great. However, some users have requested we give them the option to display the powers or not (nobody actually requested anything, we're just pretending. But it's fun!). So, let's make that configurable!
 
 1. In your **JarbisWebPart.ts** file, add a new property to the `IJarbisWebPartProps` interface, make it of type `boolean` and call it `powersVisible`, by using the following code:
 
@@ -90,12 +90,12 @@ Our web part display is looking great. However, some user's have requested we gi
         The ${escape(this.properties.name)}
       </div>`;
    ```
-  > :bulb: We just removed the list of powers from the default hero rendering
+  > :bulb: We removed the list of powers from the default hero rendering
 
 1. Again in the `render` method, just below the `${hero}` line, insert the following code:
 
    ```TypeScript
-   ${this.properties.powersVisible ? powerSummary : ""}
+   ${this.properties.powersVisible ? powerSummary : ''}
    ```
 
    Making the full `render` method look as follows:
@@ -136,8 +136,8 @@ Our web part display is looking great. However, some user's have requested we gi
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.properties.powersVisible ? powerSummary : ""}
-        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+        ${this.properties.powersVisible ? powerSummary : ''}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
 
     const buttons = this.domElement.getElementsByClassName(styles.generateButton);
@@ -194,7 +194,7 @@ Our web part display is looking great. However, some user's have requested we gi
    }
    ```
 
-1. We've now temporarily stopped using the `strings` import and that will cause our build to fail thanks to some rather strict linting rules. Since we're going to be using this in the next lab, we can simply comment this import out for now:
+   > :bulb: We've now temporarily stopped using the `strings` import and you may get a warning about it. Since we're going to be using this in the next lab, we can simply comment this import out for now if it's bothering you or causing issues:
 
    ```TypeScript
    //import * as strings from 'JarbisWebPartStrings';
@@ -219,7 +219,7 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
-//import * as strings from 'JarbisWebPartStrings';
+// import * as strings from 'JarbisWebPartStrings';
 import { getIconClassName } from '@fluentui/style-utilities';
 import { css } from '@fluentui/utilities';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -251,11 +251,10 @@ export interface IJarbisWebPartProps {
 }
 
 export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartProps> {
-
-  private powers: IPowerItem[];
+  private powers: IPowerItem[] | undefined;
 
   public render(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -289,19 +288,19 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.properties.powersVisible ? powerSummary : ""}
-        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+        ${this.properties.powersVisible ? powerSummary : ''}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
 
-    const buttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const buttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < buttons.length; b++) {
       buttons[b].addEventListener('click', this.onGenerateHero);
     }
   }
 
   /**
-     * Gets the list of powers from SharePoint
-     */
+   * Gets the list of powers from SharePoint
+   */
   private getPowers = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
 
@@ -319,10 +318,10 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
    */
   public onGenerateHero = (_event: MouseEvent): void => {
     // Get a random power (list item) from the list of powers
-    const power1 = this.getRandomItem(this.powers);
+    const power1 = this.getRandomItem(this.powers!);
 
     // Get another random power (list item) from the list of powers, excluding the first power
-    const power2 = this.getRandomItem(this.powers, power1);
+    const power2 = this.getRandomItem(this.powers!, power1);
 
     if (typeof power1 === 'undefined' || typeof power2 === 'undefined') {
       console.error("Unable to get powers");
@@ -376,7 +375,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
   }
 
   protected onDispose(): void {
-    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton);
+    const oldbuttons = this.domElement.getElementsByClassName(styles.generateButton) as HTMLCollectionOf<HTMLButtonElement>;
     for (let b = 0; b < oldbuttons.length; b++) {
       oldbuttons[b].removeEventListener('click', this.onGenerateHero);
     }
@@ -437,7 +436,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 ## :rocket: Exercise 2: Reactive vs nonreactive
 
-You may have noticed that changes to the property pane are immediately reflected in the web part. This is because SPFx web parts are Reactive by default. However, there may be times when you may not wish to automatically re-render the web part (for example, if a setting requires a significant amount of processing or external calls or if you have some settings that must all be filled out together). In those cases, you wouldn't want your property changes to immediately fire but rather have them all applied at once.
+You may have noticed that changes to the property pane are immediately reflected in the web part. This is because SPFx web parts are Reactive by default. However, there may be times when you don't want to automatically re-render the web part (for example, if a setting requires a significant amount of processing or external calls or if you have some settings that must all be filled out together). In those cases, you wouldn't want your property changes to immediately fire but rather have them all applied at once.
 
 To disable reactive property panes, you simply need to add the following code above the `getPropertyPaneConfiguration` method:
 
