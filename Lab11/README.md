@@ -95,7 +95,7 @@ Our web part display is looking great. However, some users have requested we giv
 1. Again in the `render` method, just below the `${hero}` line, insert the following code:
 
    ```TypeScript
-   ${this.properties.powersVisible ? powerSummary : ""}
+   ${this.properties.powersVisible ? powerSummary : ''}
    ```
 
    Making the full `render` method look as follows:
@@ -136,8 +136,8 @@ Our web part display is looking great. However, some users have requested we giv
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.properties.powersVisible ? powerSummary : ""}
-        ${this.displayMode === DisplayMode.Edit ? generateButton : ""}
+        ${this.properties.powersVisible ? powerSummary : ''}
+        ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
 
     const buttons = this.domElement.getElementsByClassName(styles.generateButton);
@@ -219,7 +219,7 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './JarbisWebPart.module.scss';
-import * as strings from 'JarbisWebPartStrings';
+// import * as strings from 'JarbisWebPartStrings';
 import { getIconClassName } from '@fluentui/style-utilities';
 import { css } from '@fluentui/utilities';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -228,7 +228,7 @@ import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
+import { Caching } from '@pnp/queryable';
 
 export interface IJarbisWebPartProps {
   name: string;
@@ -288,7 +288,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
     this.domElement.innerHTML = `
       <div class="${styles.jarbis}">
         ${hero}
-        ${this.properties.powersVisible ? powerSummary : ""}
+        ${this.properties.powersVisible ? powerSummary : ''}
         ${this.displayMode === DisplayMode.Edit ? generateButton : ''}
       </div>`;
 
