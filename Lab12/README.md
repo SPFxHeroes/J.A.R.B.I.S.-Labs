@@ -6,6 +6,8 @@ Imagine this scenario: you have been working on a web part solution for weeks (o
 
 "Easy", you may think, "I'll just search and replace the company name throughout". But changing _any_ code in an application invalidates any testing that was done, and introduces chances for new bugs -- the last thing to do when you want something to be stable is to change it (that's why Hugo always annoyingly says "Don't shake the jell-o!").
 
+![Jiggling Jello](assets/jellojiggle.gif)
+
 But what if you could separate string literals (i.e. the hard-coded text you show on the screen) from the rest of the code? Fixing a typo (or any such changes) would be limited to a single location -- it would still require testing, but it would significantly reduce the potential for introducing bugs.
 
 And when another _genius_ stakeholder announces "Good news, we're expanding to the [insert foreign language here] market!", the effort required to support another language is nominal (mostly).
@@ -67,6 +69,8 @@ At the risk of oversimplifying, here's how it works:
 - Add any additional locales you want to support by naming them **[locale].js** and ensuring they have all the same values
 - SharePoint will automatically load the correct locale.js file along with your web part's bundle and will use the correct values for your text
 
+> :bulb: This can feel a little overcomplicated, but things should start to click as we continue.
+
 #### :books: Resources
 - [Localize web parts](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/guidance/localize-web-parts)
 
@@ -107,7 +111,7 @@ We recommend using string literals during the early stages of development where 
 
    ```
 
-1. We've got the initial plumbing for this value in place, now let's go utilize it in our code! Back in **JarbisWebPart.ts** we prevously commented out our strings import. Let's uncomment that now so that it looks like this:
+1. We've got the initial plumbing for this value in place, now let's go utilize it in our code! Back in **JarbisWebPart.ts** if you previously commented out the strings import, uncomment that now so that it looks like this:
    ```TypeScript
    import * as strings from 'JarbisWebPartStrings';
    ```
@@ -271,7 +275,7 @@ Let's replace the hero description to use a localized sentence!
 
    > :bulb: In the real world, we would most likely retrieve localized data from the list rather than just retrieving English values... but we're not going to go into that in the scope of this workshop.
 
-> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small udates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> (<kbd>CMD</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> on a :apple: mac) - you can also customize that shortcut to something less annoying)
+> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small updates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> (<kbd>CMD</kbd>+<kbd>OPTION</kbd>+<kbd>S</kbd> on a :apple: mac) - you can also customize that shortcut to something less annoying)
 
 #### :books: Resources
 - [Vent your frustration](http://www.omglasergunspewpewpew.com/)
@@ -294,17 +298,22 @@ We've only got the one localization, but we can tell things are working because 
        HeroDescription: "Le {0}, baguette",
      }
    });
+
    ```
    > :warning: If you find this offensive, then David wrote this
 
-1. To test a locale, we can add a `--locale` parameter to our gulp serve. Re-serve your project using this command:
+   ![fr-fr.js in file explorer](assets/frfr.png)
+
+1. To test a locale, we can run `heft start` with the `--locales` parameter. If your project is running, press <kbd>CTRL</kbd>+<kbd>C</kbd> to stop it then, re-serve your project using this command:
    ```bash
-   gulp serve --nobrowser --locale=fr-fr
+   heft start --nobrowser --locales=fr-fr
    ```
 
    ![Definitely French!](assets/definitelyfrench.png)
 
    Wow, that's definitely French!
+
+   > :bulb: You'll notice that several elements of the workbench itself remain in English. This is expected. The `--locales` parameter only localizes your components for testing - NOT the actual SharePoint site.
 
 #### :books: Resources
 - [Locales](https://saimana.com/list-of-country-locale-code/)
@@ -323,11 +332,11 @@ Finding out about all these issues late in the project will likely lead to delay
 
 To avoid running into such issues, we recommend using a _pseudo-locale_. Pseudo-locales are locales designed to test software for proper support of the different aspects of the localization process, such as support for special characters, right-to-left languages, or accommodating longer strings in the user interface.
 
-To add a localized resources, add a `.js` file with the locale code in the **src/webparts/jarbis/loc**. For example, to add French support, you'd add a file called **fr-fr.js**, to add support for Dutch, you'd add a file called **nl-nl.js**, for Spanish (Mexico), **es-mx.js**, and so on.
+To add a localized resource, add a `.js` file with the locale code in the **src/webparts/jarbis/loc**. For example, we added French support by adding a file called **fr-fr.js**, to add support for Dutch, you'd add a file called **nl-nl.js**, for Spanish (Mexico), **es-mx.js**, and so on.
 
 In this lab, we'll add a pseudo-locale, but you can use [any other locale](https://saimana.com/list-of-country-locale-code/) you want.
 
-> To generate your pseudo-locale resources, use [this site](http://www.pseudolocalize.com/).
+> :bulb: To generate your pseudo-locale resources, use [this site](http://www.pseudolocalize.com/).
 
 1. In the **src/webparts/jarbis/loc**, add a file called **qps-ploc.js**
 
@@ -335,7 +344,7 @@ In this lab, we'll add a pseudo-locale, but you can use [any other locale](https
   >
   > There are even other standard pseduo-locales like `qps-ploca` used for East Asian character testing and `qps-plocm` used for testing mirrored (right-to-left) locales. Wowee!
 
-1. Paste the following code in the new file you created:
+1. Paste the following code in the **qps-ploc.js** file you created:
 
     ```javascript
     define([], function () {
@@ -347,21 +356,24 @@ In this lab, we'll add a pseudo-locale, but you can use [any other locale](https
         ShowPowersToggleOnText: "[!!! Vïƨïβℓè ℓ !!!]",
       }
     });
+
     ```
 
 1. Re-serve your solution using this command:
 
    ```bash
-   gulp serve --nobrowser --locale=qps-ploc
+   heft start --nobrowser --locales=qps-ploc
    ```
 
   ![Psuedo locale](assets/pseudolocale.png)
 
-   > :warning: Don't forget to remove the `--locale` parameter next time you're using `gulp serve`
+   > :warning: Don't forget to remove the `--locales` parameter next time you're using `heft start`
 
 Make it a habit to routinely review your string literals to ensure they're represented in your localization files. You should also routinely test with an oversized locale like `qps-ploc` when implementing new UI changes. CSS is hard enough as it is without having to try and adjust a specific style after the fact.
 
-Also, keep in mind that while we've been forcing the locale during testing using the `--locale` parameter, the actual resource string swapping and localization detection is handled for you by the SharePoint Framework.
+Also, keep in mind that while we've been forcing the locale during testing using the `--locales` parameter, the actual resource string swapping and localization detection is handled for you by the SharePoint Framework.
+
+> :bulb: The Storybook functionality of the SPFx Local Workbench will automatically generate stories for each supported locale, making it very easy to preview all your locales without having to re-serve each time.
 
 #### :books: Resources
 - [Pseudolocalize.com](http://www.pseudolocalize.com/)
