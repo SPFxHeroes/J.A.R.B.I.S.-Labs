@@ -4,6 +4,8 @@ So far, we have been testing our web part using the workbench and bundling the s
 
 In this lab, we'll show you how to prepare your app for release to production, and how to deploy and upgrade your app.
 
+> :warning: Some of the below steps will require access to a tenant. The actual deployment requires not just a tenant, but permission to deploy to either the tenant app catalog or a site collection app catalog. Even if you don't have access, please continue anyway as there are still steps done locally and it's good to be aware of the full process.
+
 <details>
 <summary><b>Legend</b></summary>
 
@@ -41,15 +43,15 @@ Before you package your app, you should probably test your web part outside of t
 
 Thankfully, you can debug web parts in regular SharePoint pages by following these instructions:
 
-1. Using the terminal in VSCode, run `gulp serve --nobrowser` as usual
+1. Using the terminal in VSCode, run `heft start --nobrowser` as usual
 
-1. Wait for the terminal to say **[spfx-serve] To load your scripts, use this query string:**, followed by a query string
+1. Wait for the terminal to show a box with the text "To load your scripts, use this query string:"
 
 1. Copy the query string provided 
 
    ![Use this query string](assets/debuginprod.png)
 
-1. Using your tenant, go to a SharePoint page (in the same site as your workbench, so you don't have to deploy the Powers list)
+1. Using your tenant, go to a SharePoint page (in the same site as your workbench, so you don't have to deploy the Powers list). The site homepage should work just fine.
 
 1. While on the page, append the query string you copied in the earlier step and append it to the page URL.
 
@@ -57,9 +59,9 @@ Thankfully, you can debug web parts in regular SharePoint pages by following the
 
    ![Load debug scripts](./assets/allowdebug.png)
 
-1. You can now edit the page and insert the **Hero generator** web part on the page.
+1. You can now edit the page and insert the **Hero generator** web part on the page just as if it were being served from SharePoint and not your local machine.
 
-1. When you're done testing the web part, you can stop `gulp serve`.
+1. When you're done testing the web part, you can stop the `heft start`.
 
 1. We aren't doing anything specific here, just wanted you to be aware of this functionality as there are some things that are just too hard to test in the workbench.
 
@@ -90,7 +92,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 
 1. From VSCode, right-click on the new folder and select **Copy path**
 
-1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied.
+1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied (`JARBIS/sharepoint/images`):
 
    ![Save as hero.png](assets/hero.png)
 
@@ -99,7 +101,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 1. Back in the **package-solution.json** file, add the following line of JSON below the `title` line:
 
    ```json
-    "iconPath": "Images/hero.png",
+    "iconPath": "images/hero.png",
    ```
 
     > The `iconPath` should be a relative path, starting from the **sharepoint** folder.
@@ -164,9 +166,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 1. Set the `categories` property as follows:
 
    ```json
-    "categories": [
-        "Productivity"
-    ]
+    "categories": ["Productivity"]
    ```
 
     > You can use up to 3 categories; the valid choices are:
@@ -204,15 +204,17 @@ The solution's metadata controls how the app will appear in the App store. You c
    >
    > Even if you only plan to promote your web parts within your organization, we recommend that you always take the time to update the `developer` property.
 
+   ![package-solution.json](assets/packagesolution.png)
+
 #### :books: Resources
 - [SharePoint solution packaging](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
 
 
 ## :rocket: Exercise 3: Update web part metadata
 
-A solution can contain more than 1 web part (you can add another web part by re-running the Yeoman generator from within an existing SPFx project). Because of this, SPFx keeps the metadata about the solution separately from the web part metadata.
+A solution can contain more than 1 web part (you can add another web part by re-running the Yeoman generator from within an existing SPFx project). Because of this, SPFx keeps the metadata about the solution separate from the web part metadata.
 
-In the previous exercise, we worked on the solution metadata; in this exercise, we'll update our web part's metadata.
+In the previous exercise, we worked on the *solution* metadata; in this exercise, we'll update our *web part's* metadata.
 
 1. In the **JarbisWebPart.manifest.json**, change the `supportedHosts` property to the following:
 
@@ -252,19 +254,19 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
 
 1. The `group` property is only used by Classic SharePoint pages. We can ignore it for this workshop.
 
-1. After the `group` property, add a new string array property called `tags` using the following code:
+1. After the `group` property, add a new array property called `tags` using the following code:
 
     ```json
-    "tags":[
-        "powers",
-        "superhero",
-        "hero",
-        "jarbis",
-        "superpowers"
+    "tags": [
+        { "default": "powers" },
+        { "default": "superhero" },
+        { "default": "hero" },
+        { "default": "jarbis" },
+        { "default": "superpowers" }
     ],
     ```
 
-   > This field is used to tag a web part with keywords that are different from the web part group name. Tags can be used for categorization and searching of web parts. For example, in the web part toolbox.
+   > This field is used to tag a web part with keywords that are different from the web part group name. Tags can be used for categorization and searching of web parts. For example, in the web part toolbox. You can have up to 10.
 
 1. Add a new French title under the `default` value (but within the `title` property) and set the value to `Générateur de héros`. You final `title` property should look as follows:
 
@@ -277,17 +279,17 @@ In the previous exercise, we worked on the solution metadata; in this exercise, 
 
 1. We're going to skip it for now since our use of French is questionable at best, but you can provide locale entries like we've done for `title` above for each tag, group, and description. If it's in your list of `supportedLocales` in **config\package-solution.json** file, you should be providing an entry for it.
 
-1. By default, your web part only allows you to use Office Fabric icon names -- using the `officeFabricIconFontName`, but you can also use custom SVG icons using the following trick. First right-click the SVG image below and select **Save image as...**:
+1. By default, your web part only allows you to use Office Fabric icon names -- using the `officeFabricIconFontName`, but you can also use custom SVG icons using the following trick. First right-click the **SVG** image below and select **Save image as...** (this is NOT the same file from before):
 
    ![Hero SVG](assets/hero.svg)
 
    > You can use almost any square SVG that has `width` and `height` attributes
 
-1. Using **File** > **Open File...** from within VSCode, open the `.svg` file you just saved. If the svg file opens as text, then move on to the next step. If, instead, you see the svg as an image, you'll need to switch the editor. To do this, right click on the file name in the window pane and select **"Reopen Editor With..."**:
+1. Using **File** > **Open File...** from within VSCode, open the `.svg` file you just saved. If the svg file opens as text, then move on to the next step. If, instead, you see the svg as an image, you'll need to switch the editor. To do this, click on the "Reopen as source text" button in the panel's title bar:
 
    ![Reopen Editor With...](./assets/svgeditor.png)
 
-   In the command palette choose the **Text Editor**:
+   Alternatively, you can use the command pallette (press <kbd>F1</kbd>) and search for Edit and choose "View: Reopen Editor with Text Editor":
 
    ![Text editor for svg](./assets/svgtexteditor.png)
 
@@ -319,31 +321,17 @@ Remember to _remove_ the `officeFabricFontName` property from your manifest, or 
 
 Let's finally package this app for production!!
 
-> Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. Feel free to test with `gulp bundle` and `gulp package-solution` first, if you wish, then perform the steps below. 
->
-> But, let's face it, you know your app is already _perfect_, don't you?!
+> Note: you should usually test your changes before pushing to production, but we're skipping those steps for brevity. But, let's face it, you know your app is already _perfect_, don't you?!
 
-1. If you're still running `gulp serve`, you can stop it now.
+1. If you're still running `heft start`, you can stop it now.
 
 1. From the terminal, run the following command:
 
    ```bash
-   gulp clean
+   npm run build
    ```
 
-1. From the terminal, run the following command:
-
-   ```bash
-   gulp bundle --ship
-   ```
-
-1. Run the following command:
-
-   ```bash
-   gulp package-solution --ship
-   ```
-
-   > :bulb: That `--ship` is what is fully packaging the solution. We left this off previously and that's what created our debug build that pulled the bundle from localhost. With the `--ship` we are putting the bundle in the package (along with related resources) and that will be used to copy your files to the CDN/Library.
+   > :bulb: This is a preconfigured script from our package.json that is easier to type than the full command: `heft test --clean --production && heft package-solution --production` This is basically the command we ran in a previous lab to deploy the list, but now we've added `--production` which is why our bundle was loaded from localhost. By using it now, we are putting the bundle in the package (along with related resources) and that will be used to copy your files to the CDN/Library.
 
 1. In the **sharepoint\solution** folder find the **jarbis.sppkg** file and drag and drop it to your app store just like we did previously.
 
@@ -351,17 +339,19 @@ Let's finally package this app for production!!
 
    ![Yes, replace](assets/yesreplace.png)
 
-1. When prompted to **Enable App**, make sure that the text under **This app gets data from:** says **SharePoint**
+1. When prompted to **Enable App** (tenant app catalog, but deploy app in a site collection app catalog), make sure that the text under **This app gets data from:** says **SharePoint** (or **SharePoint Online**)
 
    ![Enable app](assets/deploytoprod.png)
 
-1. Under **App availability**, select **Only enable this app** and select **Enable app** at the bottom of the pane.
+1. If in the tenant app catalog, under **App availability**, select **Only enable this app** and select **Enable app** at the bottom of the pane.
 
    ![Only enable app](assets/onlyenableapp.png)
 
+   If in a site collection app catalog, ensure you check the "Make this solution available to all sites in the organization" checkbox and click Deploy
+
    > :bulb: The icon doesn't always show up properly before you enable the app so don't be super concerned if the screenshot doesn't match exactly.
 
-1. Your new web part is now published in production! Make sure that your new app has the correct **Icon**, **Title**, and that the state is **Enabled** and the **Available for** column shows a SharePoint logo.
+1. Your new web part is now published in production! Make sure that your new app has the correct **Icon**, **Title**, and that the state is **Enabled** and the **Available for** column shows a SharePoint logo (tenant app catalog).
 
    ![Valid package is deployed](assets/itsalive.png)
 
@@ -372,6 +362,8 @@ Let's finally package this app for production!!
 1. Here you can see the official listing of your app. You should see several of the properties we configured including screenshots, description, etc.:
 
    ![app details](./assets/appdetails.png)
+
+   > :warning: These options aren't available directly in site collection app catalogs. To see the screenshots and other metadata in action, follow the next step to see it listed in the available apps.
 
 1. If you'd like to verify the full deployment, you'll need to go to a SharePoint site where you did not already deploy your web part in previous labs. (If you only want it on the one site skip to step 15)
 
@@ -387,7 +379,7 @@ Let's finally package this app for production!!
 
    ![Add the web part to a page](assets/addwebpart.png)
 
-It runs without needing a local `gulp serve` running and other people can even see/use it! WOWEE!!!
+It runs without needing a local `heft start` running and other people can even see/use it! WOWEE!!!
 
 #### :books: Resources
 - [Deploy your client-side web part to a SharePoint page](https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/serve-your-web-part-in-a-sharepoint-page)
