@@ -111,7 +111,7 @@ We recommend using string literals during the early stages of development where 
 
    ```
 
-1. We've got the initial plumbing for this value in place, now let's go utilize it in our code! Back in **JarbisWebPart.ts** if you prevously commented out the strings import, uncomment that now so that it looks like this:
+1. We've got the initial plumbing for this value in place, now let's go utilize it in our code! Back in **JarbisWebPart.ts** if you previously commented out the strings import, uncomment that now so that it looks like this:
    ```TypeScript
    import * as strings from 'JarbisWebPartStrings';
    ```
@@ -275,7 +275,7 @@ Let's replace the hero description to use a localized sentence!
 
    > :bulb: In the real world, we would most likely retrieve localized data from the list rather than just retrieving English values... but we're not going to go into that in the scope of this workshop.
 
-> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small udates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> (<kbd>CMD</kbd>+<kbd>OPTION</kbd>+<kbd>S</kbd> on a :apple: mac) - you can also customize that shortcut to something less annoying)
+> :bulb: You might have noticed that each time you save one of these files, things rebuild. This can be annoying when making several small updates to multiple files. Fortunately, you can use VSCode's Save All feature (in the File menu or by pressing <kbd>CTRL</kbd>+<kbd>K</kbd> then pressing <kbd>S</kbd> (<kbd>CMD</kbd>+<kbd>OPTION</kbd>+<kbd>S</kbd> on a :apple: mac) - you can also customize that shortcut to something less annoying)
 
 #### :books: Resources
 - [Vent your frustration](http://www.omglasergunspewpewpew.com/)
@@ -304,7 +304,7 @@ We've only got the one localization, but we can tell things are working because 
 
    ![fr-fr.js in file explorer](assets/frfr.png)
 
-1. To test a locale, we can add a `--locale` parameter to our gulp serve. If your project is running, press <kbd>CTRL</kbd>+<kbd>C</kbd> to stop it then, re-serve your project using this command:
+1. To test a locale, we can run `heft start` with the `--locales` parameter. If your project is running, press <kbd>CTRL</kbd>+<kbd>C</kbd> to stop it then, re-serve your project using this command:
    ```bash
    heft start --nobrowser --locales=fr-fr
    ```
@@ -332,7 +332,7 @@ Finding out about all these issues late in the project will likely lead to delay
 
 To avoid running into such issues, we recommend using a _pseudo-locale_. Pseudo-locales are locales designed to test software for proper support of the different aspects of the localization process, such as support for special characters, right-to-left languages, or accommodating longer strings in the user interface.
 
-To add a localized resources, add a `.js` file with the locale code in the **src/webparts/jarbis/loc**. For example, we added French support by adding a file called **fr-fr.js**, to add support for Dutch, you'd add a file called **nl-nl.js**, for Spanish (Mexico), **es-mx.js**, and so on.
+To add a localized resource, add a `.js` file with the locale code in the **src/webparts/jarbis/loc**. For example, we added French support by adding a file called **fr-fr.js**, to add support for Dutch, you'd add a file called **nl-nl.js**, for Spanish (Mexico), **es-mx.js**, and so on.
 
 In this lab, we'll add a pseudo-locale, but you can use [any other locale](https://saimana.com/list-of-country-locale-code/) you want.
 
@@ -373,7 +373,7 @@ Make it a habit to routinely review your string literals to ensure they're repre
 
 Also, keep in mind that while we've been forcing the locale during testing using the `--locales` parameter, the actual resource string swapping and localization detection is handled for you by the SharePoint Framework.
 
-> :bulb: The Storybook functionality of the SPFx Local Workbench will auto generate stories for each supported locale making it very easy to preview all your locales without having to re-serve each time.
+> :bulb: The Storybook functionality of the SPFx Local Workbench will automatically generate stories for each supported locale, making it very easy to preview all your locales without having to re-serve each time.
 
 #### :books: Resources
 - [Pseudolocalize.com](http://www.pseudolocalize.com/)
