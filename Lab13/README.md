@@ -61,7 +61,7 @@ Thankfully, you can debug web parts in regular SharePoint pages by following the
 
 1. You can now edit the page and insert the **Hero generator** web part on the page just as if it were being served from SharePoint and not your local machine.
 
-1. When you're done testing the web part, you can stop the `heft start`.
+1. When you're done testing the web part, you can stop the `heft start` using <kbd>CTRL</kbd>+<kbd>C</kbd>.
 
 1. We aren't doing anything specific here, just wanted you to be aware of this functionality as there are some things that are just too hard to test in the workbench.
 
@@ -289,7 +289,7 @@ In the previous exercise, we worked on the *solution* metadata; in this exercise
 
    ![Reopen Editor With...](./assets/svgeditor.png)
 
-   Alternatively, you can use the command pallette (press <kbd>F1</kbd>) and search for Edit and choose "View: Reopen Editor with Text Editor":
+   Alternatively, you can use the command palette (press <kbd>F1</kbd>) and search for Edit and choose "View: Reopen Editor with Text Editor":
 
    ![Text editor for svg](./assets/svgtexteditor.png)
 
@@ -331,7 +331,7 @@ Let's finally package this app for production!!
    npm run build
    ```
 
-   > :bulb: This is a preconfigured script from our package.json that is easier to type than the full command: `heft test --clean --production && heft package-solution --production` This is basically the command we ran in a previous lab to deploy the list, but now we've added `--production` which is why our bundle was loaded from localhost. By using it now, we are putting the bundle in the package (along with related resources) and that will be used to copy your files to the CDN/Library.
+   > :bulb: This is a preconfigured script from our package.json that is easier to type than the full command: `heft test --clean --production && heft package-solution --production` This is basically the command we ran in a previous lab to deploy the list, but here we are using `--production` to create the production bundle/package so it does **not** load assets from localhost. By using it now, we are putting the bundle in the package (along with related resources) and that will be used to copy your files to the CDN/Library.
 
 1. In the **sharepoint\solution** folder find the **jarbis.sppkg** file and drag and drop it to your app store just like we did previously.
 
@@ -339,7 +339,7 @@ Let's finally package this app for production!!
 
    ![Yes, replace](assets/yesreplace.png)
 
-1. When prompted to **Enable App** (tenant app catalog, but deploy app in a site collection app catalog), make sure that the text under **This app gets data from:** says **SharePoint** (or **SharePoint Online**)
+1. When prompted to **Enable App** (The dialog is different in a site collection app catalog), make sure that the text under **This app gets data from:** says **SharePoint** (or **SharePoint Online**)
 
    ![Enable app](assets/deploytoprod.png)
 
@@ -347,7 +347,7 @@ Let's finally package this app for production!!
 
    ![Only enable app](assets/onlyenableapp.png)
 
-   If in a site collection app catalog, ensure you check the "Make this solution available to all sites in the organization" checkbox and click Deploy
+1. If in a site collection app catalog, ensure you check the "Make this solution available to all sites in the organization" checkbox and click Deploy
 
    > :bulb: The icon doesn't always show up properly before you enable the app so don't be super concerned if the screenshot doesn't match exactly.
 
