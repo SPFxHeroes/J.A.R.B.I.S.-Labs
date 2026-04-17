@@ -57,7 +57,11 @@ We've gotten everything installed and we're ready to start working on something!
 
    > :bulb: `cd` is short for _Change Directory_ (not Cute David as that is a phrase that has never been said)
 
-1. Once in your fancy new folder, launch the yeoman generator by typing `yo @microsoft/sharepoint`
+1. Once in your fancy new folder, launch the yeoman generator by typing 
+
+```console
+yo @microsoft/sharepoint
+```
 
    > :bulb: There are a few extra parameters you can apply when running the generator. You won't typically use them, but you can always find out what's available by typing `yo @microsoft/sharepoint --help`
 
