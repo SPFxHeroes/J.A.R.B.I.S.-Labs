@@ -73,12 +73,18 @@ Some users have requested we give them the option to show a category hint for th
 
    > :bulb: Setting the default to `false` means the hint is hidden out of the box - a good default for a word-guessing game! Site editors can always turn it on through the property pane if they want an easier experience for their users.
 
-1. Update the `getWords` method to also store the category when picking a random word. Previously we used a separate `getRandomWord()` helper, but now that we need both the word *and* its category from the same item, it's cleaner to do the selection inline:
+1. Update the `getWords` method to also store the category when picking a random word. Since we need both the word *and* its category from the same item, we'll select the random word right here and grab both values at once:
 
    ```typescript
    private getWords = async (): Promise<void> => {
       const sp = spfi().using(SPFx(this.context));
       this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
+      
+      if (this.words.length === 0) {
+        console.warn("No words found in the list!");
+        return;
+      }
+
       this.wordsLoaded = true;
       
       // Pick a random word for this game
@@ -92,7 +98,7 @@ Some users have requested we give them the option to show a category hint for th
    }
    ```
 
-   > :bulb: Notice we grab the full `wordItem` object first, then pull `.Title` and `.Category` from it separately. This avoids picking a random index twice and accidentally getting mismatched data. You can also safely remove the old `getRandomWord()` method since this replaces it.
+   > :bulb: Notice we grab the full `wordItem` object first, then pull `.Title` and `.WordCategory` from it separately. This avoids picking a random index twice and accidentally getting mismatched data. We also added an early return if the list is empty to prevent errors.
 
 1. In the `render` method, add the hint HTML. Add this right before the `this.domElement.innerHTML` assignment:
 
@@ -318,6 +324,12 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
   private getWords = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
+
+    if (this.words.length === 0) {
+      console.warn("No words found in the list!");
+      return;
+    }
+    
     this.wordsLoaded = true;
     
     // Pick a random word for this game
@@ -328,17 +340,6 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     
     console.log("Words loaded:", this.words.length, "Target:", this.targetWord, "Category:", this.currentCategory);
     this.render();
-  }
-
-  /**
-   * Gets a random word from the loaded words
-   */
-  private getRandomWord(): string {
-    if (this.words.length === 0) {
-      return 'HELLO'; // Fallback if no words loaded
-    }
-    const randomIndex = Math.floor(Math.random() * this.words.length);
-    return this.words[randomIndex].Title.toUpperCase();
   }
 
   protected onInit(): Promise<void> {
