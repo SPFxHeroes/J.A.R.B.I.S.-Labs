@@ -26,13 +26,6 @@ This is actually how the real Wordle works - one puzzle per day, and if you want
   1. [Remove the targetWord property](#rocket-exercise-2-remove-the-targetword-property)
 </details>
 
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 09 Starter](https://github.com/nicknow/Wordle-Labs/tree/Start-of-Lab-09) branch.
-
-</details>
-
 ## :rocket: Exercise 1: Pick a random word
 
 Right now our `getWords` method loads the words and re-renders. Let's update it to also pick a random word!
@@ -42,6 +35,8 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    ```typescript
    private targetWord: string = '';
    ```
+
+   > :bulb: Up until now, the target word came from a web part property (`this.properties.targetWord`) - meaning someone had to manually type it into the property pane. That's great for testing, but not very fun for a real game! By moving it to a class variable, we can set it programmatically from our word list instead. We initialize it as an empty string and will fill it in once the words load from SharePoint.
 
    Your game state variables should now look like:
 
@@ -69,14 +64,20 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    }
    ```
 
-   > :bulb: `Math.random()` gives us a number between 0 and 1. We multiply by the array length and round down to get a valid index. Simple!
+   > :bulb: Let's break down how the random selection works:
+   > - `Math.random()` returns a decimal between 0 (inclusive) and 1 (exclusive) - for example `0.73`
+   > - We multiply that by `this.words.length` to scale it to our array size - e.g., if we have 50 words: `0.73 * 50 = 36.5`
+   > - `Math.floor()` rounds down to the nearest whole number - `36.5` becomes `36`
+   > - That gives us a valid array index! We use it to grab a word and `.toUpperCase()` it so comparisons are consistent throughout the game.
+   >
+   > The `'HELLO'` fallback is a safety net - if the SharePoint list is empty or something went wrong loading, the game still works instead of crashing.
 
 1. Update the `getWords` method to pick a random word after loading:
 
    ```typescript
    private getWords = async (): Promise<void> => {
      const sp = spfi().using(SPFx(this.context));
-     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
+     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
      this.wordsLoaded = true;
      
      // Pick a random word for this game
@@ -87,7 +88,11 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    }
    ```
 
-1. Now we need to update our code to use `this.targetWord` instead of `this.properties.targetWord`. In the `renderGrid` method, change:
+   > :bulb: Notice the order here matters! We load the words from SharePoint first, *then* pick a random word from them, and *then* re-render. If we tried to pick a word before the list loaded, we'd always get our `'HELLO'` fallback. The `console.log` is handy during development - you can open your browser's dev tools (F12) to see which word was picked, making it easier to test that your game logic is working correctly.
+
+1. Now we need to swap every reference from `this.properties.targetWord` to `this.targetWord`. Why? Because the word is no longer coming from the property pane configuration - it's coming from our randomly selected class variable. The next three steps are all part of this same find-and-replace effort across the web part.
+
+   In the `renderGrid` method, this is where we color the tiles after a guess is submitted. Change:
 
    ```typescript
    const stateClass = guess ? this.getTileState(guess, col, this.properties.targetWord) : (letter ? styles.filled : '');
@@ -99,7 +104,7 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    const stateClass = guess ? this.getTileState(guess, col, this.targetWord) : (letter ? styles.filled : '');
    ```
 
-1. In the `submitGuess` method, change:
+1. In the `submitGuess` method, this is the win condition check - where we compare the player's guess against the answer. Change:
 
    ```typescript
    if (this.currentGuess === this.properties.targetWord.toUpperCase()) {
@@ -111,7 +116,9 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    if (this.currentGuess === this.targetWord) {
    ```
 
-1. In the `render` method, change the loss message from:
+   > :bulb: Notice we also dropped the `.toUpperCase()` call! That's because `getRandomWord()` already stores the word in uppercase, so we don't need to convert it every time we compare.
+
+1. In the `render` method, this is the "game over" message that reveals the answer when the player loses. Change:
 
    ```typescript
    titleText += ' 😢 (It was ' + escape(this.properties.targetWord.toUpperCase()) + ')';
@@ -123,24 +130,6 @@ Right now our `getWords` method loads the words and re-renders. Let's update it 
    titleText += ' 😢 (It was ' + escape(this.targetWord) + ')';
    ```
 
-1. Also update `getTileState` to use `this.targetWord`:
-
-   ```typescript
-   private getTileState(guess: string, index: number): string {
-     const letter = guess[index];
-     const target = this.targetWord;
-     
-     if (letter === target[index]) {
-       return styles.correct;
-     } else if (target.indexOf(letter) >= 0) {
-       return styles.present;
-     } else {
-       return styles.absent;
-     }
-   }
-   ```
-
-   > :bulb: Since we're always using `this.targetWord`, we don't need the `targetWord` parameter anymore. Cleaner code!
 
 1. Refresh the workbench and play! Each time you refresh, you should get a different random word from your list!
 
@@ -218,13 +207,11 @@ import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 import styles from './WordleWebPart.module.scss';
 import * as strings from 'WordleWebPartStrings';
 import { escape } from '@microsoft/sp-lodash-subset';
-
 import { IWordItem } from './IWordItem';
 import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
 
 export interface IWordleWebPartProps {
   title: string;
@@ -232,46 +219,46 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+
   // Game state - stored in memory (resets on page refresh)
   private guesses: string[] = [];
   private currentGuess: string = '';
   private maxGuesses: number = 6;
-  private gameStatus: string = 'playing';
+  private gameStatus: string = 'playing'; // 'playing', 'won', or 'lost'
   private targetWord: string = '';
-  
-  // Data from SharePoint
+
   private words: IWordItem[] = [];
   private wordsLoaded: boolean = false;
 
+
   private renderGrid(): string {
     let gridHtml = '';
-    
+
     for (let row = 0; row < this.maxGuesses; row++) {
       gridHtml += `<div class="${styles.row}">`;
-      
+
       const guess = this.guesses[row] || '';
       const isCurrentRow = row === this.guesses.length;
       const displayGuess = isCurrentRow ? this.currentGuess : guess;
-      
+
       for (let col = 0; col < 5; col++) {
         const letter = displayGuess[col] || '';
-        const stateClass = guess ? this.getTileState(guess, col) : (letter ? styles.filled : '');
+        const stateClass = guess ? this.getTileState(guess, col, this.targetWord) : (letter ? styles.filled : '');
         gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
       }
-      
+
       gridHtml += '</div>';
     }
-    
+
     return gridHtml;
   }
 
-  private getTileState(guess: string, index: number): string {
+  private getTileState(guess: string, index: number, targetWord: string): string {
     const letter = guess[index];
-    const target = this.targetWord;
     
-    if (letter === target[index]) {
+    if (letter === targetWord[index]) {
       return styles.correct;
-    } else if (target.indexOf(letter) >= 0) {
+    } else if (targetWord.indexOf(letter) >= 0) {
       return styles.present;
     } else {
       return styles.absent;
@@ -279,6 +266,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
   }
 
   private handleKeyDown = (event: KeyboardEvent): void => {
+    // Don't do anything if game is over
     if (this.gameStatus !== 'playing') {
       return;
     }
@@ -286,53 +274,85 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     const key = event.key.toUpperCase();
 
     if (key === 'BACKSPACE') {
+      // Remove last letter from current guess
       this.currentGuess = this.currentGuess.slice(0, -1);
       this.render();
     } else if (key === 'ENTER') {
+      // Submit the guess (we'll implement this next)
       this.submitGuess();
     } else if (key.length === 1 && key >= 'A' && key <= 'Z') {
+      // Add letter if we haven't reached 5 letters yet
       if (this.currentGuess.length < 5) {
         this.currentGuess += key;
         this.render();
       }
     }
   }
-
   private submitGuess(): void {
+    // Must be exactly 5 letters
     if (this.currentGuess.length !== 5) {
       return;
     }
 
+    // Add to guesses array
     this.guesses.push(this.currentGuess);
 
-    if (this.currentGuess === this.targetWord) {
+    // Check if they won
+    if (this.currentGuess === this.targetWord.toUpperCase()) {
       this.gameStatus = 'won';
-    } else if (this.guesses.length >= this.maxGuesses) {
+    }
+    // Check if they lost (used all guesses)
+    else if (this.guesses.length >= this.maxGuesses) {
       this.gameStatus = 'lost';
     }
 
+    // Clear current guess for next round
     this.currentGuess = '';
+
+    // Re-render to show the results
     this.render();
   }
 
+  /**
+* Gets the list of words from SharePoint
+*
+* @private
+* @memberof WordleWebPart
+*/
   private getWords = async (): Promise<void> => {
-    const sp = spfi().using(SPFx(this.context));
-    this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
-    this.wordsLoaded = true;
-    
-    // Pick a random word for this game
-    this.targetWord = this.getRandomWord();
-    
-    console.log("Words loaded:", this.words.length, "Target:", this.targetWord);
-    this.render();
+     const sp = spfi().using(SPFx(this.context));
+     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
+     this.wordsLoaded = true;
+     
+     // Pick a random word for this game
+     this.targetWord = this.getRandomWord();
+     
+     console.log("Words loaded:", this.words.length, "Target:", this.targetWord);
+     this.render();
   }
 
+  /**
+   * Gets a random word from the loaded words
+   */
   private getRandomWord(): string {
     if (this.words.length === 0) {
-      return 'HELLO';
+      return 'HELLO'; // Fallback if no words loaded
     }
     const randomIndex = Math.floor(Math.random() * this.words.length);
     return this.words[randomIndex].Title.toUpperCase();
+  }
+
+  protected onInit(): Promise<void> {
+    document.addEventListener('keydown', this.handleKeyDown);
+
+    // Load words from SharePoint
+    this.getWords().catch((error) => console.error(error));
+
+    return Promise.resolve();
+  }
+
+  protected onDispose(): void {
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   public render(): void {
@@ -351,37 +371,31 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     }
 
     this.domElement.innerHTML = `
-      <div class="${styles.wordle}">
-        <div class="${styles.title}">
-          ${titleText}
-        </div>
-        <div class="${styles.grid}">
-          ${this.renderGrid()}
-        </div>
-      </div>`;
-  }
-
-  protected onInit(): Promise<void> {
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.getWords().catch((error) => console.error(error));
-    return Promise.resolve();
-  }
-
-  protected onDispose(): void {
-    document.removeEventListener('keydown', this.handleKeyDown);
+        <div class="${styles.wordle}">
+          <div class="${styles.title}">
+            ${titleText}
+          </div>
+          <div class="${styles.grid}">
+            ${this.renderGrid()}
+          </div>
+        </div>`;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
-    const { semanticColors } = currentTheme;
+
+    const {
+      semanticColors
+    } = currentTheme;
 
     if (semanticColors) {
       this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
       this.domElement.style.setProperty('--link', semanticColors.link || null);
       this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
     }
+
   }
 
   protected get dataVersion(): Version {
@@ -402,7 +416,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
                 PropertyPaneTextField('title', {
                   label: "Game Title"
                 }),
-                PropertyPaneTextField('list', {
+                 PropertyPaneTextField('list', {
                   label: "Word List Name"
                 })
               ]
@@ -413,6 +427,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     };
   }
 }
+
 ```
 
 </details>

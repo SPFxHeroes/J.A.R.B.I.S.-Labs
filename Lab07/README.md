@@ -59,7 +59,7 @@ This is done by using a Feature. A feature is a container that includes one or m
                 <CHOICE>Nature</CHOICE>
             </CHOICES>
         </Field>
-        <ContentType ID="0x0100WORDLE1234567890ABCDEF12345678" Name="WordleWord" Group="Wordle Content Types" Description="A five-letter word for the Wordle game">
+        <ContentType ID="0x0100CA39ECEC4E224C4CACA336D3CE5D8BFD" Name="WordleWord" Group="Wordle Content Types" Description="A five-letter word for the Wordle game">
             <FieldRefs>
                 <FieldRef ID="{D5E5C2D8-4E6A-4B7C-9B8A-1C2D3E4F5A6B}" />
             </FieldRefs>
@@ -181,7 +181,7 @@ Any supported files that accompany the element manifest (like the **schema.xml**
     xmlns="http://schemas.microsoft.com/sharepoint/">
         <MetaData>
             <ContentTypes>
-                <ContentTypeRef ID="0x0100WORDLE1234567890ABCDEF12345678" />
+                <ContentTypeRef ID="0x0100CA39ECEC4E224C4CACA336D3CE5D8BFD" />
             </ContentTypes>
             <Fields></Fields>
             <Views>
@@ -258,7 +258,7 @@ We'll be making a non-production build just to verify our provisioning is correc
    ```
    > :bulb: The command creates the **wordle.sppkg** package in the **sharepoint/solution** folder.
 
-   > :warning: You will see a warning message indicating that the solution is not a production build, and another one indicating that Feature.xml elements are not automatically applied unless the solution is explicitly installed on a site; both warnings are expected.
+   > :warning: You will see a warning message indicating that the solution is not a production build (--production), therefore the "includeClientSideAssets" setting will be ignored.
 
 #### :books: Resources
 - [Package solutions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/notes-on-solution-packaging)
@@ -274,45 +274,45 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 
 1. Using the navigation panel on the left, choose **More features** then click the **Open** button under Apps.
 
-   ![SharePoint admin center](../Lab08/assets/admincenter.png)
+   ![SharePoint admin center](../Lab07/assets/admincenter.png)
 
 1. Find the **wordle.sppkg** package in the **sharepoint/solution** using File Explorer (Tip: right-click on the file from within VSCode and select **Reveal in File Explorer**
 
-   ![Reveal in File Explorer](../Lab08/assets/reveal.png)
+   ![Reveal in File Explorer](../Lab07/assets/reveal.png)
 
 1. Drag and drop **wordle.sppkg** from **File Explorer** onto the **App Catalog** or select **Upload** from the **Manage apps** page and select the **wordle.sppkg** file from your desktop.
 
-   ![App Catalog](../Lab08/assets/appcatalog.png)  
+   ![App Catalog](../Lab07/assets/appcatalog.png)  
 
 1. When prompted to **Enable app**, select **Only enable this app**; this will ensure that we only deploy the solution to our test site.
 
-   ![Enable app](../Lab08/assets/addapp.png)
+   ![Enable app](../Lab07/assets/addapp.png)
 
    > :bulb: Notice that the **Enable app** pane indicates **This app gets data from: https://localhost:4321/dist**; this is because the solution that we just bundled is _not_ intended for production and will only run while you debug the web part. We'll fix this in later labs, when we deploy the production web part.
 
 1. Return to your workbench and select the **Settings** gear icon, followed by **Site contents** to view the site content where your workbench is located.
 
-   ![Settings > Site contents](../Lab08/assets/settings-sitecontents.png)  
+   ![Settings > Site contents](../Lab07/assets/settings-sitecontents.png)  
 
 1. From the **Site contents** page, select **New**, followed by **App**.
 
-   ![New > App](../Lab08/assets/sitecontents.png)  
+   ![New > App](../Lab07/assets/sitecontents.png)  
 
 1. From the **My apps** page, under **Apps you can add**, find **wordle-client-side-solution** and select **Add**.
 
-   ![Add wordle-client-side-solution](../Lab08/assets/addwordle.png)  
+   ![Add wordle-client-side-solution](../Lab07/assets/addwordle.png)  
 
 1. Once the solution has been added, you'll see a notification bar at the top of the page. Select the link to **Site contents page** to view the list that was deployed.
 
-   ![Added successfully](../Lab08/assets/success-notification.png)
+   ![Added successfully](../Lab07/assets/success-notification.png)
 
 1. From the **Site contents** page, look for a list called **WordleWords** and select it
 
-   ![Site contents with new WordleWords list](../Lab08/assets/sitecontents-words.png)  
+   ![Site contents with new WordleWords list](../Lab07/assets/sitecontents-words.png)  
 
 1. You'll see a list with several five-letter words. This is good!!!
 
-   ![I've got the Words!](../Lab08/assets/words.png)
+   ![I've got the Words!](../Lab07/assets/words.png)
 
 #### :books: Resources
 - [Take a closer look](https://zoomquilt.org/)
@@ -321,8 +321,6 @@ Now that we've got a package file, we need to deploy it to our app catalog to ma
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-If you're up to it, there is also a [bonus lab](../Lab08/BONUS.md) to make that list a lot prettier! It's in no way necessary, but it sure is fun! It also only takes 5-10 minutes and can be completed at any time.
-
 In our next lab, we'll wire up the web part to read words from the list!
 
-# [Previous](../Lab06/README.md) | [Bonus Lab](../Lab08/BONUS.md) | [Next](../Lab08/README.md)
+# [Previous](../Lab06/README.md) | [Next](../Lab08/README.md)

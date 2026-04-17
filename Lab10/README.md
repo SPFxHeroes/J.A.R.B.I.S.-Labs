@@ -24,12 +24,6 @@ In this lab, we'll make the web part configurable by adding a category hint feat
   1. [Reactive vs nonreactive](#rocket-exercise-2-reactive-vs-nonreactive)
 </details>
 
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 10 Starter](https://github.com/nicknow/Wordle-Labs/tree/Start-of-Lab-10) branch.
-
-</details>
 
 ## :rocket: Exercise 1: Add a category hint feature
 
@@ -40,6 +34,8 @@ Some users have requested we give them the option to show a category hint for th
    ```TypeScript
    showHint: boolean;
    ```
+
+   > :bulb: We're using a `boolean` type here because this is a simple on/off setting - either the user wants to see the hint or they don't. Later, we'll wire this up to a toggle in the property pane so site editors can flip it on or off without touching any code.
 
    The full `IWordleWebPartProps` interface should now look as follows:
 
@@ -57,6 +53,8 @@ Some users have requested we give them the option to show a category hint for th
    private currentCategory: string = '';
    ```
 
+   > :bulb: Why a class variable and not a property? Properties (`IWordleWebPartProps`) are for things the *user configures* through the property pane - they persist and are saved with the web part. Class variables are for *runtime state* that the code manages on its own. The category changes every time a random word is picked, so it belongs as a class variable, not a user-facing setting.
+
 1. In **WordleWebPart.manifest.json**, add a new default property:
 
    ```json
@@ -73,26 +71,30 @@ Some users have requested we give them the option to show a category hint for th
    }
    ```
 
-1. Update the `getWords` method to also store the category when picking a random word:
+   > :bulb: Setting the default to `false` means the hint is hidden out of the box - a good default for a word-guessing game! Site editors can always turn it on through the property pane if they want an easier experience for their users.
+
+1. Update the `getWords` method to also store the category when picking a random word. Previously we used a separate `getRandomWord()` helper, but now that we need both the word *and* its category from the same item, it's cleaner to do the selection inline:
 
    ```typescript
    private getWords = async (): Promise<void> => {
-     const sp = spfi().using(SPFx(this.context));
-     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
-     this.wordsLoaded = true;
-     
-     // Pick a random word for this game
-     const randomIndex = Math.floor(Math.random() * this.words.length);
-     const wordItem = this.words[randomIndex];
-     this.targetWord = wordItem.Title.toUpperCase();
-     this.currentCategory = wordItem.Category;
-     
-     console.log("Words loaded:", this.words.length, "Target:", this.targetWord, "Category:", this.currentCategory);
-     this.render();
+      const sp = spfi().using(SPFx(this.context));
+      this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
+      this.wordsLoaded = true;
+      
+      // Pick a random word for this game
+      const randomIndex = Math.floor(Math.random() * this.words.length);
+      const wordItem = this.words[randomIndex];
+      this.targetWord = wordItem.Title.toUpperCase();
+      this.currentCategory = wordItem.WordCategory;
+      
+      console.log("Words loaded:", this.words.length, "Target:", this.targetWord, "Category:", this.currentCategory);
+      this.render();
    }
    ```
 
-1. In the `render` method, add the hint HTML. Add this before the innerHTML assignment:
+   > :bulb: Notice we grab the full `wordItem` object first, then pull `.Title` and `.Category` from it separately. This avoids picking a random index twice and accidentally getting mismatched data. You can also safely remove the old `getRandomWord()` method since this replaces it.
+
+1. In the `render` method, add the hint HTML. Add this right before the `this.domElement.innerHTML` assignment:
 
    ```TypeScript
    const hint = `
@@ -116,6 +118,8 @@ Some users have requested we give them the option to show a category hint for th
      </div>`;
    ```
 
+   > :bulb: The expression `${this.properties.showHint && this.currentCategory ? hint : ""}` does two checks: first, is the toggle turned on? Second, do we actually have a category to show? If either is false, we render an empty string instead. This prevents showing an empty "Hint:" label if a word doesn't have a category assigned in the SharePoint list.
+
 1. At the top of **WordleWebPart.ts**, update the import to include `PropertyPaneToggle`:
 
    ```TypeScript
@@ -125,6 +129,8 @@ Some users have requested we give them the option to show a category hint for th
      PropertyPaneToggle
    } from '@microsoft/sp-property-pane';
    ```
+
+   > :bulb: SPFx provides several built-in property pane controls beyond `PropertyPaneTextField`. `PropertyPaneToggle` gives us a nice switch UI. Others include `PropertyPaneCheckbox`, `PropertyPaneDropdown`, `PropertyPaneSlider`, and more. You can even build [custom property pane controls](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/build-custom-property-pane-controls) if the built-in ones don't fit your needs!
 
 1. Update the `getPropertyPaneConfiguration` method to include the toggle:
 
@@ -160,6 +166,8 @@ Some users have requested we give them the option to show a category hint for th
    }
    ```
 
+   > :bulb: The `onText` and `offText` options customize the labels shown next to the toggle in each state. Without them, users would just see a generic toggle with no indication of what "on" and "off" mean. "Show" and "Hide" make the intent crystal clear.
+
 1. Add a `.hint` style to your **WordleWebPart.module.scss** file inside the `.wordle` block:
 
    ```scss
@@ -173,7 +181,7 @@ Some users have requested we give them the option to show a category hint for th
 
 1. Try configuring the web part to hide and show the category hint by opening the property pane!
 
-   ![Property pane with toggle](../Lab11/assets/propertypanetoggle.png)
+   ![Property pane with toggle](../Lab10/assets/propertypanetoggle.png)
 
 If you run into any trouble, you can just replace the entire contents of the **WordleWebPart.ts** file with the following:
 
@@ -193,13 +201,11 @@ import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 import styles from './WordleWebPart.module.scss';
 import * as strings from 'WordleWebPartStrings';
 import { escape } from '@microsoft/sp-lodash-subset';
-
 import { IWordItem } from './IWordItem';
 import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
 
 export interface IWordleWebPartProps {
   title: string;
@@ -208,47 +214,47 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
+
   // Game state - stored in memory (resets on page refresh)
   private guesses: string[] = [];
   private currentGuess: string = '';
   private maxGuesses: number = 6;
-  private gameStatus: string = 'playing';
+  private gameStatus: string = 'playing'; // 'playing', 'won', or 'lost'
   private targetWord: string = '';
   private currentCategory: string = '';
-  
-  // Data from SharePoint
+
   private words: IWordItem[] = [];
   private wordsLoaded: boolean = false;
 
+
   private renderGrid(): string {
     let gridHtml = '';
-    
+
     for (let row = 0; row < this.maxGuesses; row++) {
       gridHtml += `<div class="${styles.row}">`;
-      
+
       const guess = this.guesses[row] || '';
       const isCurrentRow = row === this.guesses.length;
       const displayGuess = isCurrentRow ? this.currentGuess : guess;
-      
+
       for (let col = 0; col < 5; col++) {
         const letter = displayGuess[col] || '';
-        const stateClass = guess ? this.getTileState(guess, col) : (letter ? styles.filled : '');
+        const stateClass = guess ? this.getTileState(guess, col, this.targetWord) : (letter ? styles.filled : '');
         gridHtml += `<div class="${styles.tile} ${stateClass}">${escape(letter)}</div>`;
       }
-      
+
       gridHtml += '</div>';
     }
-    
+
     return gridHtml;
   }
 
-  private getTileState(guess: string, index: number): string {
+  private getTileState(guess: string, index: number, targetWord: string): string {
     const letter = guess[index];
-    const target = this.targetWord;
     
-    if (letter === target[index]) {
+    if (letter === targetWord[index]) {
       return styles.correct;
-    } else if (target.indexOf(letter) >= 0) {
+    } else if (targetWord.indexOf(letter) >= 0) {
       return styles.present;
     } else {
       return styles.absent;
@@ -256,6 +262,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
   }
 
   private handleKeyDown = (event: KeyboardEvent): void => {
+    // Don't do anything if game is over
     if (this.gameStatus !== 'playing') {
       return;
     }
@@ -263,48 +270,88 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     const key = event.key.toUpperCase();
 
     if (key === 'BACKSPACE') {
+      // Remove last letter from current guess
       this.currentGuess = this.currentGuess.slice(0, -1);
       this.render();
     } else if (key === 'ENTER') {
+      // Submit the guess (we'll implement this next)
       this.submitGuess();
     } else if (key.length === 1 && key >= 'A' && key <= 'Z') {
+      // Add letter if we haven't reached 5 letters yet
       if (this.currentGuess.length < 5) {
         this.currentGuess += key;
         this.render();
       }
     }
   }
-
   private submitGuess(): void {
+    // Must be exactly 5 letters
     if (this.currentGuess.length !== 5) {
       return;
     }
 
+    // Add to guesses array
     this.guesses.push(this.currentGuess);
 
-    if (this.currentGuess === this.targetWord) {
+    // Check if they won
+    if (this.currentGuess === this.targetWord.toUpperCase()) {
       this.gameStatus = 'won';
-    } else if (this.guesses.length >= this.maxGuesses) {
+    }
+    // Check if they lost (used all guesses)
+    else if (this.guesses.length >= this.maxGuesses) {
       this.gameStatus = 'lost';
     }
 
+    // Clear current guess for next round
     this.currentGuess = '';
+
+    // Re-render to show the results
     this.render();
   }
 
+  /**
+* Gets the list of words from SharePoint
+*
+* @private
+* @memberof WordleWebPart
+*/
   private getWords = async (): Promise<void> => {
     const sp = spfi().using(SPFx(this.context));
-    this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
+    this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
     this.wordsLoaded = true;
     
     // Pick a random word for this game
     const randomIndex = Math.floor(Math.random() * this.words.length);
     const wordItem = this.words[randomIndex];
     this.targetWord = wordItem.Title.toUpperCase();
-    this.currentCategory = wordItem.Category;
+    this.currentCategory = wordItem.WordCategory;
     
-    console.log("Words loaded:", this.words.length, "Target:", this.targetWord);
+    console.log("Words loaded:", this.words.length, "Target:", this.targetWord, "Category:", this.currentCategory);
     this.render();
+  }
+
+  /**
+   * Gets a random word from the loaded words
+   */
+  private getRandomWord(): string {
+    if (this.words.length === 0) {
+      return 'HELLO'; // Fallback if no words loaded
+    }
+    const randomIndex = Math.floor(Math.random() * this.words.length);
+    return this.words[randomIndex].Title.toUpperCase();
+  }
+
+  protected onInit(): Promise<void> {
+    document.addEventListener('keydown', this.handleKeyDown);
+
+    // Load words from SharePoint
+    this.getWords().catch((error) => console.error(error));
+
+    return Promise.resolve();
+  }
+
+  protected onDispose(): void {
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   public render(): void {
@@ -323,10 +370,10 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     }
 
     const hint = `
-      <div class="${styles.hint}">
-        Hint: ${escape(this.currentCategory)}
-      </div>`;
-
+    <div class="${styles.hint}">
+      Hint: ${escape(this.currentCategory)}
+    </div>`;
+    
     this.domElement.innerHTML = `
       <div class="${styles.wordle}">
         <div class="${styles.title}">
@@ -339,27 +386,21 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
       </div>`;
   }
 
-  protected onInit(): Promise<void> {
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.getWords().catch((error) => console.error(error));
-    return Promise.resolve();
-  }
-
-  protected onDispose(): void {
-    document.removeEventListener('keydown', this.handleKeyDown);
-  }
-
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
-    const { semanticColors } = currentTheme;
+
+    const {
+      semanticColors
+    } = currentTheme;
 
     if (semanticColors) {
       this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
       this.domElement.style.setProperty('--link', semanticColors.link || null);
       this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
     }
+
   }
 
   protected get dataVersion(): Version {
@@ -380,7 +421,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
                 PropertyPaneTextField('title', {
                   label: "Game Title"
                 }),
-                PropertyPaneTextField('list', {
+                 PropertyPaneTextField('list', {
                   label: "Word List Name"
                 }),
                 PropertyPaneToggle('showHint', {
@@ -396,6 +437,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     };
   }
 }
+
 ```
 
 </details>
@@ -407,72 +449,73 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .wordle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: "[theme:bodyText, default: #323130]";
+    color: var(--bodyText);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 
   .title {
-    font-size: 2rem;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
     letter-spacing: 0.2rem;
-    margin-bottom: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
 
   .grid {
-    display: flex;
+     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-bottom: 20px;
   }
 
-  .row {
-    display: flex;
-    gap: 5px;
-  }
+    .row {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .tile {
+      width: 62px;
+      height: 62px;
+      border: 2px solid "[theme:neutralTertiaryAlt, default: #c8c6c4]";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-sizing: border-box;
+    }
 
-  .tile {
-    width: 62px;
-    height: 62px;
-    border: 2px solid #d3d6da;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    box-sizing: border-box;
-  }
+    .correct {
+      background-color: #6aaa64;
+      border-color: #6aaa64;
+      color: white;
+    }
 
-  .filled {
-    border-color: #878a8c;
-  }
+    .present {
+      background-color: #c9b458;
+      border-color: #c9b458;
+      color: white;
+    }
 
-  .correct {
-    background-color: #6aaa64;
-    border-color: #6aaa64;
-    color: white;
-  }
+    .absent {
+      background-color: #787c7e;
+      border-color: #787c7e;
+      color: white;
+    }
 
-  .present {
-    background-color: #c9b458;
-    border-color: #c9b458;
-    color: white;
-  }
-
-  .absent {
-    background-color: #787c7e;
-    border-color: #787c7e;
-    color: white;
-  }
-
-  .hint {
-    font-size: 14px;
-    color: #888;
-    margin: 10px 0;
-    font-style: italic;
-  }
+    .filled {
+      border-color: "[theme:neutralPrimary, default: #333333]";
+    }
+    .hint {
+      font-size: 14px;
+      color: #888;
+      margin: 10px 0;
+      font-style: italic;
+    }
 }
 ```
 
@@ -497,7 +540,7 @@ To disable reactive property panes, you simply need to add the following code ab
 
 1. Test your web part again: you should see a new **Apply** button at the bottom of the property pane.
 
-   ![Nonreactive property pane](../Lab11/assets/nonreactive.png)
+   ![Nonreactive property pane](../Lab10/assets/nonreactive.png)
 
 1. Having our Wordle game be nonreactive for a single toggle doesn't make a lot of sense. We just wanted you to be aware of how to do it. So, when you're done testing, remove the `disableReactivePropertyChanges` code.
 
@@ -506,9 +549,10 @@ To disable reactive property panes, you simply need to add the following code ab
 #### :books: Resources
 - [Reactive and nonreactive SharePoint web parts](https://learn.microsoft.com/en-us/sharepoint/dev/design/reactive-and-nonreactive-web-parts)
 
+
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-In our next lab, we'll dive into localization!
+Your web part is now fully configurable! In the next lab, we'll publish it to SharePoint for real!
 
 # [Previous](../Lab09/README.md) | [Next](../Lab11/README.md)

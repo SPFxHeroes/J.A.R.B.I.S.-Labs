@@ -28,15 +28,7 @@ To make retrieving data easier, we'll use [PnPjs](https://pnp.github.io/pnpjs/) 
 
   1. [Setup the data model](#rocket-exercise-1-setup-the-data-model)
   1. [Install and configure PnPjs](#rocket-exercise-2-install-and-configure-pnpjs)
-  1. [Caching our requests](#rocket-exercise-3-caching-our-requests)
-  1. [Adding a status indicator](#rocket-exercise-4-adding-a-status-indicator)
-</details>
-
-<details>
-<summary><b>Starter Code</b></summary>
-
-If you skipped the previous step, or just want to start here, you can find the code ready to go in the [Lab 08 Starter](https://github.com/nicknow/Wordle-Labs/tree/Start-of-Lab-08) branch.
-
+  1. [Adding a status indicator](#rocket-exercise-3-adding-a-status-indicator)
 </details>
 
 ## :rocket: Exercise 1: Setup the data model
@@ -76,7 +68,7 @@ We do this through interfaces
        * @type {string}
        * @memberof IWordItem
        */
-       Category: string;
+       WordCategory: string;
     }
     ```
 
@@ -134,6 +126,47 @@ We do this through interfaces
    }
    ```
 
+1. Now that we have the `list` property defined in our interface and manifest, we need to give users a way to configure it. In the `getPropertyPaneConfiguration` method, add a new `PropertyPaneTextField` for the `list` property:
+
+   ```typescript
+   PropertyPaneTextField('list', {
+     label: "Word List Name"
+   })
+   ```
+
+   The full `getPropertyPaneConfiguration` method should now look like this:
+
+   ```typescript
+   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+     return {
+       pages: [
+         {
+           header: {
+             description: strings.PropertyPaneDescription
+           },
+           groups: [
+             {
+               groupName: strings.BasicGroupName,
+               groupFields: [
+                 PropertyPaneTextField('title', {
+                   label: "Game Title"
+                 }),
+                 PropertyPaneTextField('targetWord', {
+                  label: "Secret Word (5 letters)"
+                }),
+                 PropertyPaneTextField('list', {
+                   label: "Word List Name"
+                 })
+               ]
+             }
+           ]
+         }
+       ]
+     };
+   }
+   ```
+
+
 #### :books: Resources
 - [TypeScript Object Types (Interfaces)](https://www.typescriptlang.org/docs/handbook/2/objects.html)
 - [JSDoc Reference](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html)
@@ -155,7 +188,9 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
     
     > :bulb: Unlike the previous times we ran the `npm install` command, we omitted the `-g` parameter, because the `-g` parameter means that we want to install the node module _globally_ (i.e.: at the Operating System level); without the `-g` parameter, the node module will be installed _locally_ (i.e.: at the solution-level).
     >
-    > This is because we need the `@pnp/sp` module for our solution only, not for all solutions on our system.
+    > This is because we need the @pnp/sp module for our solution only, not for all solutions on our system. This also creates an entry in our package.json file listing this as a dependency. This will ensure that when the next developer starts work on the project they can simply run the npm install command and all packages, including ones you've added, will be installed.
+    >
+    > Typically, tools like Heft, Yeoman, etc. will be installed globally and packages referenced in your solution will be installed locally
 
 1. Add the following `import` statements to the top of **WordleWebPart.ts**, below the `import { IWordItem }` line:
 
@@ -168,7 +203,7 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
 
     > You may wonder why adding PnPjs requires adding so many imports. The answer is simple: PnPjs provides a _lot_ of functionality, but we don't need to use _every_ single feature provided by PnPjs - otherwise the codebase for your web part would be a lot bigger and could potentially make the SharePoint page where someone added your web part render slowly and appear sluggish and sad.
     >
-    > By importing _only_ the features we need (i.e. SharePoint, webs, lists, list items), we help keep the web part code base as small as possible.
+    > By importing only the features we need (i.e. SharePoint, webs, lists, list items), we help keep the web part code base as small as possible. But if you are surprised an endpoint isn't showing up for you, check your imports to make sure you've made that available. This is a powerful but sometimes confusing aspect of PnPjs - especially when first getting started.
 
 1. After the `submitGuess` method, add the following method to retrieve the list of words from SharePoint: 
 
@@ -183,14 +218,14 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
       const sp = spfi().using(SPFx(this.context));
 
       // Get the list of words from SharePoint using the name of the library specified in the property pane
-      this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category')();
+      this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
 
       console.log("Words", this.words);
     }
    ```
    > :bulb: The first line of this method initializes PnPjs. This ensures that whether our web part is hosted on the home page for a site or on a page nested multiple folders deep, the library can correctly resolve the API locations. If we were making multiple calls we'd probably set this up as a property and configure it in the `onInit` method. Examples of that can be found in the PnPjs documentation.
 
-   > :bulb: Notice that the actual call to the REST endpoint isn't written as a string but it's built with full support for intellisense. The above code is the equivalent to writing something like `"_api/web/lists/getbytitle(${this.properties.list})/items?$top=2000&$select=Title,Category"` and that's relatively straightforward. Imagine needing to add filters, expansions, batching, etc. PnPjs will make all that just as easy as we're seeing here (you'll see).
+   > :bulb: Notice that the actual call to the REST endpoint isn't written as a string but it's built with full support for intellisense. The above code is the equivalent to writing something like `"_api/web/lists/getbytitle(${this.properties.list})/items?$top=2000&$select=Title,WordCategory"` and that's relatively straightforward. Imagine needing to add filters, expansions, batching, etc. PnPjs will make all that just as easy as we're seeing here (you'll see).
 
    > :bulb: Sometimes pasting code makes it look wonky. You can always right-click in VS Code within the editor window and select **Format Document** (or press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>F</kbd>) to make it pretty again.
 
@@ -207,56 +242,22 @@ We'll be demonstrating integrating packages from PnPjs (v4.x) but there are link
    }
    ```
 
-1. In the terminal, run `heft start --nobrowser` to reserve your web part. You'll also want to remove and re-add it to the workbench since we changed the manifest and added a new property with a default value.
+1. In the terminal, run `heft start --nobrowser` to serve your web part. You'll also want to remove and re-add it to the workbench since we changed the manifest and added a new property with a default value.
 
 1. Open the Developer tools in your browser, using <kbd>F12</kbd> or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on your keyboard, or by using the **Settings and more** ellipsis icon, then **More tools** > **Developer Tools** then switching to the Console. You should see where we dumped the `words` array and if you expand it you can see the properties are nicely mapped thanks to our `IWordItem` interface. Wowee!
 
-   ![Words logged in the console](../Lab09/assets/wordsintheconsole.png)
+   ![Words logged in the console](../Lab08/assets/wordsintheconsole.png)
 
-   > :bulb: Notice that the filename shown for the source of the message is not our generated bundle js file. SPFx has provided mappings to the browser so that we can see where the message occured in our actual source file! We can even click on it to see the code in the browser and set breakpoints!
+1. While you're in the Developer Tools, click the **Network** tab and filter for `items`. You should be able to locate the actual REST API request that PnPjs made on your behalf. Click on it to see the full URL, response, headers, and more. How neat is that?
+
+ ![XHR Request](../Lab08/assets/xhr.png)
 
 #### :books: Resources
 - [PnPjs Getting started with the SharePoint Framework](https://pnp.github.io/pnpjs/getting-started/#getting-started-with-sharepoint-framework)
 - [Add an external library to your SharePoint client-side web part](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/basics/add-an-external-library)
 - [Use existing JavaScript libraries in SharePoint Framework client-side web parts](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/guidance/use-existing-javascript-libraries)
 
-## :rocket: Exercise 3: Caching our requests
-
-You might notice that refreshing the page repeatedly logs the same words each time. While this works, it's making network calls every time! Let's add caching to be more efficient.
-
-1. Start by testing the web part without caching: using your browser's developer tools, switch to the **Network** tab and filter for **Fetch / XHR** requests -- which are the types of network calls your web part makes when retrieving items from the list. Since we're only dealing with a single endpoint, we can make it even easier by adding the keyword `items` to our Filter:
-
-   ![Fetch/XHR](../Lab09/assets/xhr.png)
-
-1. Refresh the workbench page
-
-1. Refresh the page several times, making sure to note that the `items` API is called every time. Also, note how much time the call takes every time. Oh my!
-
-1. Return to **WordleWebPart.ts** and add the following import:
-
-   ```Typescript
-   import { Caching } from "@pnp/queryable";
-   ```
-   > :bulb: We didn't have to install the `@pnp/queryable` package because it was marked as a dependency of the `@pnp/sp` package and was added automatically. Yipee!
-
-1. Change the `this.words` line in the `getWords` method to use the following code instead:
-
-   ```TypeScript
-   // Get the list of words from SharePoint using the name of the library specified in the property pane
-   this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
-   ```
-
-1. Refresh the web part. You may not immediately notice a difference, but the web part only queries the list _once_ -- unless there are changes or the cache has expired.
-
-1. To verify that the cache is used, look for a call to the `items` API in the network calls; the first time you load the web part, you should see a call to it, but refreshing the page should not cause the web part to call the API every subsequent time.
-
-   > :bulb: We didn't specify any configuration and are just using the caching defaults (5 minute timeout). We can adjust this in our overall configuration for PnPjs to apply to all calls or we can specify this as a parameter to the `Caching` function on a per call basis!
-
-#### :books: Resources
-- [PnPjs Caching](https://pnp.github.io/pnpjs/queryable/behaviors/#caching)
-
-
-## :rocket: Exercise 4: Adding a status indicator
+## :rocket: Exercise 3: Adding a status indicator
 
 While the words load quickly from cache after the first time, the initial load can take a moment. Let's add a loading indicator so users know something is happening!
 
@@ -271,7 +272,7 @@ While the words load quickly from cache after the first time, the initial load c
    ```typescript
    private getWords = async (): Promise<void> => {
      const sp = spfi().using(SPFx(this.context));
-     this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
+      this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
      this.wordsLoaded = true;
      
      console.log("Words loaded:", this.words.length);
@@ -310,13 +311,11 @@ import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 import styles from './WordleWebPart.module.scss';
 import * as strings from 'WordleWebPartStrings';
 import { escape } from '@microsoft/sp-lodash-subset';
-
 import { IWordItem } from './IWordItem';
 import { spfi, SPFx } from '@pnp/sp';
 import '@pnp/sp/webs';
 import '@pnp/sp/lists';
 import '@pnp/sp/items';
-import { Caching } from "@pnp/queryable";
 
 export interface IWordleWebPartProps {
   title: string;
@@ -325,19 +324,18 @@ export interface IWordleWebPartProps {
 }
 
 export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartProps> {
-  // Game state - stored in memory (resets on page refresh)
+
+   // Game state - stored in memory (resets on page refresh)
   private guesses: string[] = [];
   private currentGuess: string = '';
   private maxGuesses: number = 6;
   private gameStatus: string = 'playing'; // 'playing', 'won', or 'lost'
-  
-  // Data from SharePoint
   private words: IWordItem[] = [];
   private wordsLoaded: boolean = false;
 
   private renderGrid(): string {
     let gridHtml = '';
-    
+  
     for (let row = 0; row < this.maxGuesses; row++) {
       gridHtml += `<div class="${styles.row}">`;
       
@@ -352,18 +350,17 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
       }
       
       gridHtml += '</div>';
-    }
-    
-    return gridHtml;
+  }
+  
+  return gridHtml;
   }
 
   private getTileState(guess: string, index: number, targetWord: string): string {
     const letter = guess[index];
-    const target = targetWord.toUpperCase();
-    
-    if (letter === target[index]) {
+
+    if (letter === targetWord[index]) {
       return styles.correct;
-    } else if (target.indexOf(letter) >= 0) {
+    } else if (targetWord.indexOf(letter) >= 0) {
       return styles.present;
     } else {
       return styles.absent;
@@ -371,6 +368,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
   }
 
   private handleKeyDown = (event: KeyboardEvent): void => {
+    // Don't do anything if game is over
     if (this.gameStatus !== 'playing') {
       return;
     }
@@ -378,91 +376,115 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
     const key = event.key.toUpperCase();
 
     if (key === 'BACKSPACE') {
+      // Remove last letter from current guess
       this.currentGuess = this.currentGuess.slice(0, -1);
       this.render();
     } else if (key === 'ENTER') {
+      // Submit the guess (we'll implement this next)
       this.submitGuess();
     } else if (key.length === 1 && key >= 'A' && key <= 'Z') {
+      // Add letter if we haven't reached 5 letters yet
       if (this.currentGuess.length < 5) {
         this.currentGuess += key;
         this.render();
       }
     }
   }
-
   private submitGuess(): void {
+     // Must be exactly 5 letters
     if (this.currentGuess.length !== 5) {
       return;
     }
 
+    // Add to guesses array
     this.guesses.push(this.currentGuess);
 
+    // Check if they won
     if (this.currentGuess === this.properties.targetWord.toUpperCase()) {
       this.gameStatus = 'won';
-    } else if (this.guesses.length >= this.maxGuesses) {
+    } 
+    // Check if they lost (used all guesses)
+    else if (this.guesses.length >= this.maxGuesses) {
       this.gameStatus = 'lost';
     }
 
+    // Clear current guess for next round
     this.currentGuess = '';
-    this.render();
-  }
-
-  private getWords = async (): Promise<void> => {
-    const sp = spfi().using(SPFx(this.context));
-    this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'Category').using(Caching())();
-    this.wordsLoaded = true;
     
-    console.log("Words loaded:", this.words.length);
+    // Re-render to show the results
     this.render();
   }
 
-  public render(): void {
+   /**
+ * Gets the list of words from SharePoint
+ *
+ * @private
+ * @memberof WordleWebPart
+ */
+ private getWords = async (): Promise<void> => {
+    const sp = spfi().using(SPFx(this.context));
+    this.words = await sp.web.lists.getByTitle(this.properties.list).items.select('Title', 'WordCategory')();
+    this.wordsLoaded = true;
+  
+    console.log("Words loaded:", this.words.length);
+
+    this.render();
+ }
+
+  protected onInit(): Promise<void> {
+    document.addEventListener('keydown', this.handleKeyDown);
+
+    // Load words from SharePoint
+    this.getWords().catch((error) => console.error(error));
+
+    return Promise.resolve();
+  }
+  
+  protected onDispose(): void {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+   public render(): void {
     if (!this.wordsLoaded) {
       this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'words');
       return;
     }
     this.context.statusRenderer.clearLoadingIndicator(this.domElement);
 
-    // Build the title with status emoji
-    let titleText = escape(this.properties.title);
-    if (this.gameStatus === 'won') {
-      titleText += ' 🎉';
-    } else if (this.gameStatus === 'lost') {
-      titleText += ' 😢 (It was ' + escape(this.properties.targetWord.toUpperCase()) + ')';
+      // Build the title with status emoji
+      let titleText = escape(this.properties.title);
+      if (this.gameStatus === 'won') {
+        titleText += ' 🎉';
+      } else if (this.gameStatus === 'lost') {
+        titleText += ' 😢 (It was ' + escape(this.properties.targetWord.toUpperCase()) + ')';
+      }
+
+      this.domElement.innerHTML = `
+        <div class="${styles.wordle}">
+          <div class="${styles.title}">
+            ${titleText}
+          </div>
+          <div class="${styles.grid}">
+            ${this.renderGrid()}
+          </div>
+        </div>`;
     }
-
-    this.domElement.innerHTML = `
-      <div class="${styles.wordle}">
-        <div class="${styles.title}">
-          ${titleText}
-        </div>
-        <div class="${styles.grid}">
-          ${this.renderGrid()}
-        </div>
-      </div>`;
-  }
-
-  protected onInit(): Promise<void> {
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.getWords().catch((error) => console.error(error));
-    return Promise.resolve();
-  }
-
-  protected onDispose(): void {
-    document.removeEventListener('keydown', this.handleKeyDown);
-  }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
-    const { semanticColors } = currentTheme;
+
+    const {
+      semanticColors
+    } = currentTheme;
 
     if (semanticColors) {
       this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
       this.domElement.style.setProperty('--link', semanticColors.link || null);
       this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
     }
+
   }
 
   protected get dataVersion(): Version {
@@ -507,7 +529,7 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
 ## :tada: All Done!
 ![Great Job!](assets/GreatJob.png)
 
-We're now pulling data from a list and we've improved performance with caching. But wait... we're not actually USING that data yet! Our game still uses the hardcoded `targetWord` from the properties.
+We're now pulling data from a list! But wait... we're not actually USING that data yet! Our game still uses the hardcoded `targetWord` from the properties.
 
 In the next lab, we'll pick a random word from our list when the game loads. Refresh the page = new game!
 
