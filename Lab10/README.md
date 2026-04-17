@@ -462,7 +462,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 - [TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/Rock.png)
 
 Our web part is looking great! However, we did some property pane experiments in an earlier lab and they don't make a whole lot of sense now. In our next lab, we'll clean those up and look at how we could provide something useful there!
 

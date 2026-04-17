@@ -381,7 +381,7 @@ Also, keep in mind that while we've been forcing the locale during testing using
 
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/Arnold.png)
 
 Our web part is basically complete. In our next lab we're going to get it deployed!
 

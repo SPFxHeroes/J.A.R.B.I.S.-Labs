@@ -253,7 +253,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 - [DisplayMode enum](https://learn.microsoft.com/javascript/api/sp-core-library/displaymode?view=sp-typescript-latest)
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/Turterly.png)
 
 In our next lab, we'll attach an event handler to the button to make it do stuff!
 

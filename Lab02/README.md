@@ -394,7 +394,7 @@ Previously, we installed another **super important** VS Code extension, [vscode 
    ![Pets!](./assets/vscodepetsadded.png)
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/Amaze.png)
 
 In our next lab, we'll take a look at how styling is done in SPFx and make our stuff a little prettier!
 

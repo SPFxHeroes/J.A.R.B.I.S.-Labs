@@ -265,7 +265,7 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/HotDawg.png)
 
 Yes, we promised to make the button useful, but we need data to do much of anything. In our next lab, we're going to provision a list and content!
 
