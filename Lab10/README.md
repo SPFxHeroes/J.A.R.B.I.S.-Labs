@@ -1,6 +1,6 @@
-# Lab 10: Configurable Web Parts
+# Lab 10: Customizing the Game Experience
 
-In this lab, we'll make the web part configurable by adding a category hint feature that users can toggle on or off through the property pane!
+In this lab, we'll customize the game experience by adding a category hint feature that users can toggle on or off through the property pane!
 
 <details>
 <summary><b>Legend</b></summary>

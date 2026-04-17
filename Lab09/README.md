@@ -441,6 +441,6 @@ export default class WordleWebPart extends BaseClientSideWebPart<IWordleWebPartP
 
 You now have a fully data-driven Wordle game! 🎮 Each time you load the page, a random word is selected from your SharePoint list. Want a new word? Just refresh!
 
-In the next lab, we'll add some configuration options like showing a category hint!
+In the next lab, we'll add some configuration options like showing a category hint to customize the game experience.
 
 # [Previous](../Lab08/README.md) | [Next](../Lab10/README.md)
