@@ -33,9 +33,9 @@ If you skipped the previous step, or just want to start here, you can find the c
 
 ## :rocket: Exercise 1: Chunk it up
 
-We've got a relatively small amount of HTML we are rendering. Doing this all as single string combined with [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) is ok, but it can quickly get hard to read. Especially, if you want to do something dynamic.
+We've got a relatively small amount of HTML we are rendering. Doing this all as single string combined with [template literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) is ok, but it can quickly get hard to read. Especially if you want to do something dynamic.
 
-We're going to start "chunking" our code into some individual strings and then we can put them all back together at the end. This will give us more control over what renders when and it makes it easier to add comments and read.
+We're going to start "chunking" our code into some individual strings and then we can put them all back together at the end. This will give us more control over what renders when and it makes it easier to add comments and read. Basically instead of one big string, we're going to make a few then concatenate them all.
 
 1. At the top of your `render` method (before the `this.domElement...`) add:
    ```TypeScript
@@ -102,7 +102,7 @@ If you refresh the workbench, you'll see we've now got a button showing up!
 ![A button!](assets/generatebutton.png)
 
 #### :books: Resources
-- [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [Template Literals](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals)
 
 ## :rocket: Exercise 2: Utilizing DisplayMode
 
@@ -129,7 +129,7 @@ Specifically, we only want that button showing up when editing the page.
       </div>`;
    ```
 
-   > :bulb: If the syntax above looks a little weird, then you're about to learn a fun shorthand! We are using the [conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) which lets us write if/else statements as a one-liner.
+   > :bulb: If the syntax above looks a little weird, then you're about to learn a fun shorthand! We are using the [conditional (ternary) operator](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Conditional_operator) which lets us write if/else statements as a one-liner.
    >
    > The way it works is you start with a condition (`this.displayMode === DisplayMode.Edit`) followed by a `?`, then an expression to execute (or return) if the condition is truthy followed by a `:` then the expression to execute (or return) if the condition is falsy. So this is a faster way of writing:
     ```javascript
@@ -246,13 +246,14 @@ export default class JarbisWebPart extends BaseClientSideWebPart<IJarbisWebPartP
 
 1. Refresh your workbench page and try toggling the page display mode between **Preview** and **Edit** and see how the web part renders differently between each mode.
    ![Toggle mode](assets/displaymode.png)
+   
    > :bulb: Unlike normal SharePoint pages, the workbench defaults to Edit mode
 
 #### :books: Resources
-- [DisplayMode enum](https://learn.microsoft.com/en-us/javascript/api/sp-core-library/displaymode?view=sp-typescript-latest)
+- [DisplayMode enum](https://learn.microsoft.com/javascript/api/sp-core-library/displaymode?view=sp-typescript-latest)
 
 ## :tada: All Done!
-![Great Job!](assets/GreatJob.png)
+![Great Job!](assets/Turterly.png)
 
 In our next lab, we'll attach an event handler to the button to make it do stuff!
 

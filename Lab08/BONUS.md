@@ -2,7 +2,7 @@
 
 We've now successfully provisioned our backing list and we've even provisioned starter data ([Lab 08](README.md)). Technically, we're all done!
 
-And yet... that list sure is ugly and ugly lists are harder to use and things that are harder to use are used less and this make our solution less valuable which decreases the benefit from the work we've done which makes us sad and makes them sad and makes our awesome solution less well received which decreases our bonuses which makes our wallets sad which makes our relatives sad which decreases our joy which leads to strife and anger which leads to shouting that leads to fighting leading to conflict which escalates to battle which leads to war which leads to mass suffering which leads to disease and famine and eventually the extinction of all mankind.
+And yet... that list sure is ugly and ugly lists are harder to use and things that are harder to use are used less and this makes our solution less valuable which decreases the benefit from the work we've done which makes us sad and makes them sad and makes our awesome solution less well received which decreases our bonuses which makes our wallets sad which makes our relatives sad which decreases our joy which leads to strife and anger which leads to shouting that leads to fighting leading to conflict which escalates to battle which leads to war which leads to mass suffering which leads to disease and famine and eventually the extinction of all mankind.
 
 So, yeah, this lab is optional. But at what cost?!? Plus, your list will be much prettier!
 
@@ -40,6 +40,7 @@ So, yeah, this lab is optional. But at what cost?!? Plus, your list will be much
    ![Context menu](assets/format-column.png)
 
 1. In the **Format Icon column** pane, select **Advanced mode**
+
    ![Advanced mode](assets/formatpane.png)
 
 1. Replace the formatting `JSON` with the following `JSON` and select **Save**:
@@ -142,7 +143,7 @@ The icons look much better and are far easier to use. But the next column is jus
    > :bulb: This format takes advantage of the fact that our choices are all CSS named colors so it can use them the same way our web part does! This is especially helpful for those weird ones that don't quite look like you might expect (like Hugo).
 
 #### :books: Resources
-- [CSS Named Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color)
+- [CSS Named Colors](https://developer.mozilla.org/docs/Web/CSS/named-color)
 
 
 ## :rocket: Exercise 3: Choice pills
