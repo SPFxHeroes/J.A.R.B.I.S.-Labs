@@ -57,21 +57,30 @@ We've gotten everything installed and we're ready to start working on something!
 
    > :bulb: `cd` is short for _Change Directory_ (not Cute David as that is a phrase that has never been said)
 
-1. Once in your fancy new folder, launch the yeoman generator by typing `yo @microsoft/sharepoint`
+1. Once in your fancy new folder, launch the yeoman generator by typing 
+
+   ```console
+   yo @microsoft/sharepoint
+   ```
 
    > :bulb: There are a few extra parameters you can apply when running the generator. You won't typically use them, but you can always find out what's available by typing `yo @microsoft/sharepoint --help`
 
 1. When prompted for a solution name, leave the default (**jarbis**), followed by <kbd>Enter</kbd>
-   ![Starting Yeoman](assets/yofirstrun.png)  
+
+   ![Starting Yeoman](assets/yofirstrun.png)
+
    > :warning: Verify the SPFx Yeoman Generator version number matches 1.22.2 as shown above. If it doesn't, or you get an error like "yo not found" then a step was missed in the last lab. Either check your work or reach out for help.
 
 1. When prompted what type of client you'd like to build, select **WebPart**:
+
    ![Choose web part](assets/generatorcomponenttype.png)
+
    > :bulb: You can just hit <kbd>Enter</kbd> since it's the default for new projects. In the future, you might be creating a different project type (or rerunning the generator to add a new component to an existing project). In those cases, you will use the up/down arrows to select the correct component type before pressing <kbd>Enter</kbd>. Same will be true for the other "menus"
 
 1. When prompted for a Web Part name, enter **Jarbis**.
 
 1. When prompted for a template, select **No Framework**:
+
    ![Selecting template](assets/generatorframework.png)
 
    > :bulb: There are 3 [template options](https://learn.microsoft.com/sharepoint/dev/spfx/yeoman-generator-for-spfx-intro#project-template-options) for web parts. Here's a quick breakdown: 
@@ -280,6 +289,7 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
    ![address in use](./assets/addressinuse.png)
 
 1. Refresh the browser to see if your web part changed. If it hasn't, make sure the terminal shows the `Waiting for changes.` as it can take a few more seconds than you might expect on initial serve.
+
    ![Wowee!! It worked!](assets/woweeinthewild.png)  
 
 #### :books: Resources
@@ -291,6 +301,7 @@ If all you wanted was a web part that welcomes you to the SharePoint Framework a
 Generic icons are not cool! Nor are generic descriptions. In this exercise, we'll update the web part manifest, which is used to control the various web part attributes like the title, description, icon, and much more.
 
 > :warning: ALWAYS DO THIS. You can change the info later should you need to, but get something in there from the beginning. There are far too many web parts out there with the generic icon and it makes Vesa cry himself to sleep. Why you wanna make Vesa cry?!?
+
 ![Sad Vesa cry cry](assets/VesaSad.png)
 
 1. In Visual Studio Code, open the **JarbisWebPart.manifest.json** (located under **src\webparts\jarbis**)

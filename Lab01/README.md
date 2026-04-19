@@ -146,7 +146,7 @@ While we **recommend** using NVS, if you prefer to install Node directly without
     node -v
     ```
 
-![nvs commands](assets/nvsTerminal.png)
+   ![nvs commands](assets/nvsTerminal.png)
 
 #### :books: Resources
 - [NVS Homepage](https://github.com/jasongin/nvs)
@@ -225,12 +225,13 @@ You can technically use any code editor or IDE that supports client-side develop
 
 [Yeoman](https://yeoman.io/) helps you kick-start new projects, and prescribes best practices and tools to help you stay productive. We will use this for project scaffolding.
 
-1. From the command prompt, enter the following command to install Yeoman: 
- ```console
- npm install yo -g
- ```
-followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command to install Yeoman:
 
+   ```console
+   npm install yo -g
+    ```
+
+   followed by <kbd>Enter</kbd>.
 
    > :bulb: We used `--global` when installing heft, here we're using `-g` which is just a shortcut. Both will install the package globally for a given version of Node
 
@@ -248,7 +249,15 @@ followed by <kbd>Enter</kbd>.
 
 The Yeoman SharePoint generator helps you quickly create a SharePoint client-side solution project with the right toolchain and project structure. The generator provides common build tools and common boilerplate code (starter project).
 
-1. From the command prompt, enter the following command: `npm install @microsoft/generator-sharepoint@1.22.2 -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command:
+
+   ```console
+   npm install @microsoft/generator-sharepoint@1.22.2 -g
+   ```
+
+   followed by <kbd>Enter</kbd>.
+
+   ![SharePoint Generator Install](assets/sharepointgeneratorinstall.png)
 
    > :bulb: We are specifying an exact version of the generator by tacking `@1.22.2` to the end of the package name.
    >
@@ -256,7 +265,10 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
 2. A bazillion years later, when the installation is complete and your latest dance finished, enter `yo`, followed by <kbd>Enter</kbd>.
 3. When prompted **Allo! What would you like to do?**, verify that **@microsoft/sharepoint** is listed under **Run a generator**.
+
    ![Testing the SPFx Yeoman generator](assets/yospfx.png)
+
+   ![SPFx Yeoman generator info](assets/yospfxinfo.png)
 
    > :bulb: In the screenshot above you can see the command `npm info @microsoft/generator-sharepoint` which shows details about the latest version of a given package. You can also add any npm package name to the end of https://www.npmjs.org/ (including the slashes) and you can see more details online. For instance, you can see the registry page for the generator here: [https://www.npmjs.org/@microsoft/generator-sharepoint]
 
@@ -273,9 +285,22 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
 > You don't typically need to install Typescript as an independent installation for SPFx development, but we will be using it in later steps to demonstrate how SPFx code (written in TypeScript) becomes JavaScript
 
-1. From the command prompt, enter the following command: `npm install typescript -g`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command:
+
+   ```console
+   npm install typescript -g
+   ```
+   
+   followed by <kbd>Enter</kbd>.
+
 1. Don't panic, the installation is very quick!
-1. When the installation is complete, enter `tsc --version`, followed by <kbd>Enter</kbd>. You should see a version number listed (your's may be different than the image below).
+1. When the installation is complete, enter 
+
+   ```console
+   tsc --version
+   ```
+
+   followed by <kbd>Enter</kbd>. You should see a version number listed (your's may be different than the image below).
 
    ![Testing TypeScript](assets/tscinstall.png)
 
@@ -288,8 +313,22 @@ The Yeoman SharePoint generator helps you quickly create a SharePoint client-sid
 
 The [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365) is a command line interface for managing your Microsoft 365 tenant and SharePoint Framework projects on any platform.
 
-1. From the command prompt, enter the following command: `npm install @pnp/cli-microsoft365 -g`, followed by <kbd>Enter</kbd>.
-1. When the installation is complete, enter `m365`, followed by <kbd>Enter</kbd>.
+1. From the command prompt, enter the following command: 
+
+   ```console
+   npm install @pnp/cli-microsoft365 -g
+   ```
+
+   followed by <kbd>Enter</kbd>.
+
+1. When the installation is complete, enter 
+
+   ```console
+   m365
+   ```
+
+   followed by <kbd>Enter</kbd>.
+   
 1. If it doesn't scream at you, you are good!
    ![Testing M365CLI](assets/m365cliinstall.png)
 
