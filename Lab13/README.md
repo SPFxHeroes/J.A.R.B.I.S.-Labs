@@ -92,7 +92,7 @@ The solution's metadata controls how the app will appear in the App store. You c
 
 1. From VSCode, right-click on the new folder and select **Copy path**
 
-1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied (`JARBIS/sharepoint/images`):
+1. Using your browser, right-click on the following image and select **Save image as...**; save the file as **hero.png** in the path you just copied (`jarbis/sharepoint/images`):
 
    ![Save as hero.png](assets/hero.png)
 

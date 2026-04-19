@@ -376,7 +376,7 @@ Even more exciting, we have a *beta* VS Code extension, **SPFx Local Workbench**
 
 Details about these changes:
 - [Exciting updates coming to the Microsoft 365 Developer Program - April 23, 2025](https://devblogs.microsoft.com/microsoft365dev/exciting-updates-coming-to-the-microsoft-365-developer-program/)
-- [Exiting new capabilities and enhancements for M365 Developer Program - October 16, 2025](https://devblogs.microsoft.com/microsoft365dev/new-capabilities-and-enhancements-for-m365-developer-program/)
+- [Exciting new capabilities and enhancements for M365 Developer Program - October 16, 2025](https://devblogs.microsoft.com/microsoft365dev/new-capabilities-and-enhancements-for-m365-developer-program/)
 
 **TLDR**: A dev sandbox is available for [some people](https://learn.microsoft.com/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-), but most people are out of luck.
 
