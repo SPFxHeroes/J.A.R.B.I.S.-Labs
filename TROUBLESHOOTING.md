@@ -41,5 +41,3 @@ Uh oh, are you running on a Snapdragon processor?
    ```bash
    heft start
    ```
-
-   Or:
